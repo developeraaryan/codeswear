@@ -12,7 +12,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -23,7 +23,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -34,7 +34,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -45,7 +45,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -56,7 +56,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -67,7 +67,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -78,7 +78,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -89,7 +89,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -100,7 +100,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -111,7 +111,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -122,7 +122,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -133,7 +133,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -144,7 +144,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -155,7 +155,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -166,7 +166,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -177,7 +177,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -188,7 +188,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -199,7 +199,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -210,7 +210,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -221,7 +221,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -232,7 +232,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -243,7 +243,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -254,7 +254,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -265,7 +265,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -276,7 +276,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -287,7 +287,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -298,7 +298,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -309,7 +309,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -320,7 +320,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -331,7 +331,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -342,7 +342,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -353,7 +353,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -364,7 +364,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -375,7 +375,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -386,7 +386,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -397,7 +397,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -408,7 +408,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -419,7 +419,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -430,7 +430,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -441,7 +441,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -452,7 +452,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -463,7 +463,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -474,7 +474,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -485,7 +485,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -496,7 +496,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -507,7 +507,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -518,7 +518,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -529,7 +529,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -540,7 +540,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -551,7 +551,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -562,7 +562,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -573,7 +573,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -584,7 +584,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -595,7 +595,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -606,7 +606,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -617,7 +617,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -628,7 +628,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -639,7 +639,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -650,7 +650,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
@@ -661,7 +661,7 @@ const Tshirts = () => {
               <a className="block relative  rounded overflow-hidden">
                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
               </a>
-              <div className="text-center mt-4 md:text-left md:ml-20">
+              <div className="text-center mt-4 md:text-left">
                 <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">T-Shirts</h3>
                 <h2 className="text-gray-900 title-font text-lg font-medium">Wear the code</h2>
                 <p className="mt-1">₹499</p>
