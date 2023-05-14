@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 
-const Slug = () => {
+const Slug = ({ addToCart }) => {
+    const router = useRouter()
+    const { slug } = router.query
     const [pin, setPin] = useState()
     const [service, setService] = useState()
     const checkServiceability = async () => {
@@ -63,7 +66,7 @@ const Slug = () => {
                                     </a>
                                 </span>
                             </div>
-                            <p className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
+                            <p className="leading-relaxed">actual Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
                                 <div className="flex">
                                     <span className="mr-3">Color</span>
@@ -90,7 +93,7 @@ const Slug = () => {
                             </div>
                             <div className="flex">
                                 <span className="title-font font-medium text-2xl text-gray-900">₹458.00</span>
-                                <button className="flex ml-8 text-white bg-pink-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-pink-600 rounded">Add to cart</button>
+                                <button onClick={() => { addToCart(slug, 1, 499, 'Tshirt', 'M', 'Blue') }} className="flex ml-8 text-white bg-pink-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-pink-600 rounded">Add to cart</button>
                                 <button className="flex ml-4 text-white bg-pink-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-pink-600 rounded">Buy Now</button>
                                 <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-5 h-5" viewBox="0 0 24 24">
