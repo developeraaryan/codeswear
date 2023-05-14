@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
-import {BsFillBagCheckFill} from 'react-icons/bs';
+import { BsFillBagCheckFill, BsFillCartXFill } from 'react-icons/bs';
 
 const Navbar = () => {
   const toggleCart = () => {
@@ -142,7 +142,10 @@ const Navbar = () => {
             </div>
           </li>
         </ol>
-        <button className="flex  text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1'/> Checkout</button>
+        <div className="flex">
+          <button className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Checkout</button>
+          <button className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm">Clear Cart</button>
+        </div>
 
       </div>
     </div>
