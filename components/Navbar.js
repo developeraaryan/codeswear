@@ -3,7 +3,7 @@ import Link from 'next/link'
 import React, { useRef } from 'react'
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
 import { BsFillBagCheckFill, BsFillCartXFill } from 'react-icons/bs';
-import { MdExplore } from 'react-icons/md'
+import { MdAccountCircle } from 'react-icons/md'
 
 const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const toggleCart = () => {
@@ -19,7 +19,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   }
   const ref = useRef()
   return (
-    <div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white z-10 '>
+    <div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white dark:bg-black dark:text-white z-10 '>
       <div className="logo mx-5">
         <Link href={'/'}>
           <Image src='/codeswear.png' alt='codeswear logo' width={250} height={40} />
@@ -33,10 +33,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
           <Link href={'/stickers'} legacyBehavior><a><li>Stickers</li></a></Link>
         </ul>
       </div>
-      <div onClick={toggleCart} className="cart absolute right-0 mx-5 md:top-4 cursor-pointer">
-        <AiOutlineShoppingCart className=' text-3xl md:text-2xl' />
+      <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer ">
+        <Link href={'/login'}><MdAccountCircle className=' text-3xl md:text-2xl mx-2' /></Link>
+        <AiOutlineShoppingCart className=' text-3xl md:text-2xl' onClick={toggleCart} />
       </div>
-      <div ref={ref} className={`w-72 h-[100vh] sideCart absolute top-0 right-0 bg-pink-100 py-2 px-8 p-10 transform transition-transform ${Object.keys(cart).length !== 0 ? `translate-x-0` : `translate-x-full`}  `}>
+      <div ref={ref} className={`w-72 h-[100vh] sideCart absolute top-0 right-0 bg-pink-100 dark:text-black py-2 px-8 p-10 transform transition-transform ${Object.keys(cart).length !== 0 ? `translate-x-0` : `translate-x-full`}  `}>
         <h2 className='font-bold text-xl text-center'>Shoping Cart</h2>
         <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-pink-500">
           <AiFillCloseCircle />
