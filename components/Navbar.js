@@ -19,10 +19,10 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   }
   const ref = useRef()
   return (
-    <div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white dark:bg-black dark:text-white z-10 '>
+    <div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white dark:bg-black dark:text-white z-10 h-14 '>
       <div className="logo mx-5">
         <Link href={'/'}>
-          <Image src='/codeswear.png' alt='codeswear logo' width={250} height={40} />
+          <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={25} height={50} priority={true} />
         </Link>
       </div>
       <div className="nav">
