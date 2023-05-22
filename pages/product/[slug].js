@@ -2,6 +2,9 @@ import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import mongoose from 'mongoose'
 import Product from "@/Models/Product"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Slug = ({ addToCart, product, varients, buyNow }) => {
     const [color, setColor] = useState(product.color)
@@ -15,10 +18,31 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
         let pinsjson = await pins.json()
         if (pinsjson.includes(parseInt(pin))) {
             setService(true)
+            toast.success('Your pincode is serviceable!', {
+                position: "bottom-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
 
         }
         else {
             setService(false)
+            toast.error('Sorry, pincode not serviceable!', {
+                position: "bottom-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+
         }
     }
     const onChangePin = (e) => {
@@ -28,10 +52,22 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
         let url = `http://localhost:3000/product/${varients[newColor][newSize]['slug']}`
         window.location = url
     }
-   
+
     return (
         <>
             <section className="text-gray-600 body-font overflow-hidden">
+                <ToastContainer
+                    position="bottom-center"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                />
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
