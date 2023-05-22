@@ -1,9 +1,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useRef } from 'react'
-import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
+import React, { useRef, useState } from 'react'
+import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle, AiFillHome, AiOutlineHome } from 'react-icons/ai'
 import { BsFillBagCheckFill, BsFillCartXFill } from 'react-icons/bs';
-import { MdAccountCircle } from 'react-icons/md'
+import { MdAccountCircle, MdOutlineKeyboardArrowLeft } from 'react-icons/md'
+import { FaMugHot, FaTshirt } from 'react-icons/fa'
+import { TbSticker } from 'react-icons/tb'
+import { IoIosArrowDropleft } from 'react-icons/io'
 
 const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const toggleCart = () => {
@@ -18,19 +21,74 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
 
   }
   const ref = useRef()
+
+  // const sidebarItems = [
+  //   {
+  //     name: "Home",
+  //     href: "/",
+  //     icons: <AiFillHome />
+  //   },
+  //   {
+  //     name: "T-Shirts",
+  //     href: "/tshirts",
+  //     icons: <FaTshirt />
+  //   },
+  //   {
+  //     name: "Hoodies",
+  //     href: "/hoodies",
+  //     icons: <FaTshirt />
+  //   },
+  //   {
+  //     name: "Mugs",
+  //     href: "/mugs",
+  //     icons: <FaMugHot />
+  //   },
+  //   {
+  //     name: "Stickers",
+  //     href: "/stickers",
+  //     icons: <TbSticker />
+  //   },
+  // ]
+  // const [isCollapsedSidebar, setIsCollapsedSidebar] = useState(false)
+  // const toggleSidebarCollapseHandler = () => {
+  //   setIsCollapsedSidebar((prev) => !prev)
+  // }
   return (
-    <div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white dark:bg-black dark:text-white z-10 h-14 '>
+    < div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white dark:bg-black dark:text-white z-10 h-14 ' >
       <div className="logo mx-5">
         <Link href={'/'}>
           <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={25} height={50} priority={true} />
         </Link>
       </div>
+      {/* < button onClick={toggleSidebarCollapseHandler} className='btn absolute right-0 top-16 border bg-white w-6 h-6 border-white text-black rounded-full' >
+        <MdOutlineKeyboardArrowLeft />
+      </ button>
+      <aside data-collapse={isCollapsedSidebar} className='sidebar h-[100vh] absolute top-0'>
+        <div className='sidebar_top'>
+          <Link href={'/'}>
+            <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={25} height={50} priority={true} />
+          </Link>
+          <p className="sidebar_logo-name">Black Worn</p>
+        </div>
+        <ul className="sidebar_list">
+          {sidebarItems.map((item) => {
+            return <li key={item.name} className="sidebar_item">
+              <Link href={`${item.href}`} className='sidebar_link'>
+                <span className="sidebar_icon">
+                  {item.icons}
+                </span>
+                <span className='sidebar_name'>{item.name}</span>
+              </Link>
+            </li>
+          })}
+        </ul>
+      </aside> */}
       <div className="nav">
         <ul className='flex items-center space-x-6 font-bold md:text-md'>
-          <Link href={'/tshirts'} legacyBehavior><a><li>T-shirts</li></a></Link>
-          <Link href={'/hoodies'} legacyBehavior><a><li>Hoodies</li></a></Link>
-          <Link href={'/mugs'} legacyBehavior><a><li>Mugs</li></a></Link>
-          <Link href={'/stickers'} legacyBehavior><a><li>Stickers</li></a></Link>
+          <Link href={'/tshirts'} legacyBehavior><a><li className='hover:text-gray-400'>T-shirts</li></a></Link>
+          <Link href={'/hoodies'} legacyBehavior><a><li className='hover:text-gray-400'>Hoodies</li></a></Link>
+          <Link href={'/mugs'} legacyBehavior><a><li className='hover:text-gray-400'>Mugs</li></a></Link>
+          <Link href={'/stickers'} legacyBehavior><a><li className='hover:text-gray-400'>Stickers</li></a></Link>
         </ul>
       </div>
       <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer ">
@@ -49,7 +107,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             return <li key={k}>
               <div className="item flex my-5">
                 <div className='w-2/3 font-semibold'>
-                  {cart[k].name}
+                  {cart[k].name}({cart[k].size}/{cart[k].color})
                 </div>
                 <div className='flex items-center justify-center w-1/3 font-semibold text-lg'>
                   <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-pink-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-pink-500 cursor-pointer' />
@@ -66,7 +124,9 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
         </div>
 
       </div>
-    </div>
+
+    </div >
+
   )
 }
 
