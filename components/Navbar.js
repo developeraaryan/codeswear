@@ -91,11 +91,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
           <Link href={'/stickers'} legacyBehavior><a><li className='hover:text-gray-400'>Stickers</li></a></Link>
         </ul>
       </div>
-      <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer ">
+      <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer  ">
         <Link href={'/login'}><MdAccountCircle className=' text-3xl md:text-2xl mx-2' /></Link>
         <AiOutlineShoppingCart className=' text-3xl md:text-2xl' onClick={toggleCart} />
       </div>
-      <div ref={ref} className={`w-72 h-[100vh] sideCart absolute top-0 right-0 bg-pink-100 dark:text-black py-2 px-8 p-10 transform transition-transform ${Object.keys(cart).length !== 0 ? `translate-x-0` : `translate-x-full`}  `}>
+      <div ref={ref} className={`overflow-y-scroll w-72 h-[100vh] sideCart absolute top-0 right-0 bg-pink-100 dark:text-black py-2 px-8 p-10 transform transition-transform ${Object.keys(cart).length !== 0 ? `translate-x-0` : `translate-x-full`}  `}>
         <h2 className='font-bold text-xl text-center'>Shoping Cart</h2>
         <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-pink-500">
           <AiFillCloseCircle />
