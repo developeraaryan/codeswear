@@ -4,6 +4,8 @@ import '@/styles/globals.css'
 import { useRouter } from 'next/router'
 import { stringify } from 'postcss'
 import { useEffect, useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -36,9 +38,29 @@ export default function App({ Component, pageProps }) {
     let newCart = cart;
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty + qty
+      toast.success('Item added to the cart!', {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
     else {
       newCart[itemCode] = { qty: 1, name, size, price, color }
+      toast.success('Item added to the cart!', {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
 
     }
     setCart(newCart)
@@ -51,6 +73,16 @@ export default function App({ Component, pageProps }) {
     }
     if (newCart[itemCode]['qty'] <= 0) {
       delete newCart[itemCode]
+      toast.success('Item removed from the cart!', {
+        position: "bottom-center",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
     }
     setCart(newCart)
     saveCart(newCart)
@@ -58,6 +90,16 @@ export default function App({ Component, pageProps }) {
   const clearCart = () => {
     setCart({})
     saveCart({})
+    toast.success('Cart cleared!', {
+      position: "bottom-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   }
   const buyNow = (itemCode, qty, price, name, size, color) => {
     let newCart = { itemCode: { qty: 1, name, size, price, color } }
@@ -65,6 +107,7 @@ export default function App({ Component, pageProps }) {
     saveCart(newCart)
     console.log(newCart);
     router.push('/checkout')
+
 
   }
   return <>

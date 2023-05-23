@@ -16,9 +16,8 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
     const checkServiceability = async () => {
         let pins = await fetch('http://localhost:3000/api/pincode')
         let pinsjson = await pins.json()
-        if (pinsjson.includes(parseInt(pin))) {
-            setService(true)
-            toast.success('Your pincode is serviceable!', {
+        if (pin.length < 6) {
+            toast.error('Invalid Pincode!', {
                 position: "bottom-center",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -28,21 +27,36 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                 progress: undefined,
                 theme: "dark",
             });
-
         }
         else {
-            setService(false)
-            toast.error('Sorry, pincode not serviceable!', {
-                position: "bottom-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+            if (pinsjson.includes(parseInt(pin))) {
+                setService(true)
+                toast.success('Your pincode is serviceable!', {
+                    position: "bottom-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
 
+            }
+            else {
+                setService(false)
+                toast.error('Sorry, pincode not serviceable!', {
+                    position: "bottom-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+
+            }
         }
     }
     const onChangePin = (e) => {
@@ -70,7 +84,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                 />
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                        <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded" src="https://m.media-amazon.com/images/I/71eUwDk8z+L._UX466_.jpg" />
+                        <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded" src={product.img} />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">CODESWEAR</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color})</h1>
@@ -173,7 +187,7 @@ export async function getServerSideProps(context) {
         await mongoose.connect(process.env.MONGO_URI)
     }
     let product = await Product.findOne({ slug: context.query.slug })
-    let variants = await Product.find({ title: product.title })
+    let variants = await Product.find({ title: product.title, category: product.category })
     let colorSizeSlug = {} // {red:{xl:{slug:"wear-the-code-xl"}}}
     for (let items of variants) {
         if (Object.keys(colorSizeSlug).includes(items.color)) {
