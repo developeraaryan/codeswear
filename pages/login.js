@@ -1,8 +1,95 @@
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/router';
+import React, { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+  const router = useRouter()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const handleChange = (e) => {
+    if (e.target.name == "email") {
+      setEmail(e.target.value)
+    }
+    else if (e.target.name == "password") {
+      setPassword(e.target.value)
+    }
+
+  }
+  const handleSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const data = { email, password }
+      let response = await fetch("http://localhost:3000/api/login", {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      let res = await response.json()
+      console.log(res);
+      if (res.success) {
+        toast.success('You are Logged in!', {
+          position: "top-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+        setTimeout(() => {
+          toast.info('Redirecting to Home page!', {
+            position: "top-left",
+            autoClose: 1000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }, 1000);
+        setTimeout(() => {
+          router.push('/')
+        }, 3000);
+      } else if (!res.success) {
+        toast.error('invalid credentials!', {
+          position: "top-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      else {
+        toast.error('User not found!', {
+          position: "top-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      }
+      setEmail("")
+      setPassword("")
+
+    } catch (error) {
+      console.error(error);
+
+
+    }
+  }
   return (
     <>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -15,7 +102,7 @@ const Login = () => {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form onSubmit={handleSubmit} className="space-y-6" action="#" method="POST">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Email address
@@ -27,7 +114,10 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   required
+                  onChange={handleChange}
+                  value={email}
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder='Enter your email'
                 />
               </div>
             </div>
@@ -37,6 +127,11 @@ const Login = () => {
                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                   Password
                 </label>
+                <span className="text-sm flex justify-between">
+                  <Link href={'/forgot'} className="font-semibold text-indigo-600 hover:text-indigo-500 right-0">
+                    Forgot password?
+                  </Link>
+                </span>
 
               </div>
               <div className="mt-2">
@@ -46,14 +141,12 @@ const Login = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  onChange={handleChange}
+                  value={password}
+                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 placeholder-black dark:placeholder-gray-400"
+                  placeholder="•••••••••"
                 />
-                <span className="text-sm flex justify-between">
-                  <span>Trouble in Logging In</span>
-                  <Link href={'/forgot'} className="font-semibold text-indigo-600 hover:text-indigo-500 right-0">
-                    Forgot password?
-                  </Link>
-                </span>
+
               </div>
 
             </div>
@@ -76,7 +169,18 @@ const Login = () => {
           </p>
         </div>
       </div>
-
+      <ToastContainer
+        position="bottom-left"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </>
   )
 }

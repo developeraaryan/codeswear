@@ -1,10 +1,12 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React, { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
+    const router = useRouter()
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
@@ -24,7 +26,7 @@ const Login = () => {
         try {
             e.preventDefault();
             const data = { name, email, password }
-            let response = await fetch("http://localhost:3000/api/signup", {
+            let response = await fetch(`http://localhost:3000/api/signup`, {
                 method: "POST",
                 headers: {
                     "content-Type": "application/json"
@@ -46,6 +48,8 @@ const Login = () => {
                 progress: undefined,
                 theme: "light",
             });
+            router.push('/')
+
         } catch (error) {
             console.error(error);
             toast.error('User already exists!', {

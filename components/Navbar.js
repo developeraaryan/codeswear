@@ -54,8 +54,8 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   //   setIsCollapsedSidebar((prev) => !prev)
   // }
   return (
-    < div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-white dark:bg-black dark:text-white z-10 h-14 ' >
-      <div className="logo mx-5">
+    < div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-gray-200 dark:bg-black dark:text-white z-10 h-14 hover:font-black ' >
+      <div className="logo mx-5 invert">
         <Link href={'/'}>
           <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={25} height={50} priority={true} />
         </Link>
