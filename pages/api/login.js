@@ -2,7 +2,7 @@ import User from "@/Models/User"
 import connectDb from "@/middleware/mongoose"
 import 'react-toastify/dist/ReactToastify.css';
 import CryptoJS from "crypto-js"
-
+const Jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
@@ -12,7 +12,8 @@ const handler = async (req, res) => {
         if (user) {
 
             if (req.body.email == user.email && req.body.password == decryptPass) {
-                res.status(200).json({ success: true, name: user.name, email: user.email });
+                let token = Jwt.sign({ name: user.name, email: user.email }, 'jwtsecret', { expiresIn: "2d" })
+                res.status(200).json({ success: true, token });
 
             }
             else {
@@ -21,7 +22,7 @@ const handler = async (req, res) => {
             }
         }
         else {
-            res.status(404).json({ success: false, "message": "user not found" })
+            res.status(404).json({ "message": "user not found" })
 
         }
     }

@@ -32,6 +32,7 @@ const Login = () => {
       let res = await response.json()
       console.log(res);
       if (res.success) {
+        localStorage.setItem('token', res.token)
         toast.success('You are Logged in!', {
           position: "top-left",
           autoClose: 2000,
@@ -57,20 +58,8 @@ const Login = () => {
         setTimeout(() => {
           router.push('/')
         }, 3000);
-      } else if (!res.success) {
+      } else {
         toast.error('invalid credentials!', {
-          position: "top-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-      else {
-        toast.error('User not found!', {
           position: "top-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -86,6 +75,16 @@ const Login = () => {
 
     } catch (error) {
       console.error(error);
+      toast.error('invalid credentials!', {
+        position: "top-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
 
 
     }
