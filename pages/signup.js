@@ -40,7 +40,7 @@ const Login = () => {
             setPassword("")
             toast.success('Your account has been created !', {
                 position: "top-left",
-                autoClose: 3000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -48,7 +48,21 @@ const Login = () => {
                 progress: undefined,
                 theme: "light",
             });
-            router.push('/')
+            setTimeout(() => {
+                toast.info('Redirecting to Home page!', {
+                    position: "top-left",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            }, 1000);
+            setTimeout(() => {
+                router.push('/')
+            }, 3000);
 
         } catch (error) {
             console.error(error);

@@ -1,25 +1,27 @@
 import User from "@/Models/User"
 import connectDb from "@/middleware/mongoose"
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import CryptoJS from "crypto-js"
 
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
-        let user = await User.findOne({ email: req.body.email })
+        let user = await User.findOne({ "email": req.body.email })
+        const bytes = CryptoJS.AES.decrypt(user.password, "secret123")
+        let decryptPass = (bytes.toString(CryptoJS.enc.Utf8))
         if (user) {
 
-            if (req.body.email == user.email && req.body.password == user.password) {
+            if (req.body.email == user.email && req.body.password == decryptPass) {
                 res.status(200).json({ success: true, name: user.name, email: user.email });
 
             }
             else {
-                res.status(401).json({ success: false })
+                res.status(401).json({ success: false, "message": "Invalid Credentials" })
 
             }
         }
         else {
-            res.status(404).json({ "message": "user not found" })
+            res.status(404).json({ success: false, "message": "user not found" })
 
         }
     }
