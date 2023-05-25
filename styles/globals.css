@@ -17,8 +17,8 @@ body {
 
 .sidebar {
     width: 17rem;
-    /* height: 100%; */
-    background-color: rgba(0, 0, 0, 0.826);
+    height: 100vh;
+    background-color: rgba(0, 0, 0);
     padding: 1rem;
     transition: all .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -73,16 +73,17 @@ body {
 }
 
 .btn {
+    position: absolute;
     border: none;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
     z-index: 1;
-    left: 15.5rem;
+    left: 0rem;
     font-size: 1.1rem;
     transform: translateX(50%);
-    top: 3rem;
+    /* top: 3rem; */
 }
 
 

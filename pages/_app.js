@@ -6,12 +6,24 @@ import { stringify } from 'postcss'
 import { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import '@milon27/react-sidebar/dist/react-sidebar.css'
+import LoadingBar from 'react-top-loading-bar'
 
 
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
+  const [user, setUser] = useState({ value: null })
+  const [key, setKey] = useState(0)
+  const [progress, setProgress] = useState(0)
+
   useEffect(() => {
+    router.events.on("routeChangeComplete", () => {
+      setProgress(100)
+    })
+    router.events.on("routeChangeStart", () => {
+      setProgress(40)
+    })
     try {
       if (localStorage.getItem('cart')) {
         setCart(JSON.parse(localStorage.getItem('cart')))
@@ -21,7 +33,12 @@ export default function App({ Component, pageProps }) {
       console.error(error);
       localStorage.clear()
     }
-  }, [])
+    const token = localStorage.getItem("token")
+    if (token) {
+      setUser({ value: token });
+      setKey(Math.random())
+    }
+  }, [router.query,router.events])
 
   const [cart, setCart] = useState({})
   const [subTotal, setSubTotal] = useState(0)
@@ -110,8 +127,30 @@ export default function App({ Component, pageProps }) {
 
 
   }
+  const logout = () => {
+    localStorage.removeItem("token");
+    setUser({ value: null })
+    setKey(Math.random())
+    router.push('/login')
+    toast.success('Logout successfully!', {
+      position: "top-left",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
   return <>
-    <Navbar cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
+    <LoadingBar
+      color='#f11946'
+      progress={progress}
+      waitingTime={400}
+      onLoaderFinished={() => setProgress(0)}
+    />
+    <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} />
     <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
     <Footer />
   </>

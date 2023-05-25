@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -10,6 +10,12 @@ const Login = () => {
     const [name, setName] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    useEffect(() => {
+        if (localStorage.getItem("token")) {
+            router.push("/")
+        }
+
+    }, [router])
     const handleChange = (e) => {
         if (e.target.name == "name") {
             setName(e.target.value)

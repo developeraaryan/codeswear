@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,6 +9,13 @@ const Login = () => {
   const router = useRouter()
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      router.push("/")
+    }
+
+  }, [router])
+
   const handleChange = (e) => {
     if (e.target.name == "email") {
       setEmail(e.target.value)
@@ -44,20 +51,9 @@ const Login = () => {
           theme: "light",
         });
         setTimeout(() => {
-          toast.info('Redirecting to Home page!', {
-            position: "top-left",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }, 1000);
-        setTimeout(() => {
           router.push('/')
         }, 3000);
+
       } else {
         toast.error('invalid credentials!', {
           position: "top-left",
@@ -153,7 +149,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md !bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:!bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:!bg-indigo-600"
               >
                 Login
               </button>
