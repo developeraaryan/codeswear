@@ -18,7 +18,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
         let pinsjson = await pins.json()
         if (pin.length < 6) {
             toast.error('Invalid Pincode!', {
-                position: "bottom-center",
+                position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -32,7 +32,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
             if (pinsjson.includes(parseInt(pin))) {
                 setService(true)
                 toast.success('Your pincode is serviceable!', {
-                    position: "bottom-center",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -46,7 +46,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
             else {
                 setService(false)
                 toast.error('Sorry, pincode not serviceable!', {
-                    position: "bottom-center",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -71,7 +71,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
         <>
             <section className="text-gray-600 body-font overflow-hidden">
                 <ToastContainer
-                    position="bottom-center"
+                    position="top-center"
                     autoClose={3000}
                     hideProgressBar={false}
                     newestOnTop
@@ -86,7 +86,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
                         <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded" src={product.img} />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-                            <h2 className="text-sm title-font text-gray-500 tracking-widest">CODESWEAR</h2>
+                            <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color})</h1>
                             <div className="flex mb-4">
                                 {/* <span className="flex items-center">
@@ -167,7 +167,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
                                 </button> */}
                             </div>
                             <div className="pin mt-6 flex space-x-2 text-sm">
-                                <input onChange={onChangePin} type="text" className='px-2 border-2 border-gray-400 rounded-md' placeholder='Enter your PINCODE here' />
+                                <input onChange={onChangePin} type="text" className='px-2 border-2 border-gray-400 rounded-md focus:bg-inherit' placeholder='Enter your PINCODE here' />
                                 <button onClick={checkServiceability} className="text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Check</button>
                             </div>
                             {(!service && service != null) && <div className="text-red-700 text-sm mt-3">Sorry! We do not deliver to this pincode yet.</div>}

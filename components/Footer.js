@@ -5,15 +5,15 @@ import React from 'react'
 const Footer = () => {
   return (
     <div>
-      <footer className="text-gray-600 body-font">
+      <footer className="text-gray-600 body-font bg-gray-50 shadow-md">
         <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
             <Link href={'/'} legacyBehavior >
-              <a className="flex px-20 title-font font-medium items-center md:justify-start justify-center text-gray-900">
-                <Image src="/assets/BW LOGO White.png" alt="wear the code" width={50} height={50} style={{filter:"invert(100%)"}}/>
+              <a className="flex  title-font font-medium items-center  justify-center text-gray-900">
+                <Image src="/assets/footer bw.png" alt="wear the code" className='max-w-xs' width={1000} height={1000} />
               </a>
             </Link>
-            <p className="mt-2 text-sm text-gray-500 px-2">Premium,T-shirts,Hoodies and Jeans</p>
+            <p className="mt-2 text-sm text-center text-gray-500 px-2">Premium,T-shirts,Hoodies and Jeans</p>
           </div>
           <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div className="lg:w-1/4 md:w-1/2 w-full px-4">
