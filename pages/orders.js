@@ -1,9 +1,9 @@
 import Order from '@/Models/Order';
 import mongoose from 'mongoose';
 import { useRouter } from 'next/router';
-import { useEffect,React } from 'react';
+import { useEffect, React } from 'react';
 
-function Orders() {
+const Orders = () => {
     const router = useRouter();
     useEffect(() => {
         if (!localStorage.getItem("token")) {
