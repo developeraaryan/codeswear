@@ -32,7 +32,7 @@ const Login = () => {
         try {
             e.preventDefault();
             const data = { name, email, password }
-            let response = await fetch(`http://localhost:3000/api/signup`, {
+            let response = await fetch(`${process.env.HOST}/api/signup`, {
                 method: "POST",
                 headers: {
                     "content-Type": "application/json"
@@ -45,7 +45,7 @@ const Login = () => {
             setEmail("")
             setPassword("")
             toast.success('Your account has been created !', {
-                position: "top-left",
+                position: "top-center",
                 autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -56,7 +56,7 @@ const Login = () => {
             });
             setTimeout(() => {
                 toast.info('Redirecting to Home page!', {
-                    position: "top-left",
+                    position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
                     closeOnClick: true,
@@ -73,7 +73,7 @@ const Login = () => {
         } catch (error) {
             console.error(error);
             toast.error('User already exists!', {
-                position: "top-left",
+                position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -177,7 +177,8 @@ const Login = () => {
                         <div>
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className="flex w-full justify-center rounded-md !bg-indigo-500 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:!bg-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600
+                                "
                             >
                                 Sign up
                             </button>
@@ -193,7 +194,7 @@ const Login = () => {
                 </div>
             </div>
             <ToastContainer
-                position="bottom-left"
+                position="top-center"
                 autoClose={3000}
                 hideProgressBar={false}
                 newestOnTop

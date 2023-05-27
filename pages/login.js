@@ -7,8 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
   const router = useRouter()
-  const [email, setEmail] = useState()
-  const [password, setPassword] = useState()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   useEffect(() => {
     if (localStorage.getItem("token")) {
       router.push("/")
@@ -29,7 +29,7 @@ const Login = () => {
     try {
       e.preventDefault();
       const data = { email, password }
-      let response = await fetch("http://localhost:3000/api/login", {
+      let response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
         method: "POST",
         headers: {
           "content-Type": "application/json"
@@ -41,7 +41,7 @@ const Login = () => {
       if (res.success) {
         localStorage.setItem('token', res.token)
         toast.success('You are Logged in!', {
-          position: "top-left",
+          position: "top-center",
           autoClose: 2000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -56,7 +56,7 @@ const Login = () => {
 
       } else {
         toast.error('invalid credentials!', {
-          position: "top-left",
+          position: "top-center",
           autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -72,7 +72,7 @@ const Login = () => {
     } catch (error) {
       console.error(error);
       toast.error('invalid credentials!', {
-        position: "top-left",
+        position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -165,7 +165,7 @@ const Login = () => {
         </div>
       </div>
       <ToastContainer
-        position="bottom-left"
+        position="top-center"
         autoClose={3000}
         hideProgressBar={false}
         newestOnTop
