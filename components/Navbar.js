@@ -296,7 +296,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
                   <span className='font-bold text-lg'>My Account</span>
                 </Link></li>
               <li>
-                <Link href={'/order'}>
+                <Link href={'/orders'}>
                   <BsFillCartCheckFill className=' text-3xl md:text-3xl mx-2 -ml-1' />
                   <span className='font-bold text-lg'>Orders</span>
                 </Link>
