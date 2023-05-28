@@ -2,10 +2,62 @@ import Link from 'next/link'
 import React from 'react'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 import { BsFillBagCheckFill } from 'react-icons/bs'
+import Head from 'next/head'
+import Script from 'next/script'
 
 const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
+  const initiatePayment = async () => {
+    let oId = Math.floor(Math.random() * Date.now());
+    // get a transaction token
+    const data = { cart, subTotal, oId, email: "email" }
+    let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`, {
+      method: "POST",
+      headers: {
+        "content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    })
+    let txnRes = await a.json()
+    console.log(txnRes);
+    let txnToken = txnRes.txnToken
+    var config = {
+      flow: "DEFAULT",
+      //Optional to hide paymode label when only one paymode is available
+      hidePaymodeLabel: true,
+      data: {
+        orderId: oId,
+        amount: subTotal,
+        token: txnToken,
+        tokenType: "TXN_TOKEN"
+      },
+      style: {
+        //Optional: global style that will apply to all paymodes
+        bodyColor: "green"
+      },
+      merchant: {
+        mid: "mid"
+      },
+      handler: {
+        notifyMerchant: function (eventName, data) {
+          console.log("notify merchant handler function called");
+          console.log("eventName => ", eventName);
+          console.log("date =>", data);
+        }
+      }
+    };
+    window.Paytm.checkoutJS.init(config).then(function onSuccess() {
+      window.Paytm.checkoutJS.invoke();
+    }).catch(function onError(error) {
+      console.log("Error => ", error);
+    })
+
+  }
   return (
     <div className='container px-2 sm:m-auto'>
+      <Head>
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
+      </Head>
+      <Script type='application/javascript' crossOrigin='anonymous' src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} />
       <h1 className='font-bold text-3xl my-8 text-center'>Checkout</h1>
       <h2 className="font-semibold text-xl my-4">1. Delivery details</h2>
       <div className="mx-auto flex">
@@ -80,7 +132,7 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
         <div className="font-bold">SubTotal : ₹{subTotal} </div>
       </div>
       <div className="mx-4">
-        <Link href={'/checkout'}><button className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
+        <Link href={'/checkout'}><button onClick={initiatePayment} className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
       </div>
     </div>
   )
