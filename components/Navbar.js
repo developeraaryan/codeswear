@@ -12,7 +12,7 @@ import { RiAccountCircleFill, RiAccountPinCircleFill } from 'react-icons/ri'
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
 
-
+  console.log(subTotal);
 
 
   function toggleCart() {
