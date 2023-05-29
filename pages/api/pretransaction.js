@@ -2,8 +2,20 @@ import { resolve } from 'path';
 
 const https = require('https');
 const PaytmChecksum = require('paytmchecksum');
-export default async function handler(req, res) {
+import Order from '@/Models/Order';
+import connectDb from '@/middleware/mongoose';
+
+const handler = async (req, res) => {
     if (req.method == "POST") {
+        // initiate an order correspoding to this orderID
+        let order = new Order({
+            email: req.body.email,
+            orderId: req.body.oId,
+            address: req.body.address,
+            amount: req.body.subTotal,
+            products: req.body.cart
+        })
+        await order.save()
         var paytmParams = {};
 
         paytmParams.body = {
@@ -57,7 +69,7 @@ export default async function handler(req, res) {
                         });
 
                         post_res.on('end', function () {
-                            console.log('Response: ', response);
+                            // console.log('Response: ', response);
                             resolve(JSON.parse(response).body)
                         });
                     });
@@ -72,3 +84,6 @@ export default async function handler(req, res) {
         }
     }
 }
+
+
+export default connectDb(handler)

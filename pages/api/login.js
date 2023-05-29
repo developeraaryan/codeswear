@@ -7,12 +7,12 @@ const Jwt = require('jsonwebtoken');
 const handler = async (req, res) => {
     if (req.method == "POST") {
         let user = await User.findOne({ "email": req.body.email })
-        const bytes = CryptoJS.AES.decrypt(user.password, "secret123")
+        const bytes = CryptoJS.AES.decrypt(user.password, process.env.AES_SECRET)
         let decryptPass = (bytes.toString(CryptoJS.enc.Utf8))
         if (user) {
 
             if (req.body.email == user.email && req.body.password == decryptPass) {
-                let token = Jwt.sign({ name: user.name, email: user.email }, 'jwtsecret', { expiresIn: "2d" })
+                let token = Jwt.sign({ name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "2d" })
                 res.status(200).json({ success: true, token });
 
             }
