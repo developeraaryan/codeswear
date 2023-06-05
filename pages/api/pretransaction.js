@@ -1,5 +1,3 @@
-import { resolve } from 'path';
-
 const https = require('https');
 const PaytmChecksum = require('paytmchecksum');
 import Order from '@/Models/Order';
@@ -7,6 +5,12 @@ import connectDb from '@/middleware/mongoose';
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
+        //  check if cart is tampered
+
+        // check if cart items are out of stock
+
+        // check if details are valid
+        
         // initiate an order correspoding to this orderID
         let order = new Order({
             email: req.body.email,
@@ -17,7 +21,6 @@ const handler = async (req, res) => {
         })
         await order.save()
         var paytmParams = {};
-
         paytmParams.body = {
             "requestType": "Payment",
             "mid": process.env.NEXT_PUBLIC_PAYTM_MID,

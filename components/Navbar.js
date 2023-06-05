@@ -12,9 +12,6 @@ import { RiAccountCircleFill, RiAccountPinCircleFill } from 'react-icons/ri'
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
 
-  console.log(subTotal);
-
-
   function toggleCart() {
     if (ref.current.classList.contains('translate-x-full')) {
       ref.current.classList.remove('translate-x-full');

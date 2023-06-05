@@ -24,17 +24,17 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
     else if (e.target.name == "phone") {
       setPhone(e.target.value)
     }
-    else if (e.target.name == "state") {
-      setState(e.target.value)
-    }
-    else if (e.target.name == "city") {
-      setCity(e.target.value)
+    // else if (e.target.name == "state") {
+    //   setState(e.target.value)
+    // }
+    // else if (e.target.name == "city") {
+    //   setCity(e.target.value)
+    // }
+    else if (e.target.name == "address") {
+      setAddress(e.target.value)
     }
     else if (e.target.name == "pincode") {
       setPincode(e.target.value)
-    }
-    else if (e.target.name == "address") {
-      setAddress(e.target.value)
     }
     setTimeout(() => {
 
@@ -46,7 +46,7 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
         setDisabled(true)
         console.log(disabled);
       }
-    }, 1000);
+    }, 100);
   }
   const initiatePayment = async () => {
     let oId = Math.floor(Math.random() * Date.now());
@@ -145,14 +145,14 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="state" className="leading-7 text-sm text-gray-600">State</label>
-            <input value={state} type="text" id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly />
+            <input type="text" id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly={true} />
           </div>
         </div>
 
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="city" className="leading-7 text-sm text-gray-600">City</label>
-            <input value={city} type="text" id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly />
+            <input type="text" id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly={true} />
           </div>
         </div>
       </div>

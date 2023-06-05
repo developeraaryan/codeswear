@@ -119,41 +119,42 @@ export default function App({ Component, pageProps }) {
     });
   }
   const buyNow = (itemCode, qty, price, name, size, color) => {
-    let newCart = { itemCode: { qty: 1, name, size, price, color } }
-    setCart(newCart)
-    saveCart(newCart)
-    console.log(newCart);
-    router.push('/checkout')
+    let newCart = {}
+    newCart[itemCode] = { qty: 1, name, size, price, color }
+  setCart(newCart)
+  saveCart(newCart)
+  console.log(newCart);
+  router.push('/checkout')
 
 
-  }
-  const logout = () => {
-    localStorage.removeItem("token");
-    setUser({ value: null })
-    setKey(Math.random())
-    toast.success('Logout successfully!', {
-      position: "top-center",
-      autoClose: 1000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-    setTimeout(() => {
-      router.push('/login')
-    }, 3000);
-  }
-  return <>
-    <LoadingBar
-      color='#f11946'
-      progress={progress}
-      waitingTime={400}
-      onLoaderFinished={() => setProgress(0)}
-    />
-    {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
-    <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-    <Footer />
-  </>
+}
+const logout = () => {
+  localStorage.removeItem("token");
+  setUser({ value: null })
+  setKey(Math.random())
+  toast.success('Logout successfully!', {
+    position: "top-center",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "dark",
+  });
+  setTimeout(() => {
+    router.push('/login')
+  }, 3000);
+}
+return <>
+  <LoadingBar
+    color='#f11946'
+    progress={progress}
+    waitingTime={400}
+    onLoaderFinished={() => setProgress(0)}
+  />
+  {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
+  <Component buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+  <Footer />
+</>
 }
