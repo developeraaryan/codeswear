@@ -2,15 +2,31 @@ const https = require('https');
 const PaytmChecksum = require('paytmchecksum');
 import Order from '@/Models/Order';
 import connectDb from '@/middleware/mongoose';
+import Product from '@/Models/Product';
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
         //  check if cart is tampered
+        let product, sumTotal = 0;
+        let cart = req.body.cart;
+        for (let item in cart) {
+            console.log(cart);
+            sumTotal += cart[item].price * cart[item].qty
+            product = await Product.findOne({ slug: item })
+            if (product.price != cart[item].price) {
+                res.staus(200).json({ success: flase, "error": "The price of some items in your cart have changed please try again" })
+                return
+            }
+        }
+        if (sumTotal !== req.body.subTotal) {
+            res.staus(200).json({ success: flase, "error": "The price of some items in your cart have changed please try again" })
+            return
 
+        }
         // check if cart items are out of stock
 
         // check if details are valid
-        
+
         // initiate an order correspoding to this orderID
         let order = new Order({
             email: req.body.email,
@@ -73,7 +89,9 @@ const handler = async (req, res) => {
 
                         post_res.on('end', function () {
                             // console.log('Response: ', response);
-                            resolve(JSON.parse(response).body)
+                            let ress = JSON.parse(response).body
+                            ress.success = true
+                            resolve(ress)
                         });
                     });
 

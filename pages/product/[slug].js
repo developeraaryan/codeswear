@@ -29,7 +29,7 @@ const Slug = ({ addToCart, product, varients, buyNow }) => {
             });
         }
         else {
-            if (pinsjson.includes(parseInt(pin))) {
+            if (Object.keys(pinsjson).includes(pin)) {
                 setService(true)
                 toast.success('Your pincode is serviceable!', {
                     position: "top-center",
