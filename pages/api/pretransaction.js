@@ -13,6 +13,11 @@ const handler = async (req, res) => {
             console.log(cart);
             sumTotal += cart[item].price * cart[item].qty
             product = await Product.findOne({ slug: item })
+            // check if cart items are out of stock
+            if (product.availableqty < cart[item].qty) {
+                res.staus(200).json({ success: flase, "error": "Some Items in your cart went out of stock, please try again!" })
+                return
+            }
             if (product.price != cart[item].price) {
                 res.staus(200).json({ success: flase, "error": "The price of some items in your cart have changed please try again" })
                 return
@@ -23,7 +28,6 @@ const handler = async (req, res) => {
             return
 
         }
-        // check if cart items are out of stock
 
         // check if details are valid
 

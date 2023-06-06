@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 import { BsFillBagCheckFill } from 'react-icons/bs'
 import Head from 'next/head'
@@ -7,7 +7,7 @@ import Script from 'next/script'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
+const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -16,6 +16,17 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
   const [pincode, setPincode] = useState("")
   const [city, setCity] = useState("")
   const [disabled, setDisabled] = useState(true)
+  const [user, setUser] = useState({ value: null })
+
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("myuser"))
+    if (!user.value) {
+      setEmail(user.email)
+      setUser(user)
+    }
+  }, [])
+
   const handleChange = async (e) => {
 
     if (e.target.name == "name") {
@@ -119,6 +130,7 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
     }
     else {
       console.log(txnRes.error);
+      clearCart()
       toast.error(txnRes.error, {
         position: "top-center",
         autoClose: 5000,
@@ -161,7 +173,8 @@ const Checkout = ({ cart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
-            <input onChange={handleChange} value={email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
+            {user && user.value ? <input value={user.email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly /> : <input onChange={handleChange} value={email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />}
+
           </div>
         </div>
       </div>
