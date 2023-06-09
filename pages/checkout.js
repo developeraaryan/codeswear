@@ -21,7 +21,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("myuser"))
-    if (!user.value) {
+    if (user.value) {
       setEmail(user.email)
       setUser(user)
     }
@@ -78,76 +78,157 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       }
     }, 100);
   }
-  const initiatePayment = async () => {
+  // let oId = Math.floor(Math.random() * Date.now());
+  // const initiatePayment = async () => {
+  //   // get a transaction token
+  //   const data = { cart, subTotal, oId, email: email, name, address, phone, pincode, }
+  //   let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/razorpay`, {
+  //     method: "POST",
+  //     headers: {
+  //       "content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(data)
+  //   })
+  //   let txnRes = await a.json()
+  //   // console.log(txnRes);
+  //   if (txnRes.success) {
+  //     let txnToken = txnRes.txnToken
+  //     var config = {
+  //       flow: "DEFAULT",
+  //       //Optional to hide paymode label when only one paymode is available
+  //       hidePaymodeLabel: true,
+  //       data: {
+  //         orderId: oId,
+  //         amount: subTotal,
+  //         token: txnToken,
+  //         tokenType: "TXN_TOKEN"
+  //       },
+  //       style: {
+  //         //Optional: global style that will apply to all paymodes
+  //         bodyColor: "green"
+  //       },
+  //       merchant: {
+  //         mid: "mid"
+  //       },
+  //       handler: {
+  //         notifyMerchant: function (eventName, data) {
+  //           console.log("notify merchant handler function called");
+  //           console.log("eventName => ", eventName);
+  //           console.log("date =>", data);
+  //         }
+  //       }
+  //     };
+
+
+
+  //     // window.Paytm.checkoutJS.init(config).then(function onSuccess() {
+  //     //   window.Paytm.checkoutJS.invoke();
+  //     // }).catch(function onError(error) {
+  //     //   console.log("Error => ", error);
+  //     // })
+
+  //   }
+  //   // else {
+  //   //   console.log(txnRes.error);
+  //   //   clearCart()
+  //   //   toast.error(txnRes.error, {
+  //   //     position: "top-center",
+  //   //     autoClose: 5000,
+  //   //     hideProgressBar: false,
+  //   //     closeOnClick: true,
+  //   //     pauseOnHover: true,
+  //   //     draggable: true,
+  //   //     progress: undefined,
+  //   //     theme: "colored",
+  //   //   });
+  //   // }
+  // }
+
+  const makePayment = async () => {
+    console.log("here...");
+    const res = await initializeRazorpay();
+
+    if (!res) {
+      alert("Razorpay SDK Failed to load");
+      return;
+    }
+
+    // Make API call to the serverless API
     let oId = Math.floor(Math.random() * Date.now());
-    // get a transaction token
-    const data = { cart, subTotal, oId, email: email, name, address, phone, pincode, }
-    let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pretransaction`, {
-      method: "POST",
-      headers: {
-        "content-Type": "application/json",
-      },
-      body: JSON.stringify(data)
-    })
-    let txnRes = await a.json()
-    // console.log(txnRes);
-    if (txnRes.success) {
-      let txnToken = txnRes.txnToken
-      var config = {
-        flow: "DEFAULT",
-        //Optional to hide paymode label when only one paymode is available
-        hidePaymodeLabel: true,
-        data: {
-          orderId: oId,
-          amount: subTotal,
-          token: txnToken,
-          tokenType: "TXN_TOKEN"
+    const info = { cart, subTotal, oId, email: email, name, address, phone, pincode, }
+    const apiRes = await fetch(`/api/razorpay`,
+      {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
         },
-        style: {
-          //Optional: global style that will apply to all paymodes
-          bodyColor: "green"
-        },
-        merchant: {
-          mid: "mid"
-        },
-        handler: {
-          notifyMerchant: function (eventName, data) {
-            console.log("notify merchant handler function called");
-            console.log("eventName => ", eventName);
-            console.log("date =>", data);
-          }
-        }
-      };
-
-
-
-      window.Paytm.checkoutJS.init(config).then(function onSuccess() {
-        window.Paytm.checkoutJS.invoke();
-      }).catch(function onError(error) {
-        console.log("Error => ", error);
+        body: JSON.stringify(info)
       })
 
-    }
-    else {
-      console.log(txnRes.error);
-      clearCart()
-      toast.error(txnRes.error, {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
-    }
-  }
+    const data = await apiRes.json()
+
+    console.log("this is data :", data);
+    toast.error(data.error, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    console.log(subTotal);
+    var options = {
+      key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
+      name: "BLACK WORN",
+      currency: data.currency,
+      amount: parseInt(subTotal),
+      order_id: data.id,
+      description: "Thankyou for Choosing Us!",
+      image: "/assets/BW-LOGO-in-sqaure-shape.png",
+      handler: function (response) {
+        // Validate payment at server - using webhooks is a better idea.
+        alert(response.razorpay_payment_id);
+        console.log(response);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+      },
+      callback_url: `http://localhost:3000/`,
+      prefill: {
+        name: "Your Name",
+        email: "",
+        contact: "Your Phone number",
+      },
+    };
+
+    const paymentObject = new window.Razorpay(options);
+    paymentObject.open();
+  };
+
+
+  const initializeRazorpay = () => {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      // document.body.appendChild(script);
+
+      script.onload = () => {
+        resolve(true);
+      };
+      script.onerror = () => {
+        resolve(false);
+      };
+
+      document.body.appendChild(script);
+    });
+  };
+
   return (
     <div className='container px-2 sm:m-auto'>
       <ToastContainer
         position="top-center"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -160,7 +241,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       <Head>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
       </Head>
-      <Script type='application/javascript' crossOrigin='anonymous' src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} />
+      {/* <Script type='application/javascript' crossOrigin='anonymous' src={`${process.env.NEXT_PUBLIC_PAYTM_HOST}/merchantpgui/checkoutjs/merchants/${process.env.NEXT_PUBLIC_PAYTM_MID}.js`} /> */}
       <h1 className='font-bold text-3xl my-8 text-center'>Checkout</h1>
       <h2 className="font-semibold text-xl my-4">1. Delivery details</h2>
       <div className="mx-auto flex">
@@ -195,7 +276,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="pincode" className="leading-7 text-sm text-gray-600">PINCODE</label>
-            <input onChange={handleChange} value={pincode} type="text" id="pincode" name="pincode" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
+            <input onChange={handleChange} value={pincode} type="number" id="pincode" name="pincode" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
           </div>
         </div>
 
@@ -213,7 +294,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
         <div className="px-2 w-1/2" >
           <div className="mb-4">
-            <label htmlFor="city" className="leading-7 text-sm text-gray-600">City</label>
+            <label htmlFor="city" className="leading-7 text-sm text-gray-600">District</label>
             <input type="text" value={city} onChange={handleChange} id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
           </div>
         </div>
@@ -242,7 +323,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="font-bold">SubTotal : ₹{subTotal} </div>
       </div>
       <div className="mx-4">
-        <Link href={'/checkout'} className='cursor-default'><button disabled={disabled} onClick={initiatePayment} className="disabled:bg-pink-300 flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
+        <Link href={'/checkout'} className='cursor-default'><button disabled={disabled} onClick={makePayment} className="disabled:bg-pink-300 flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
       </div>
     </div>
   )

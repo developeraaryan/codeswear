@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle, AiFillHome, AiOutlineHome } from 'react-icons/ai'
 import { BsFillBagCheckFill, BsFillCartCheckFill, BsFillCartXFill } from 'react-icons/bs';
 import { MdAccountCircle, MdManageAccounts, MdOutlineKeyboardArrowLeft } from 'react-icons/md'
@@ -9,20 +9,31 @@ import { TbSticker } from 'react-icons/tb'
 import { IoIosArrowDropleft } from 'react-icons/io'
 import { BiLogIn } from 'react-icons/bi'
 import { RiAccountCircleFill, RiAccountPinCircleFill } from 'react-icons/ri'
+import { useRouter } from 'next/router';
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
-
+  const [sidebar, setSidebar] = useState(false)
+  const [dropdown, setDropdown] = useState(false)
   function toggleCart() {
-    if (ref.current.classList.contains('translate-x-full')) {
-      ref.current.classList.remove('translate-x-full');
-      ref.current.classList.add('translate-x-0');
-    }
-    else if (!ref.current.classList.contains('translate-x-full')) {
-      ref.current.classList.remove('translate-x-0');
-      ref.current.classList.add('translate-x-full');
-    }
-
+    // if (ref.current.classList.contains('translate-x-full')) {
+    //   ref.current.classList.remove('translate-x-full');
+    //   ref.current.classList.add('translate-x-0');
+    // }
+    // else if (!ref.current.classList.contains('translate-x-full')) {
+    //   ref.current.classList.remove('translate-x-0');
+    //   ref.current.classList.add('translate-x-full');
+    // }
+    setSidebar(!sidebar)
   }
+  const router = useRouter()
+  useEffect(() => {
+    Object.keys(cart).length !== 0 && setSidebar(true)
+    const exapted = ["/checkout", "/order", "/orders", "/myaccount"]
+    if (exapted.includes(router.pathname)) {
+      setSidebar(false)
+    }
+  }, [cart])
+
   const ref = useRef()
 
 
@@ -58,8 +69,46 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     setIsCollapsedSidebar((prev) => !prev)
   }
 
-  return (
-    < div className='flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-gray-200 dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md  ' >
+  return (<>
+
+    <span>
+      {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='absolute right-16 bg-[#272A30]  text-white  shadow-lg shadow-slate-600  top-10 py-4  rounded-md px-5 w-32 z-30 '>
+        <ul>
+          {!user.value && <>
+            <li>
+              <Link href={'/login'}>
+                {/* <BiLogIn className=' text-xl mx-2' /> */}
+                <span className='font-bold text-sm hover:text-red-500'>Login</span>
+              </Link>
+            </li>
+          </>
+          }
+          {user.value && <>
+            <li>
+              <Link href={'/myaccount'}>
+                {/* <MdManageAccounts className=' text-xl' /> */}
+                <span className='font-bold text-sm hover:text-red-500'>My Account</span>
+              </Link></li>
+            <li>
+              <Link href={'/orders'}>
+                {/* <BsFillCartCheckFill className=' text-3xl md:text-3xl mx-2 -ml-1' /> */}
+                <span className='font-bold text-sm hover:text-red-500'>Orders</span>
+              </Link>
+            </li>
+            <li>
+              <a onClick={logout}>
+                {/* <BiLogIn className=' text-3xl md:text-3xl mx-2 -ml-1' /> */}
+                <span className='font-bold text-sm hover:text-red-500 cursor-pointer'>Logout</span>
+              </a>
+            </li>
+          </>
+          }
+        </ul>
+      </div>}
+    </span>
+
+
+    < div className={`flex flex-col md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-gray-200 dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
 
 
 
@@ -274,47 +323,17 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer items-center ">
 
 
-        <div className="dropdown">
+        <span onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className="dropdown" >
           <label tabIndex={0} className="cursor-pointer"><MdAccountCircle className=' text-3xl md:text-2xl mx-2' /></label>
-          <ul tabIndex={0} className="dropdown-content right-0 menu p-2 shadow-lg border-gray-800 bg-base-100 rounded-box w-52">
-            {!user.value && <>
-              <li>
-                <Link href={'/login'}>
-                  <BiLogIn className=' text-3xl md:text-2xl mx-2' />
-                  <span className='font-bold text-lg'>Login</span>
-                </Link>
-              </li>
-            </>
-            }
-            {user.value && <>
-              <li>
-                <Link href={'/myaccount'}>
-                  <MdManageAccounts className=' text-4xl md:text-2xl mr-2' />
-                  <span className='font-bold text-lg'>My Account</span>
-                </Link></li>
-              <li>
-                <Link href={'/orders'}>
-                  <BsFillCartCheckFill className=' text-3xl md:text-3xl mx-2 -ml-1' />
-                  <span className='font-bold text-lg'>Orders</span>
-                </Link>
-              </li>
-              <li>
-                <a onClick={logout}>
-                  <BiLogIn className=' text-3xl md:text-3xl mx-2 -ml-1' />
-                  <span className='font-bold text-lg'>Logout</span>
-                </a>
-              </li>
-            </>
-            }
-          </ul>
-        </div>
+
+        </span>
 
 
 
 
         <AiOutlineShoppingCart className=' text-3xl md:text-2xl' onClick={toggleCart} />
       </div>
-      <div ref={ref} className={`overflow-y-scroll w-72 h-[100vh] sideCart absolute top-0 right-0 bg-pink-100 dark:text-black py-2 px-8 p-10 transform transition-transform ${Object.keys(cart).length !== 0 ? `translate-x-0` : `translate-x-full`}  `}>
+      <div ref={ref} className={`overflow-y-scroll w-72 h-[100vh] sideCart absolute top-0  bg-pink-100 dark:text-black py-2 px-8 p-10  transition-all ${sidebar ? `right-0` : `-right-96`}`}>
         <h2 className='font-bold text-xl text-center'>Shoping Cart</h2>
         <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-pink-500">
           <AiFillCloseCircle />
@@ -338,14 +357,14 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         <div className="font-bold my-2">SubTotal : ₹{subTotal} </div>
 
         <div className="flex">
-          <Link href={'/checkout'}><button className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Checkout</button></Link>
-          <button onClick={clearCart} className="flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm">Clear Cart</button>
+          <Link href={'/checkout'}><button disabled={Object.keys(cart).length === 0} className="disabled:bg-pink-400 flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Checkout</button></Link>
+          <button disabled={Object.keys(cart).length === 0} onClick={clearCart} className="flex mr-2  text-white disabled:bg-pink-400 bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm">Clear Cart</button>
         </div>
 
       </div>
 
     </div >
-
+  </>
   )
 }
 

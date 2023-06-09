@@ -44,7 +44,7 @@ const handler = async (req, res) => {
         paytmParams.body = {
             "requestType": "Payment",
             "mid": process.env.NEXT_PUBLIC_PAYTM_MID,
-            "websiteName": "YOUR_WEBSITE_NAME",
+            "websiteName": "BLACK WORN",
             "orderId": req.body.oId,
             "callbackUrl": `${process.env.NEXT_PUBLIC_HOST}/api/posttransaction`,
             "txnAmount": {
@@ -71,10 +71,10 @@ const handler = async (req, res) => {
                     var options = {
 
                         /* for Staging */
-                        hostname: 'securegw.paytm.in',
+                        // hostname: 'securegw-stage.paytm.in',
 
                         /* for Production */
-                        // hostname: 'securegw.paytm.in',
+                        hostname: 'securegw.paytm.in',
 
                         port: 443,
                         path: `/theia/api/v1/initiateTransaction?mid=${process.env.NEXT_PUBLIC_PAYTM_MID}&orderId=${req.body.oId}`,

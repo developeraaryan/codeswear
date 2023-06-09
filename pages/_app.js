@@ -56,7 +56,7 @@ export default function App({ Component, pageProps }) {
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty + qty
       toast.success('Item added to the cart!', {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -69,7 +69,7 @@ export default function App({ Component, pageProps }) {
     else {
       newCart[itemCode] = { qty: 1, name, size, price, color }
       toast.success('Item added to the cart!', {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -91,7 +91,7 @@ export default function App({ Component, pageProps }) {
     if (newCart[itemCode]['qty'] <= 0) {
       delete newCart[itemCode]
       toast.success('Item removed from the cart!', {
-        position: "bottom-center",
+        position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -108,7 +108,7 @@ export default function App({ Component, pageProps }) {
     setCart({})
     saveCart({})
     toast.success('Cart cleared!', {
-      position: "bottom-center",
+      position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -147,14 +147,16 @@ export default function App({ Component, pageProps }) {
     }, 3000);
   }
   return <>
-    <LoadingBar
-      color='#f11946'
-      progress={progress}
-      waitingTime={400}
-      onLoaderFinished={() => setProgress(0)}
-    />
-    {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
-    <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-    <Footer />
+    <main className="font-Inter h-screen overflow-auto">
+      <LoadingBar
+        color='#f11946'
+        progress={progress}
+        waitingTime={400}
+        onLoaderFinished={() => setProgress(0)}
+      />
+      {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
+      <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+      <Footer />
+    </main>
   </>
 }
