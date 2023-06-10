@@ -127,7 +127,6 @@ export default function App({ Component, pageProps }) {
     newCart[itemCode] = { qty: 1, name, size, price, color }
     setCart(newCart)
     saveCart(newCart)
-    console.log(newCart);
     router.push('/checkout')
 
 

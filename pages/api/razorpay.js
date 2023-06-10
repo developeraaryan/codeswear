@@ -91,10 +91,15 @@ export default async function handler(req, res) {
             // initiate an order correspoding to this orderID
 
             let order = new Order({
+                name: req.body.name,
                 email: req.body.email,
+                phone: req.body.phone,
                 orderId: response.id,
                 oId: req.body.oId,
                 address: req.body.address,
+                city: req.body.city,
+                state: req.body.state,
+                pincode: req.body.pincode,
                 amount: req.body.subTotal,
                 products: req.body.cart
             })

@@ -18,12 +18,41 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const [disabled, setDisabled] = useState(true)
   const [user, setUser] = useState({ value: null })
 
+  const fetchData = async (token) => {
+    const data = { token: token }
+    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    const json = await response.json()
+    setName(json.name)
+    setAddress(json.address)
+    setPincode(json.pincode)
+    setPhone(json.phone)
+    getPinCode(json.pincode)
+  }
 
+  const getPinCode = async (pin) => {
+    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
+    let pinsjson = await pins.json()
+    if (Object.keys(pinsjson).includes(pin)) {
+      setCity(pinsjson[pin][0])
+      setState(pinsjson[pin][1])
+    }
+    else {
+      setState("")
+      setCity("")
+    }
+  }
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("myuser"))
-    if (user && user.token) {
-      setUser(user)
-      setEmail(user.email)
+    const myuser = JSON.parse(localStorage.getItem("myuser"))
+    if (myuser && myuser.token) {
+      setUser(myuser)
+      setEmail(myuser.email)
+      fetchData(myuser.token)
     }
   }, [])
 
@@ -50,101 +79,23 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
     else if (e.target.name == "phone") {
       setPhone(e.target.value)
     }
-    // else if (e.target.name == "state") {
-    //   setState(e.target.value)
-    // }
-    // else if (e.target.name == "city") {
-    //   setCity(e.target.value)
-    // }
     else if (e.target.name == "address") {
       setAddress(e.target.value)
     }
     else if (e.target.name == "pincode") {
       setPincode(e.target.value)
       if (e.target.value.length == 6) {
-        let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
-        let pinsjson = await pins.json()
-        if (Object.keys(pinsjson).includes(e.target.value)) {
-          setCity(pinsjson[e.target.value][0])
-          setState(pinsjson[e.target.value][1])
-        }
-        else {
-          setState("")
-          setCity("")
-        }
-      }
-      else {
-        setState("")
-        setCity("")
+        getPinCode(e.target.value)
       }
     }
-
+    else {
+      setState("")
+      setCity("")
+    }
   }
-  // let oId = Math.floor(Math.random() * Date.now());
-  // const initiatePayment = async () => {
-  //   // get a transaction token
-  //   const data = { cart, subTotal, oId, email: email, name, address, phone, pincode, }
-  //   let a = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/razorpay`, {
-  //     method: "POST",
-  //     headers: {
-  //       "content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data)
-  //   })
-  //   let txnRes = await a.json()
-  //   // console.log(txnRes);
-  //   if (txnRes.success) {
-  //     let txnToken = txnRes.txnToken
-  //     var config = {
-  //       flow: "DEFAULT",
-  //       //Optional to hide paymode label when only one paymode is available
-  //       hidePaymodeLabel: true,
-  //       data: {
-  //         orderId: oId,
-  //         amount: subTotal,
-  //         token: txnToken,
-  //         tokenType: "TXN_TOKEN"
-  //       },
-  //       style: {
-  //         //Optional: global style that will apply to all paymodes
-  //         bodyColor: "green"
-  //       },
-  //       merchant: {
-  //         mid: "mid"
-  //       },
-  //       handler: {
-  //         notifyMerchant: function (eventName, data) {
-  //           console.log("notify merchant handler function called");
-  //           console.log("eventName => ", eventName);
-  //           console.log("date =>", data);
-  //         }
-  //       }
-  //     };
 
 
 
-  //     // window.Paytm.checkoutJS.init(config).then(function onSuccess() {
-  //     //   window.Paytm.checkoutJS.invoke();
-  //     // }).catch(function onError(error) {
-  //     //   console.log("Error => ", error);
-  //     // })
-
-  //   }
-  //   // else {
-  //   //   console.log(txnRes.error);
-  //   //   clearCart()
-  //   //   toast.error(txnRes.error, {
-  //   //     position: "top-center",
-  //   //     autoClose: 5000,
-  //   //     hideProgressBar: false,
-  //   //     closeOnClick: true,
-  //   //     pauseOnHover: true,
-  //   //     draggable: true,
-  //   //     progress: undefined,
-  //   //     theme: "colored",
-  //   //   });
-  //   // }
-  // }
 
   const makePayment = async () => {
     const initializeRazorpay = () => {
@@ -174,7 +125,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
     // Make API call to the serverless API
     let oId = Math.floor(Math.random() * Date.now());
-    const info = { cart, subTotal, oId, email: email, name, address, phone, pincode, }
+    const info = { cart, subTotal, oId, email: email, name, address, phone, pincode, city, state }
     const apiRes = await fetch(`/api/razorpay`,
       {
         method: "POST",
@@ -220,16 +171,13 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       redirect: true,
       prefill: {
         name: "Your Name",
-        email: "",
+        email: "Your email",
         contact: "Your Phone number",
       },
     };
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-
-
-
 
 
   }

@@ -4,7 +4,7 @@ import CryptoJS from "crypto-js"
 const handler = async (req, res) => {
     if (req.method == "POST") {
         const { name, email } = req.body
-        let newUser = new User({ name, email, password: CryptoJS.AES.encrypt(req.body.password, "secret123").toString() });
+        let newUser = new User({ name, email, password: CryptoJS.AES.encrypt(req.body.password, process.env.AES_SECRET).toString() });
         await newUser.save();
         res.status(200).json({ success: "success" });
     }
