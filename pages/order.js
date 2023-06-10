@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Order from '@/Models/Order'
 import mongoose from 'mongoose'
 
 const MyOrder = ({ order, clearCart }) => {
   const products = order.products
   const router = useRouter()
+  const [date, setDate] = useState()
   useEffect(() => {
+    const d = new Date(order.createdAt)
+    setDate(d)
     if (router.query.clearcart == 1) {
       clearCart()
     }
@@ -18,7 +21,10 @@ const MyOrder = ({ order, clearCart }) => {
           <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
             <h1 className="text-gray-900 text-xl md:text-3xl title-font font-medium mb-4">Order ID : #{order.oId}</h1>
-            <p className="leading-relaxed ">Your order has been successfully palced!</p> <p className='mb-6'> Your payment is <span className={`${order.status == "Pending" ? "text-green-700" : "text-red-700"} `}>{order.status}</span> </p>
+            <p className="leading-relaxed ">Your order has been successfully palced!</p>
+            <p className="leading-relaxed ">Order palced on : {date && date.toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" }
+            )}</p>
+            <p className='mb-6'> Your payment is <span className={`${order.status == "Pending" ? "text-red-700" : "text-green-700"} font-bold`}>{order.status}</span> </p>
             <div className="flex border-t border-gray-200 py-2 font-semibold">
               <span className="text-gray-500">Item</span>
               <span className="ml-auto text-gray-900 relative left-6">Quantity</span>
