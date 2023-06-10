@@ -23,13 +23,13 @@ const Orders = () => {
             fetchOrders()
 
         }
-    }, [router, router.query])
+    }, [])
 
     return (
         <div className='min-h-screen container my-14 mx-auto text-black '>
             <h1 className='font-bold text-center text-4xl mb-8'>My Orders</h1>
 
-            {orders ? <h1 className="text-xl font-semibold mt-64 flex justify-center"> No orders</h1> : <div className="relative overflow-x-auto flex justify-center">
+            {!orders ? <h1 className="text-xl font-semibold mt-64 flex justify-center"> No orders</h1> : <div className="relative overflow-x-auto flex justify-center">
                 <table className="w-[96%] text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -55,7 +55,7 @@ const Orders = () => {
                         {orders.map((item) => {
                             return <tr key={item._id} className="bg-gray-800 border-gray-700 border-b">
                                 <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
-                                    {item.orderId}
+                                    {item.oId}
                                 </th>
                                 <th scope="row" className="px-6 py-4 font-medium  whitespace-nowrap text-white">
                                     {item.email}

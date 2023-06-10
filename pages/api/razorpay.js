@@ -49,16 +49,7 @@ export default async function handler(req, res) {
         }
 
 
-        // initiate an order correspoding to this orderID
 
-        let order = new Order({
-            email: req.body.email,
-            orderId: req.body.oId,
-            address: req.body.address,
-            amount: req.body.subTotal,
-            products: req.body.cart
-        })
-        await order.save()
 
 
         // Initialize razorpay object
@@ -86,7 +77,20 @@ export default async function handler(req, res) {
                 currency: response.currency,
                 amount: response.amount,
                 message: req.body
+
             });
+            // initiate an order correspoding to this orderID
+
+            let order = new Order({
+                email: req.body.email,
+                orderId: response.id,
+                oId: req.body.oId,
+                address: req.body.address,
+                amount: req.body.subTotal,
+                products: req.body.cart
+            })
+            await order.save()
+            console.log("this is res id", response.id);
         } catch (err) {
             console.log(err);
             res.status(400).json(err);

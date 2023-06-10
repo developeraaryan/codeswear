@@ -21,11 +21,23 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("myuser"))
-    if (user.value) {
-      setEmail(user.email)
+    if (user) {
       setUser(user)
+      setEmail(user.email)
     }
   }, [])
+
+  useEffect(() => {
+    if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3) {
+      setDisabled(false)
+      console.log(disabled);
+    }
+    else {
+      setDisabled(true)
+      console.log(disabled);
+    }
+  }, [address, disabled, email, name, phone, pincode])
+
 
   const handleChange = async (e) => {
 
@@ -66,17 +78,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         setCity("")
       }
     }
-    setTimeout(() => {
 
-      if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3) {
-        setDisabled(false)
-        console.log(disabled);
-      }
-      else {
-        setDisabled(true)
-        console.log(disabled);
-      }
-    }, 100);
   }
   // let oId = Math.floor(Math.random() * Date.now());
   // const initiatePayment = async () => {
@@ -194,7 +196,8 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature);
       },
-      callback_url: `http://localhost:3000/`,
+      callback_url: `http://localhost:3000/api/posttransaction`,
+      redirect: true,
       prefill: {
         name: "Your Name",
         email: "",

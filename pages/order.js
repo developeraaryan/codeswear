@@ -10,14 +10,14 @@ const MyOrder = ({ order, clearCart }) => {
     if (router.query.clearcart == 1) {
       clearCart()
     }
-  }, [clearCart, router.query.clearcart])
+  }, [])
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 mx-auto flex flex-wrap">
           <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
-            <h1 className="text-gray-900 text-xl md:text-3xl title-font font-medium mb-4">Order ID : #{order.orderId}</h1>
+            <h1 className="text-gray-900 text-xl md:text-3xl title-font font-medium mb-4">Order ID : #{order.oId}</h1>
             <p className="leading-relaxed ">Your order has been successfully palced!</p> <p className='mb-6'> Your payment is <span className={`${order.status == "Pending" ? "text-green-700" : "text-red-700"} `}>{order.status}</span> </p>
             <div className="flex border-t border-gray-200 py-2 font-semibold">
               <span className="text-gray-500">Item</span>

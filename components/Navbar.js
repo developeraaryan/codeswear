@@ -32,7 +32,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     if (exapted.includes(router.pathname)) {
       setSidebar(false)
     }
-  }, [cart])
+  }, [cart, router.pathname])
 
   const ref = useRef()
 
