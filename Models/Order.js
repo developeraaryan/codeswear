@@ -8,6 +8,7 @@ const orderSchema = new mongoose.Schema({
     products: { type: Object, required: true },
     address: { type: String, required: true },
     amount: { type: Number, required: true },
+    transactionId: { type: String },
     status: { type: String, default: "Initiated", required: true },
     deliverStatus: { type: String, default: "Unshipped", required: true }
 }, { timestamps: true });

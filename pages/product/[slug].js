@@ -24,7 +24,20 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const checkServiceability = async () => {
         let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
         let pinsjson = await pins.json()
-        if (pin.length < 6) {
+        console.log(pin)
+        if (pin && pin.length < 6) {
+            toast.error('Invalid Pincode!', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
+        }
+        else if (!pin) {
             toast.error('Invalid Pincode!', {
                 position: "top-center",
                 autoClose: 1000,
@@ -185,7 +198,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                 </button> */}
                             </div>
                             <div className="pin mt-6 flex space-x-2 text-sm">
-                                <input onChange={onChangePin} type="text" className='px-2 border-2 border-gray-400 rounded-md focus:bg-inherit' placeholder='Enter your PINCODE here' />
+                                <input onChange={onChangePin} type="text" className='px-2 border-2 border-gray-400 rounded-md focus:bg-inherit' placeholder='Enter your PINCODE here' required />
                                 <button onClick={checkServiceability} className="text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Check</button>
                             </div>
                             {(!service && service != null) && <div className="text-red-700 text-sm mt-3">Sorry! We do not deliver to this pincode yet.</div>}

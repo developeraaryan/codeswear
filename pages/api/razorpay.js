@@ -1,12 +1,19 @@
 import Order from "@/Models/Order";
 import Product from "@/Models/Product";
-
 const Razorpay = require("razorpay");
 const shortid = require("shortid");
+import pincodes from "../../pincodes.json"
 
 export default async function handler(req, res) {
     console.log("subtotal :", (req.body.subTotal));
     if (req.method === "POST") {
+        // check if pincode is serviceable
+        if ((!Object.keys(pincodes).includes(req.body.pincode))) {
+            res.status(200).json({ success: false, "error": "pincode not serviceable!", clearCart: false })
+            return
+
+        }
+
 
         //  check if cart is tampered
 
@@ -14,7 +21,7 @@ export default async function handler(req, res) {
         let cart = req.body.cart;
 
         if (req.body.subTotal <= 0) {
-            res.status(200).json({ success: false, "error": "Your cart is empty,Please build your cart and try again!" })
+            res.status(200).json({ success: false, "error": "Your cart is empty,Please build your cart and try again!", clearCart: false })
             return
         }
 
@@ -24,33 +31,33 @@ export default async function handler(req, res) {
             product = await Product.findOne({ slug: item })
             // check if cart items are out of stock
             if (product.availableqty < cart[item].qty) {
-                res.status(200).json({ success: false, "error": "Some Items in your cart went out of stock, please try again!" })
+                res.status(200).json({ success: false, "error": "Some Items in your cart went out of stock, please try again!", clearCart: true })
                 return
             }
             if (product.price != cart[item].price) {
-                res.status(200).json({ success: false, "error": "The price of some items in your cart have changed please try again" })
+                res.status(200).json({ success: false, "error": "The price of some items in your cart have changed please try again", clearCart: true })
                 return
             }
         }
         if (sumTotal !== req.body.subTotal) {
-            res.status(200).json({ success: false, "error": "The price of some items in your cart have changed please try again" })
+            res.status(200).json({ success: false, "error": "The price of some items in your cart have changed please try again", clearCart: false })
             return
 
         }
 
         // check detail validation
-        if ((req.body.phone).length !== 10 || Number.isInteger(req.body.phone)) {
-            res.status(200).json({ success: false, "error": "Please enter your 10 digit phone number" })
+        if ((req.body.phone).length !== 10 || !Number.isInteger(Number(req.body.phone))) {
+            res.status(200).json({ success: false, "error": "Please enter your 10 digit phone number", clearCart: false })
             return
         }
-        if ((req.body.pincode).length !== 6 || Number.isInteger(req.body.pincode)) {
-            res.status(200).json({ success: false, "error": "Please enter your 6 digit PINCODE" })
+        if ((req.body.pincode).length !== 6 || !Number.isInteger(Number(req.body.pincode))) {
+            res.status(200).json({ success: false, "error": "Please enter your 6 digit PINCODE", clearCart: false })
             return
         }
 
 
 
-
+        console.log(req.body.phone, typeof req.body.phone);
 
         // Initialize razorpay object
         const razorpay = new Razorpay({
@@ -73,6 +80,8 @@ export default async function handler(req, res) {
         try {
             const response = await razorpay.orders.create(options);
             res.status(200).json({
+                success: true,
+                clearCart: false,
                 id: response.id,
                 currency: response.currency,
                 amount: response.amount,

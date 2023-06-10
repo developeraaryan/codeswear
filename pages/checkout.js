@@ -21,7 +21,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("myuser"))
-    if (user) {
+    if (user && user.token) {
       setUser(user)
       setEmail(user.email)
     }
@@ -147,6 +147,23 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   // }
 
   const makePayment = async () => {
+    const initializeRazorpay = () => {
+      return new Promise((resolve) => {
+        const script = document.createElement("script");
+        script.src = "https://checkout.razorpay.com/v1/checkout.js";
+        // document.body.appendChild(script);
+
+        script.onload = () => {
+          resolve(true);
+        };
+        script.onerror = () => {
+          resolve(false);
+        };
+
+        document.body.appendChild(script);
+      });
+    }
+
     console.log("here...");
     const res = await initializeRazorpay();
 
@@ -168,7 +185,9 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       })
 
     const data = await apiRes.json()
-
+    if (data.clearCart) {
+      clearCart()
+    }
     console.log("this is data :", data);
     toast.error(data.error, {
       position: "top-center",
@@ -181,6 +200,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       theme: "dark",
     });
     console.log(subTotal);
+
     var options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
       name: "BLACK WORN",
@@ -207,25 +227,12 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-  };
 
 
-  const initializeRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      // document.body.appendChild(script);
 
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
 
-      document.body.appendChild(script);
-    });
-  };
+
+  }
 
   return (
     <div className='container px-2 sm:m-auto'>
@@ -257,7 +264,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email</label>
-            {user && user.value ? <input value={user.email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly /> : <input onChange={handleChange} value={email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />}
+            {user && user.token ? <input value={user.email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly /> : <input onChange={handleChange} value={email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />}
 
           </div>
         </div>
@@ -273,7 +280,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="phone" className="leading-7 text-sm text-gray-600">Phone</label>
-            <input onChange={handleChange} value={phone} type="phone" id="phone" name="phone" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
+            <input onChange={handleChange} value={phone} type="phone" id="phone" name="phone" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" maxLength={10} />
           </div>
         </div>
         <div className="px-2 w-1/2" >

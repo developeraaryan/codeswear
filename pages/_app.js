@@ -52,10 +52,13 @@ export default function App({ Component, pageProps }) {
     setSubTotal(sbt)
   }
   const addToCart = (itemCode, qty, price, name, size, color) => {
+    if (Object.keys(cart).length == 0) {
+      setKey(Math.random())
+    }
     let newCart = cart;
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty + qty
-      toast.success('Item added to the cart!', {
+      toast.success('Item Quantity incremented to the cart!', {
         position: "top-center",
         autoClose: 1000,
         hideProgressBar: false,
@@ -65,6 +68,7 @@ export default function App({ Component, pageProps }) {
         progress: undefined,
         theme: "dark",
       });
+
     }
     else {
       newCart[itemCode] = { qty: 1, name, size, price, color }
