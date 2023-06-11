@@ -5,12 +5,12 @@ import Product from "@/Models/Product"
 
 const Stickers = ({ products }) => {
   return (
-    <div>
+    <div className='min-h-screen'>
 
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">
           <div className="flex flex-wrap -m-4 justify-center">
-            {Object.keys(products).length === 0 && <p>Sorry, All the Stickers are out of stock , Please stay tuned! </p>}
+            {Object.keys(products).length === 0 && <p className='text-center mt-40 md:mt-48'>Sorry, All the Stickers are out of stock , Please stay tuned! </p>}
             {Object.keys(products).map((item) => {
               return <Link href={`/product/${products[item].slug}`} key={products[item]._id} legacyBehavior><div className="lg:w-1/5 md:w-1/2 p-4 w-full cursor-pointer shadow-md  hover:shadow-2xl m-5">
                 <a className="block relative  rounded overflow-hidden">

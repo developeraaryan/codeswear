@@ -5,7 +5,7 @@ import Product from "@/Models/Product"
 
 const Mugs = ({ products }) => {
   return (
-    <div>
+    <div className='min-h-screen'>
 
       <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto">

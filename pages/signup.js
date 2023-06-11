@@ -7,9 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const router = useRouter()
-    const [name, setName] = useState()
-    const [email, setEmail] = useState()
-    const [password, setPassword] = useState()
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [phone, setPhone] = useState("")
     useEffect(() => {
         if (localStorage.getItem("token")) {
             router.push("/")
@@ -23,39 +24,62 @@ const Login = () => {
         else if (e.target.name == "email") {
             setEmail(e.target.value)
         }
+        else if (e.target.name == "phone") {
+            setPhone(e.target.value)
+        }
         else if (e.target.name == "password") {
             setPassword(e.target.value)
         }
 
     }
     const handleSubmit = async (e) => {
-        try {
-            e.preventDefault();
-            const data = { name, email, password }
-            let response = await fetch(`${process.env.HOST}/api/signup`, {
-                method: "POST",
-                headers: {
-                    "content-Type": "application/json"
-                },
-                body: JSON.stringify(data)
-            })
-            let res = await response.json()
-            console.log(res);
-            setName("")
-            setEmail("")
-            setPassword("")
-            toast.success('Your account has been created !', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-            setTimeout(() => {
-                toast.info('Redirecting to Home page!', {
+        e.preventDefault();
+        if ((typeof name == "string") && (Number.isInteger(Number(phone))) && name && email && phone && password && phone.length == 10) {
+
+            try {
+                const data = { name, email, password, phone }
+                let response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/signup`, {
+                    method: "POST",
+                    headers: {
+                        "content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                })
+                let res = await response.json()
+                console.log(res);
+                setName("")
+                setEmail("")
+                setPhone("")
+                setPassword("")
+                toast.success('Your account has been created !', {
+                    position: "top-center",
+                    autoClose: 2000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+                setTimeout(() => {
+                    toast.info('Redirecting to Home page!', {
+                        position: "top-center",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }, 1000);
+                setTimeout(() => {
+                    router.push('/')
+                }, 3000);
+
+            } catch (error) {
+                console.error(error);
+                toast.error('User already exists!', {
                     position: "top-center",
                     autoClose: 1000,
                     hideProgressBar: false,
@@ -65,16 +89,12 @@ const Login = () => {
                     progress: undefined,
                     theme: "light",
                 });
-            }, 1000);
-            setTimeout(() => {
-                router.push('/')
-            }, 3000);
 
-        } catch (error) {
-            console.error(error);
-            toast.error('User already exists!', {
+            }
+        } else {
+            toast.error('Invalid Details !', {
                 position: "top-center",
-                autoClose: 1000,
+                autoClose: 2000,
                 hideProgressBar: false,
                 closeOnClick: true,
                 pauseOnHover: true,
@@ -82,9 +102,9 @@ const Login = () => {
                 progress: undefined,
                 theme: "light",
             });
-
         }
     }
+
     return (
         <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -133,6 +153,27 @@ const Login = () => {
                             </div>
                         </div>
 
+                        <div>
+                            <div className="flex items-center justify-between">
+                                <label htmlFor="phone" className="block text-sm font-medium leading-6 text-gray-900">
+                                    Phone Number
+                                </label>
+
+                            </div>
+                            <div className="mt-2">
+                                <input
+                                    id="phone"
+                                    name="phone"
+                                    type="tel"
+                                    autoComplete="current-phone"
+                                    required
+                                    min={10}
+                                    value={phone}
+                                    onChange={handleChange}
+                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
