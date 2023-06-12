@@ -6,7 +6,7 @@ import bwLogo from '../../../public/assets/BW-LOGO-in-sqaure-shape.png'
 
 const LogoIcon = () => {
   return (
-    <Link href="/" className="flex no-underline">
+    <Link href="/admin" className="flex no-underline">
       <Image src={bwLogo} alt={"LogoDark"} height={60} width={60} />
       <span className="text-center top-3 mx-4 relative text-black font-bold text-xl">BLACK WORN</span>
     </Link>
