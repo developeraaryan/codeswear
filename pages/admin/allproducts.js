@@ -3,14 +3,13 @@ import FullLayoyt from '../../src/layouts/FullLayout'
 import theme from '../../src/theme/theme'
 import { ThemeProvider } from '@mui/material'
 
-function Login() {
+const Allproducts = () => {
     return (
         <ThemeProvider theme={theme}>
             <FullLayoyt>
-                <div>Login</div>
+                <div>Allproducts</div>
             </FullLayoyt>
-        </ThemeProvider>
-    )
+        </ThemeProvider>)
 }
 
-export default Login
+export default Allproducts
