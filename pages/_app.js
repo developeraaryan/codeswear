@@ -1,10 +1,9 @@
-import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
-import '@/styles/globals.css'
+import Footer from "../components/Footer"
+import Navbar from '../components/Navbar'
+import '../styles/globals.css'
 import { useRouter } from 'next/router'
-import { stringify } from 'postcss'
 import { useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@milon27/react-sidebar/dist/react-sidebar.css'
 import LoadingBar from 'react-top-loading-bar'
@@ -158,8 +157,8 @@ export default function App({ Component, pageProps }) {
         onLoaderFinished={() => setProgress(0)}
       />
       {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
-      <Component  user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+      <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
       <Footer />
-    </main>
+    </main >
   </>
 }
