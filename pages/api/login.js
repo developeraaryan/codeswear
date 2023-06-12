@@ -1,5 +1,5 @@
-import User from "@/Models/User"
-import connectDb from "@/middleware/mongoose"
+import User from "../../Models/User"
+import connectDb from "../../middleware/mongoose"
 import 'react-toastify/dist/ReactToastify.css';
 import CryptoJS from "crypto-js"
 const Jwt = require('jsonwebtoken');

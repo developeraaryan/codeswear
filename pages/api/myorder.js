@@ -1,5 +1,5 @@
-import Order from "@/Models/Order"
-import connectDb from "@/middleware/mongoose"
+import Order from "../../Models/Order"
+import connectDb from "../../middleware/mongoose"
 const Jwt = require("jsonwebtoken")
 
 const handler = async (req, res) => {

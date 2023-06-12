@@ -1,5 +1,5 @@
-import User from "@/Models/User"
-import connectDb from "@/middleware/mongoose"
+import User from "../../Models/User"
+import connectDb from "../../middleware/mongoose"
 const Jwt = require('jsonwebtoken');
 
 

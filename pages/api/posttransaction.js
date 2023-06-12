@@ -1,6 +1,6 @@
-import Order from "@/Models/Order"
-import Product from "@/Models/Product";
-import connectDb from "@/middleware/mongoose"
+import Order from "../../Models/Order"
+import Product from "../../Models/Product";
+import connectDb from "../../middleware/mongoose"
 import crypto from 'crypto';
 import fetch from "node-fetch";
 

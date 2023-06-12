@@ -24,8 +24,8 @@ const Tshirts = ({ products }) => {
                     {products[item].size.includes('M') && <span className='border border-gray-300 px-1 mx-1'>M</span>}
                     {products[item].size.includes('L') && <span className='border border-gray-300 px-1 mx-1'>L</span>}
                     {products[item].size.includes('XL') && <span className='border border-gray-300 px-1 mx-1'>XL</span>}
-                    {products[item].size.includes('xxl') && <span className='border border-gray-300 px-1 mx-1'>XXL</span>}
-                    {products[item].size.includes('xxxl') && <span className='border border-gray-300 px-1 mx-1'>XXXL</span>}
+                    {products[item].size.includes('XXL') && <span className='border border-gray-300 px-1 mx-1'>XXL</span>}
+                    {products[item].size.includes('XXXL') && <span className='border border-gray-300 px-1 mx-1'>XXXL</span>}
                   </div>
                   <div className="mt-1">
                     {products[item].color.includes('Red') && <button className="border-2 border-gray-300 bg-red-700 rounded-full w-6 h-6 focus:outline-none"></button>}

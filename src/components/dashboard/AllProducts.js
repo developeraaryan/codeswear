@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Typography,
   Box,
@@ -10,47 +10,14 @@ import {
   Chip,
 } from "@mui/material";
 import BaseCard from "../baseCard/BaseCard";
+import Image from "next/image";
 
-const products = [
-  {
-    id: "1",
-    name: "Sunil Joshi",
-    post: "Web Designer",
-    pname: "Elite Admin",
-    priority: "Low",
-    pbg: "primary.main",
-    budget: "3.9",
-  },
-  {
-    id: "2",
-    name: "Andrew McDownland",
-    post: "Project Manager",
-    pname: "Real Homes WP Theme",
-    priority: "Medium",
-    pbg: "secondary.main",
-    budget: "24.5",
-  },
-  {
-    id: "3",
-    name: "Christopher Jamil",
-    post: "Project Manager",
-    pname: "MedicalPro WP Theme",
-    priority: "High",
-    pbg: "error.main",
-    budget: "12.8",
-  },
-  {
-    id: "4",
-    name: "Nirav Joshi",
-    post: "Frontend Engineer",
-    pname: "Hosting Press HTML",
-    priority: "Critical",
-    pbg: "success.main",
-    budget: "2.4",
-  },
-];
 
-const ProductPerfomance = () => {
+
+const AllProducts = ({ products }) => {
+  useEffect(() => {
+    console.log(products);
+  }, [])
   return (
     <BaseCard title="Products">
       <Table
@@ -64,35 +31,46 @@ const ProductPerfomance = () => {
         <TableHead>
           <TableRow>
             <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Id
+              <Typography color="textSecondary" variant="h3">
+                Title
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Assigned
+              <Typography color="textSecondary" variant="h3">
+                Slug
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Name
+              <Typography color="textSecondary" variant="h3">
+                Image
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography color="textSecondary" variant="h6">
-                Priority
+              <Typography color="textSecondary" variant="h3">
+                Category
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Typography color="textSecondary" variant="h3">
+                Size/Color
               </Typography>
             </TableCell>
             <TableCell align="right">
-              <Typography color="textSecondary" variant="h6">
-                Budget
+              <Typography color="textSecondary" variant="h3">
+                Quantity
+              </Typography>
+            </TableCell>
+            <TableCell align="right">
+              <Typography color="textSecondary" variant="h3">
+                Price
               </Typography>
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {products.map((product) => (
-            <TableRow key={product.name}>
+
+            <TableRow key={product._id}>
               <TableCell>
                 <Typography
                   sx={{
@@ -100,7 +78,7 @@ const ProductPerfomance = () => {
                     fontWeight: "500",
                   }}
                 >
-                  {product.id}
+                  {product.title}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -117,22 +95,21 @@ const ProductPerfomance = () => {
                         fontWeight: "600",
                       }}
                     >
-                      {product.name}
+                      {product.slug}
                     </Typography>
-                    <Typography
-                      color="textSecondary"
-                      sx={{
-                        fontSize: "13px",
-                      }}
-                    >
-                      {product.post}
-                    </Typography>
+
                   </Box>
                 </Box>
               </TableCell>
               <TableCell>
+                <Typography color="textSecondary"  alignSelf="center">
+                  <Image src={product.img} height={50} width={50} alt="a" />
+
+                </Typography>
+              </TableCell>
+              <TableCell>
                 <Typography color="textSecondary" variant="h6">
-                  {product.pname}
+                  {product.category}
                 </Typography>
               </TableCell>
               <TableCell>
@@ -140,15 +117,20 @@ const ProductPerfomance = () => {
                   sx={{
                     pl: "4px",
                     pr: "4px",
-                    backgroundColor: product.pbg,
-                    color: "#fff",
+                    backgroundColor: product.color == "White" ? "#f5f5f5" : product.color,
+                    color: "Black",
                   }}
                   size="small"
-                  label={product.priority}
+                  label={`(${product.size}/${product.color})`}
                 ></Chip>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h6">${product.budget}k</Typography>
+                <Typography sx={{
+                  color: product.availableqty == 0 ? "Red" : "Green"
+                }} variant="h6">{product.availableqty == 0 ? "out of stock" : product.availableqty}</Typography>
+              </TableCell>
+              <TableCell align="right">
+                <Typography variant="h6">₹{product.price}.00</Typography>
               </TableCell>
             </TableRow>
           ))}
@@ -158,4 +140,4 @@ const ProductPerfomance = () => {
   );
 };
 
-export default ProductPerfomance;
+export default AllProducts;

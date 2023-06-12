@@ -1,5 +1,5 @@
-import Order from "@/Models/Order";
-import Product from "@/Models/Product";
+import Order from "../../Models/Order";
+import Product from "../../Models/Product";
 const Razorpay = require("razorpay");
 const shortid = require("shortid");
 import pincodes from "../../pincodes.json"

@@ -30,7 +30,6 @@ const Add = () => {
     }
     const submitForm = async (e) => {
         e.preventDefault()
-        console.log(form);
         const product = [{
             title: form.title,
             slug: form.slug,
@@ -54,6 +53,7 @@ const Add = () => {
             body: JSON.stringify(product)
         })
         const data = await res.json()
+        setForm("")
         if (data.success) {
             toast.success(`Product added successfully`, {
                 position: "top-center",

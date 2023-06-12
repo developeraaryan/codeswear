@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import Order from '@/Models/Order'
+import Order from '../Models/Order'
 import mongoose from 'mongoose'
 
 const MyOrder = ({ order, clearCart }) => {
