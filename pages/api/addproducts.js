@@ -1,5 +1,5 @@
-import Product from "@/Models/Product"
-import connectDb from "@/middleware/mongoose"
+import Product from "../../Models/Product"
+import connectDb from "../../middleware/mongoose"
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
@@ -16,8 +16,9 @@ const handler = async (req, res) => {
                 availableqty: req.body[i].availableqty,
             })
             await p.save()
+            console.log(p);
         }
-        res.status(200).json({ success: "success" })
+        res.status(200).json({ success: "success", })
     }
     else {
         res.status(400).json({ error: "This method is not allowed" })
