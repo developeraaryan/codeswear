@@ -2,11 +2,16 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Order from '../Models/Order'
 import mongoose from 'mongoose'
+import { Badge } from '@mui/material'
 
 const MyOrder = ({ order, clearCart }) => {
   const products = order.products
   const router = useRouter()
   const [date, setDate] = useState()
+  const [tracker, setTracker] = useState(false)
+  const handleTracker = () => {
+    setTracker(!tracker)
+  }
   useEffect(() => {
     const d = new Date(order.createdAt)
     setDate(d)
@@ -45,14 +50,16 @@ const MyOrder = ({ order, clearCart }) => {
             })}
 
 
-
-
             <div className="flex flex-col my-10">
               <span className="title-font font-medium text-2xl text-gray-900">subTotal: ₹{order.amount}</span>
               <div className="my-6">
-                <button className="flex mx-0 text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Track Order</button>
+                <Badge badgeContent={4} color="primary">
+                  <button onClick={handleTracker} className="flex mx-0 text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Track Order</button>
+                </Badge>
+
               </div>
             </div>
+            {tracker && <div className='bg-red-700 h-10'>This is tracker section</div>}
           </div>
           <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
         </div>
