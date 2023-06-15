@@ -1,11 +1,29 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import { Inter } from 'next/font/google'
+import Slider from '../components/Slider'
+// import Slider from '@madzadev/image-slider'
+// import "@madzadev/image-slider/dist/index.css";
 
 
 const inter = Inter({ subsets: ['latin'] })
 
+const images = [
+  { url: 'https://picsum.photos/seed/a/1600/900' },
+  { url: 'https://picsum.photos/seed/b/1920/1080' },
+  { url: 'https://picsum.photos/seed/c/1366/768' }
+]
+
 export default function Home() {
+  // const items = [
+  //   {
+  //     name: "Random Name #1",
+  //     description: "Probably the most random thing you have ever seen!"
+  //   },
+  //   {
+  //     name: "Random Name #2",
+  //     description: "Hello World!"
+  //   }
+  // ]
   return (
     <>
       <div>
@@ -16,7 +34,15 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div>
-          <Image src="/wearcode.png" alt="wear the code" width={4000} height={10} />
+          {/* <Image src="/assets/men.jpg" alt="wear the code" width={4000} height={10} /> */}
+          {/* <Carousel>
+            {
+              items.map((item, i) => <Item key={i} item={item} />)
+            }
+          </Carousel> */}
+
+          {/* <Slider imageList={images} width={1000} height={300} /> */}
+          <Slider/>
         </div>
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">

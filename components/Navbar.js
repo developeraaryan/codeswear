@@ -1,21 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle, AiFillHome } from 'react-icons/ai'
+import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
 import { BsFillBagCheckFill } from 'react-icons/bs';
 import { MdAccountCircle } from 'react-icons/md'
 import { FaMugHot, FaTshirt } from 'react-icons/fa'
 import { TbSticker } from 'react-icons/tb'
 import { useRouter } from 'next/router';
 import FeatherIcon from "feather-icons-react";
+import { GiHoodie } from 'react-icons/gi'
 import { Badge, Button, Drawer, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import {
-  CheckBoxOutlineBlankOutlined,
-  DraftsOutlined,
   HomeOutlined,
-  InboxOutlined,
-  MailOutline,
-  ReceiptOutlined,
 } from "@material-ui/icons"
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
@@ -48,38 +44,45 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   const data = [
     {
       name: "Home",
-      icon: <HomeOutlined />,
+      icon: <HomeOutlined style={{ color: "yellowgreen" }} />,
       href: "/"
     },
     {
       name: "T-Shirts",
-      icon: <InboxOutlined />,
+      icon: <FaTshirt color='yellowgreen' />,
       href: "/tshirts"
     },
     {
       name: "Hoodies",
-      icon: <CheckBoxOutlineBlankOutlined />,
+      icon: <GiHoodie color='yellowgreen' />,
       href: "/hoodies"
     },
     {
       name: "Mugs",
-      icon: <MailOutline />,
+      icon: <FaMugHot color='yellowgreen' />,
       href: "/mugs"
     },
     {
       name: "Stickers",
-      icon: <DraftsOutlined />,
+      icon: <TbSticker color='yellowgreen' />,
       href: "/stickers"
     },
   ];
 
   const getList = () => (
-    <div style={{ width: 250 }} onClick={() => setOpen(false)}>
+    <div className='bg-gray-600' style={{
+      top: 10,
+      width: 250,
+      color: "white",
+      height: "100vh"
+    }} onClick={() => setOpen(false)}>
       {data.map((item, index) => (
-        <ListItemButton key={index} href={item.href}>
-          <ListItemIcon>{item.icon}</ListItemIcon>
-          <ListItemText primary={item.name} />
-        </ListItemButton>
+        <ListItem className='hover:!bg-blue-400' key={index} >
+          <Link className='flex' href={item.href}>
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.name} />
+          </Link>
+        </ListItem>
       ))}
     </div>
   );
@@ -126,7 +129,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     < div className={`flex flex-row md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-gray-200 dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
 
 
-      <div>
+      <div className='absolute left-0'>
         <Button onClick={() => setOpen(true)}><FeatherIcon
           style={{
             color: `white`,
@@ -142,21 +145,13 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
 
 
-      <div className=" logo mx-auto invert hover:font-black dark:invert-0 my-auto ">
+      <div className=" logo right-auto mx-auto invert hover:font-black dark:invert-0 my-auto ">
         <Link href={'/'}>
-          <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={40} height={60} priority={true} />
+          <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={40} height={60} priority loading='eager' />
         </Link>
       </div>
 
 
-      {/* <div className="nav">
-        <ul className='flex items-center space-x-6 font-bold md:text-md'>
-          <Link href={'/tshirts'} legacyBehavior><a><li className='hover:text-gray-400'>T-shirts</li></a></Link>
-          <Link href={'/hoodies'} legacyBehavior><a><li className='hover:text-gray-400'>Hoodies</li></a></Link>
-          <Link href={'/mugs'} legacyBehavior><a><li className='hover:text-gray-400'>Mugs</li></a></Link>
-          <Link href={'/stickers'} legacyBehavior><a><li className='hover:text-gray-400'>Stickers</li></a></Link>
-        </ul>
-      </div> */}
       <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer items-center ">
 
 
@@ -172,12 +167,12 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
           <AiOutlineShoppingCart className=' text-3xl md:text-2xl' onClick={toggleCart} />
         </Badge>
       </div>
-      <div ref={ref} className={`overflow-y-scroll w-72 h-[100vh] sideCart absolute top-0  bg-pink-100 dark:text-black py-2 px-8 p-10  transition-all ${sidebar ? `right-0` : `-right-96`}`}>
-        <h2 className='font-bold text-xl text-center'>Shoping Cart</h2>
-        <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-pink-500">
+      <div ref={ref} className={`overflow-y-scroll w-72 h-[100vh] sideCart absolute top-0  bg-gray-800 text-white dark:text-black py-2 px-8 p-10  transition-all ${sidebar ? `right-0` : `-right-96`}`}>
+        <h2 className='font-bold text-xl text-center text-white'>Shoping Cart</h2>
+        <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-indigo-300">
           <AiFillCloseCircle />
         </span>
-        <ol className='list-decimal font-semibold' >
+        <ol className='list-decimal font-semibold text-white' >
           {Object.keys(cart).length === 0 &&
             <div className='my-12 text-lg text-center font-normal'>Your cart is empty</div>}
           {Object.keys(cart).map((k) => {
@@ -187,17 +182,17 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
                   {cart[k].name}({cart[k].size}/{cart[k].color})
                 </div>
                 <div className='flex items-center justify-center w-1/3 font-semibold text-lg'>
-                  <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-pink-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-pink-500 cursor-pointer' />
+                  <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-indigo-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-indigo-500 cursor-pointer' />
                 </div>
               </div>
             </li>
           })}
         </ol>
-        <div className="font-bold my-2">SubTotal : ₹{subTotal} </div>
+        <div className="font-bold my-2 text-white">SubTotal : ₹{subTotal} </div>
 
         <div className="flex">
-          <Link href={'/checkout'}><button disabled={Object.keys(cart).length === 0} className="disabled:bg-pink-400 flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Checkout</button></Link>
-          <button disabled={Object.keys(cart).length === 0} onClick={clearCart} className="flex mr-2  text-white disabled:bg-pink-400 bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm">Clear Cart</button>
+          <Link href={'/checkout'}><button disabled={Object.keys(cart).length === 0} className="disabled:bg-indigo-400 disabled:cursor-not-allowed flex mr-2  text-white bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Checkout</button></Link>
+          <button disabled={Object.keys(cart).length === 0} onClick={clearCart} className="flex mr-2  text-white disabled:bg-indigo-400 disabled:cursor-not-allowed bg-indigo-500 border-0 py-2 px-2 focus:outline-none hover:bg-indigo-600 rounded text-sm">Clear Cart</button>
         </div>
 
       </div>
