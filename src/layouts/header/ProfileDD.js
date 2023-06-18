@@ -101,6 +101,9 @@ const ProfileDD = () => {
               <ListItemButton>
                 <ListItemText primary="My Settings" />
               </ListItemButton>
+              <ListItemButton href="/">
+                <ListItemText primary="Visit Site" />
+              </ListItemButton>
             </List>
           </Box>
           <Divider />

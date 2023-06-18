@@ -5,8 +5,10 @@ import DailyActivity from "../../src/components/dashboard/DailyActivity";
 import ProductPerfomance from "../../src/components/dashboard/AllProducts";
 import theme from "../../src/theme/theme"
 import FullLayout from "../../src/layouts/FullLayout"
+import mongoose from 'mongoose'
+import Product from '../../Models/Product'
 
-export default function Index() {
+export default function Index({ Products }) {
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>
@@ -23,17 +25,29 @@ export default function Index() {
                         <SalesOverview />
                     </Grid>
                     {/* ------------------------- row 1 ------------------------- */}
-                    <Grid item xs={12} lg={4}>
+                    {/* <Grid item xs={12} lg={4}>
                         <DailyActivity />
                     </Grid>
                     <Grid item xs={12} lg={8}>
-                        <ProductPerfomance />
+                        <ProductPerfomance Products={Products} />
                     </Grid>
                     <Grid item xs={12} lg={12}>
                         <BlogCard />
                     </Grid>
+                */}
                 </Grid>
             </FullLayout>
         </ThemeProvider>
     );
+}
+
+
+export async function getServerSideProps(context) {
+    if (!mongoose.connections[0].readyState) {
+        await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
+    }
+    let Products = await Product.find()
+    return {
+        props: { Products: JSON.parse(JSON.stringify(Products)) },
+    };
 }

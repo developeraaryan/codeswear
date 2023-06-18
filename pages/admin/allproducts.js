@@ -14,7 +14,7 @@ const Allproducts = ({ Products }) => {
             <FullLayoyt>
                 <Grid container spacing={0}>
                     <Grid item xs={12} lg={12}>
-                        <AllProducts products={Products} />
+                        <AllProducts Products={Products} />
                     </Grid>
                 </Grid>
             </FullLayoyt>

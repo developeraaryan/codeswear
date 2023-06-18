@@ -1,5 +1,5 @@
-import User from "@/Models/User"
-import connectDb from "@/middleware/mongoose"
+import User from "../../Models/User"
+import connectDb from "../../middleware/mongoose"
 import CryptoJS from "crypto-js"
 const handler = async (req, res) => {
     if (req.method == "POST") {

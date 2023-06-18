@@ -1,0 +1,34 @@
+/* Reset default form styles */
+input,
+textarea,
+select,
+button {
+    appearance: none;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+/* Reset Material UI form styles */
+.MuiInputBase-root,
+.MuiFormLabel-root,
+.MuiInputLabel-root,
+.MuiInputBase-input,
+.MuiInputBase-input.Mui-disabled {
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}

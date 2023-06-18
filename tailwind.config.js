@@ -9,7 +9,14 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      boxShadow: {
+        'none': 'none',
+      },
+      borderColor: {
+        'transparent': 'transparent',
+      },
+    },
   },
   plugins: [
     require('@tailwindcss/forms'),

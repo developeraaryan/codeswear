@@ -14,7 +14,7 @@ import {
   HomeOutlined,
 } from "@material-ui/icons"
 
-const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal }) => {
+const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal, params }) => {
   const [sidebar, setSidebar] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   function toggleCart() {
@@ -36,6 +36,9 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       setSidebar(false)
     }
   }, [cart, router.pathname])
+
+
+
 
   const ref = useRef()
   const [open, setOpen] = useState(false);
@@ -68,8 +71,8 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       href: "/stickers"
     },
   ];
-
   const getList = () => (
+
     <div className='bg-gray-600' style={{
       top: 10,
       width: 250,
@@ -77,14 +80,16 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       height: "100vh"
     }} onClick={() => setOpen(false)}>
       {data.map((item, index) => (
-        <ListItem className='hover:!bg-blue-400' key={index} >
+        <ListItem ListItem className={`hover:!bg-blue-400 }`} key={index} >
           <Link className='flex' href={item.href}>
+
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.name} />
           </Link>
         </ListItem>
-      ))}
-    </div>
+      ))
+      }
+    </div >
   );
 
   return (<>
