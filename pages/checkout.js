@@ -6,6 +6,7 @@ import Head from 'next/head'
 import Script from 'next/script'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getSession } from 'next-auth/react'
 
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const [name, setName] = useState("")
@@ -288,3 +289,21 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 }
 
 export default Checkout
+
+
+
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req })
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: { session }
+  }
+}

@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
-import { BsFillBagCheckFill } from 'react-icons/bs';
-import { MdAccountCircle } from 'react-icons/md'
+import { BsFillBagCheckFill, BsFillCartCheckFill } from 'react-icons/bs';
+import { MdAccountCircle, MdManageAccounts } from 'react-icons/md'
 import { FaMugHot, FaTshirt } from 'react-icons/fa'
 import { TbSticker } from 'react-icons/tb'
 import { useRouter } from 'next/router';
@@ -13,8 +13,11 @@ import { Badge, Button, Drawer, ListItem, ListItemButton, ListItemIcon, ListItem
 import {
   HomeOutlined,
 } from "@material-ui/icons"
+import { useSession, signIn, signOut, getSession } from 'next-auth/react';
+import { BiLogIn, BiLogOut } from 'react-icons/bi'
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal, params }) => {
+  const { data: session } = useSession()
   const [sidebar, setSidebar] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   function toggleCart() {
@@ -31,7 +34,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   const router = useRouter()
   useEffect(() => {
     Object.keys(cart).length !== 0 && setSidebar(true)
-    const exapted = ["/checkout", "/order", "/orders", "/myaccount"]
+    const exapted = ["/checkout", "/order", "/orders", "/myaccount", "/login", "/signup"]
     if (exapted.includes(router.pathname)) {
       setSidebar(false)
     }
@@ -95,9 +98,18 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   return (<>
 
     <span>
-      {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='absolute right-16 bg-[#272A30]  text-white  shadow-lg shadow-slate-600  top-10 py-4  rounded-md px-5 w-32 z-30 '>
+      {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='absolute right-16 bg-[#272A30]  text-white  shadow-lg shadow-slate-600  top-10 py-4  rounded-md px-5 w-40 z-30 '>
         <ul>
-          {!user.value && <>
+          {/* {!user.value && <>
+            <li>
+              <Link href={'/login'}>
+                <BiLogIn className=' text-xl mx-2' />
+                <span className='font-bold text-sm hover:text-red-500'>Login</span>
+              </Link>
+            </li>
+          </>
+          } */}
+          {!session && <>
             <li>
               <Link href={'/login'}>
                 {/* <BiLogIn className=' text-xl mx-2' /> */}
@@ -106,22 +118,42 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
             </li>
           </>
           }
-          {user.value && <>
+          {/* {user.value && <>
             <li>
               <Link href={'/myaccount'}>
-                {/* <MdManageAccounts className=' text-xl' /> */}
+                <MdManageAccounts className=' text-xl' />
                 <span className='font-bold text-sm hover:text-red-500'>My Account</span>
               </Link></li>
             <li>
               <Link href={'/orders'}>
-                {/* <BsFillCartCheckFill className=' text-3xl md:text-3xl mx-2 -ml-1' /> */}
+                <BsFillCartCheckFill className=' text-3xl md:text-3xl mx-2 -ml-1' />
                 <span className='font-bold text-sm hover:text-red-500'>Orders</span>
               </Link>
             </li>
             <li>
               <a onClick={logout}>
-                {/* <BiLogIn className=' text-3xl md:text-3xl mx-2 -ml-1' /> */}
+                <BiLogIn className=' text-3xl md:text-3xl mx-2 -ml-1' />
                 <span className='font-bold text-sm hover:text-red-500 cursor-pointer'>Logout</span>
+              </a>
+            </li>
+          </>
+          } */}
+          {session && <>
+            <li className='py-4'>
+              <Link href={'/myaccount'} className='flex hover:text-red-500'>
+                <MdManageAccounts className=' text-3xl -ml-1' />
+                <span className='font-bold text-sm  items-center pt-2 px-1'>My Account</span>
+              </Link></li>
+            <li className='py-4 '>
+              <Link href={'/orders'} className='flex hover:text-red-500'>
+                <BsFillCartCheckFill className=' text-2xl md:text-3xl mx-2 -ml-1' />
+                <span className='font-bold text-sm  items-center pt-2'>Orders</span>
+              </Link>
+            </li>
+            <li className='py-4'>
+              <a onClick={signOut} className='flex hover:text-red-500 cursor-pointer'>
+                <BiLogIn className=' text-3xl md:text-2xl mx-2 -ml-1' />
+                <span className='font-bold text-sm  items-center pt-1'>Logout</span>
               </a>
             </li>
           </>

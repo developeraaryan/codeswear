@@ -1,0 +1,22 @@
+.input_groups {
+    @apply flex border rounded-xl;
+    position: relative;
+}
+
+.input_text {
+    @apply w-full py-4 px-6 border rounded-xl bg-slate-50;
+    @apply focus:outline-none border-none focus:ring-0;
+}
+
+.input_text+* {
+    color: #cbd5e1;
+}
+
+.input_text:focus+* {
+    color: #6366f1;
+}
+
+.input_text[type="password"]~span:hover {
+    color: #6366f1;
+    cursor: pointer;
+}

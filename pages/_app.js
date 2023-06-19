@@ -7,10 +7,12 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@milon27/react-sidebar/dist/react-sidebar.css'
 import LoadingBar from 'react-top-loading-bar'
+import { SessionProvider } from 'next-auth/react'
 
 
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component,
+  pageProps: { session, ...pageProps } }) {
   const router = useRouter()
   const [user, setUser] = useState({ value: null })
   const [key, setKey] = useState()
@@ -149,16 +151,18 @@ export default function App({ Component, pageProps }) {
     }, 3000);
   }
   return <>
-    <main className="font-Inter h-screen overflow-auto">
-      <LoadingBar
-        color='#f11946'
-        progress={progress}
-        waitingTime={400}
-        onLoaderFinished={() => setProgress(0)}
-      />
-      {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
-      <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-      <Footer />
-    </main >
+    <SessionProvider session={session}>
+      <main className="font-Inter h-screen overflow-auto">
+        <LoadingBar
+          color='#f11946'
+          progress={progress}
+          waitingTime={400}
+          onLoaderFinished={() => setProgress(0)}
+        />
+        {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
+        <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+        <Footer />
+      </main >
+    </SessionProvider>
   </>
 }

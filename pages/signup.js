@@ -4,8 +4,44 @@ import React, { useEffect, useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useFormik } from 'formik';
+import { register_validation } from '../lib/validate';
+import { HiAtSymbol, HiFingerPrint, HiOutlineUser, } from 'react-icons/hi2'
+import { HiPhone } from 'react-icons/hi2'
+import styles from '../styles/Form.module.css'
+import { getSession } from 'next-auth/react';
 
 const Login = () => {
+    const onSubmit = async (values) => {
+        const options = {
+            method: "POST",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+        }
+        await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/auth/signup`, options)
+            .then(res => res.json())
+            .then((data) => {
+                if (data.ok) {
+                    router.push('/')
+                }
+            })
+
+
+
+    }
+    const formilk = useFormik({
+        initialValues: {
+            name: "",
+            email: "",
+            phone: "",
+            password: "",
+            cpassword: ""
+        },
+        validate: register_validation,
+        onSubmit
+    })
     const router = useRouter()
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
@@ -117,39 +153,56 @@ const Login = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form method="POST" onSubmit={handleSubmit} className="space-y-6" action="#" >
-                        <div>
+                    <form method="POST"
+                        // onSubmit={handleSubmit}
+                        onSubmit={formilk.handleSubmit}
+                        className="flex flex-col gap-5" action="#" >
+                        <div className=''>
                             <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
                                 Name
                             </label>
-                            <div className="mt-2">
+                            <div className={`${styles.input_groups} ${formilk.touched.name && formilk.errors.name ? "border-rose-600 border" : ""}`}>
                                 <input
                                     id="name"
                                     name="name"
                                     type="text"
                                     autoComplete="name"
                                     required
-                                    value={name}
-                                    onChange={handleChange}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    // value={name}
+                                    // onChange={handleChange}
+                                    {...formilk.getFieldProps("name")}
+                                    // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={styles.input_text}
                                 />
+                                <span className='icon flex items-center px-4'>
+                                    <HiOutlineUser size={25} />
+                                </span>
+
                             </div>
                         </div>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Email address
                             </label>
-                            <div className="mt-2">
+                            <div className={`${styles.input_groups} ${formilk.touched.email && formilk.errors.email ? "border-rose-600 border" : ""}`}>
                                 <input
                                     id="email"
                                     name="email"
                                     type="email"
                                     autoComplete="email"
                                     required
-                                    value={email}
-                                    onChange={handleChange}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    // value={email}
+                                    // onChange={handleChange}
+                                    {...formilk.getFieldProps("email")}
+                                    // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={styles.input_text}
                                 />
+                                {/* {formilk.touched.email && formilk.errors.email ? (
+                                    <div className="text-rose-500 text-sm">{formilk.errors.email}</div>
+                                ) : null} */}
+                                <span className='icon flex items-center px-4'>
+                                    <HiAtSymbol size={25} />
+                                </span>
                             </div>
                         </div>
 
@@ -160,7 +213,7 @@ const Login = () => {
                                 </label>
 
                             </div>
-                            <div className="mt-2">
+                            <div className={`${styles.input_groups} ${formilk.touched.phone && formilk.errors.phone ? "border-rose-600 border" : ""}`}>
                                 <input
                                     id="phone"
                                     name="phone"
@@ -168,10 +221,18 @@ const Login = () => {
                                     autoComplete="current-phone"
                                     required
                                     min={10}
-                                    value={phone}
-                                    onChange={handleChange}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    // value={phone}
+                                    // onChange={handleChange}
+                                    {...formilk.getFieldProps("phone")}
+                                    // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={styles.input_text}
                                 />
+                                {/* {formilk.touched.phone && formilk.errors.phone ? (
+                                    <div className="text-rose-500 text-sm">{formilk.errors.phone}</div>
+                                ) : null} */}
+                                <span className='icon flex items-center px-4'>
+                                    <HiPhone size={25} />
+                                </span>
                             </div>
                         </div>
                         <div>
@@ -181,7 +242,7 @@ const Login = () => {
                                 </label>
 
                             </div>
-                            <div className="mt-2">
+                            <div className={`${styles.input_groups} ${formilk.touched.password && formilk.errors.password ? "border-rose-600 border" : ""}`}>
                                 <input
                                     id="password"
                                     name="password"
@@ -189,31 +250,48 @@ const Login = () => {
                                     autoComplete="current-password"
                                     required
                                     min={8}
-                                    value={password}
-                                    onChange={handleChange}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    // value={password}
+                                    // onChange={handleChange}
+                                    {...formilk.getFieldProps("password")}
+                                    // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={styles.input_text}
                                 />
+                                {/* {formilk.touched.password && formilk.errors.password ? (
+                                    <div className="text-rose-500 text-sm">{formilk.errors.password}</div>
+                                ) : null} */}
+                                <span className='icon flex items-center px-4'>
+                                    <HiFingerPrint size={25} />
+                                </span>
+
                             </div>
                         </div>
-                        {/* <div>
+                        <div>
                             <div className="flex items-center justify-between">
                                 <label htmlFor="cpassword" className="block text-sm font-medium leading-6 text-gray-900">
                                     Confirm Password
                                 </label>
 
                             </div>
-                            <div className="mt-2">
+                            <div className={`${styles.input_groups} ${formilk.touched.cpassword && formilk.errors.cpassword ? "border-rose-600 border" : ""}`}>
                                 <input
                                     id="cpassword"
                                     name="cpassword"
                                     type="password"
                                     autoComplete="current-password"
                                     required
-                                    onChange={handleChange}
-                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    // onChange={handleChange}
+                                    {...formilk.getFieldProps("cpassword")}
+                                    // className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    className={styles.input_text}
                                 />
+                                {/* {formilk.touched.cpassword && formilk.errors.cpassword ? (
+                                    <div className="text-rose-500 text-sm">{formilk.errors.cpassword}</div>
+                                ) : null} */}
+                                <span className='icon flex items-center px-4'>
+                                    <HiFingerPrint size={25} />
+                                </span>
                             </div>
-                        </div> */}
+                        </div>
 
                         <div>
                             <button
@@ -251,3 +329,19 @@ const Login = () => {
 }
 
 export default Login
+
+
+export async function getServerSideProps({ req }) {
+    const session = await getSession({ req })
+    if (session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
+    return {
+        props: { session },
+    }
+}

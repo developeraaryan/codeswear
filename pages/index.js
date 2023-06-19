@@ -3,6 +3,9 @@ import { Inter } from 'next/font/google'
 import Slider from '../components/Slider'
 // import Slider from '@madzadev/image-slider'
 // import "@madzadev/image-slider/dist/index.css";
+import { signOut, useSession } from 'next-auth/react'
+import Image from 'next/image'
+import React, { useEffect } from 'react'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -14,6 +17,31 @@ const images = [
 ]
 
 export default function Home() {
+  const { data: session } = useSession()
+  useEffect(() => {
+    const getgoogle = async () => {
+      const data = {
+        name: session?.user?.name,
+        email: session?.user?.email,
+        image: session?.user?.image
+
+      }
+      let response = await fetch(`api/getgoogle`, {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      let res = await response.json()
+      console.log(res);
+
+    }
+    if (session) {
+      getgoogle()
+    }
+
+  }, [session])
   // const items = [
   //   {
   //     name: "Random Name #1",
@@ -33,6 +61,16 @@ export default function Home() {
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
+
+        {session && <div className="data">
+          Name : {session?.user?.name}
+          <br />
+          Email : {session?.user?.email}
+          <br />
+          <Image src={session?.user?.image} height={100} width={100} alt='user profile' />
+          <br />
+          <button onClick={signOut}>Signout</button>
+        </div>}
         <div>
           {/* <Image src="/assets/men.jpg" alt="wear the code" width={4000} height={10} /> */}
           {/* <Carousel>
@@ -42,7 +80,7 @@ export default function Home() {
           </Carousel> */}
 
           {/* <Slider imageList={images} width={1000} height={300} /> */}
-          <Slider/>
+          <Slider />
         </div>
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">
