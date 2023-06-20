@@ -1,0 +1,17 @@
+.customListItem::before {
+    content: "";
+    display: inline-block;
+    width: 10px;
+    /* Adjust the width to make the bullet bigger */
+    height: 10px;
+    /* Adjust the height to make the bullet bigger */
+    background-color: black;
+    /* Adjust the color to make the bullet bolder */
+    border-radius: 50%;
+    /* Makes the bullet shape round */
+    margin-right: 0.5rem;
+    /* Adjust the spacing between the bullet and the list item content */
+}
+.customListItem{
+    @apply py-4
+}

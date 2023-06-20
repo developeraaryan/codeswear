@@ -8,6 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import '@milon27/react-sidebar/dist/react-sidebar.css'
 import LoadingBar from 'react-top-loading-bar'
 import { SessionProvider } from 'next-auth/react'
+import { Roboto } from "next/font/google";
+
+const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 
 
@@ -153,6 +156,13 @@ export default function App({ Component,
   return <>
     <SessionProvider session={session}>
       <main className="font-Inter h-screen overflow-auto">
+        <style jsx global>
+          {`
+          html {
+            font-family: ${roboto.style.fontFamily};
+          }
+          `}
+        </style>
         <LoadingBar
           color='#f11946'
           progress={progress}

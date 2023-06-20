@@ -4,22 +4,19 @@ module.exports = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/tw-elements/dist/js/**/*.js",
 
     // Or if using `src` directory:
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/tw-elements/dist/js/**/*.js"
   ],
   theme: {
-    extend: {
-      boxShadow: {
-        'none': 'none',
-      },
-      borderColor: {
-        'transparent': 'transparent',
-      },
-    },
+    extend: {},
   },
+  darkMode: 'media', // or 'media' or 'class'
   plugins: [
     require('@tailwindcss/forms'),
-    require("daisyui")
+    require("daisyui"),
+    require('tw-elements/dist/plugin.cjs')
   ],
 }

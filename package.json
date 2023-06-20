@@ -45,6 +45,7 @@
     "mailgun": "^0.5.0",
     "mailgun.js": "^9.0.1",
     "mongoose": "^7.1.1",
+    "mui-image-slider": "^1.0.7",
     "next": "13.4.2",
     "next-auth": "^4.22.1",
     "next-google-fonts": "^2.2.0",

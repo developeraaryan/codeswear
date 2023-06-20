@@ -1,16 +1,28 @@
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
-import Slider from '../components/Slider'
+// import Slider from '../components/Slider'
 // import Slider from '@madzadev/image-slider'
 // import "@madzadev/image-slider/dist/index.css";
 import { signOut, useSession } from 'next-auth/react'
+// import MuiImageSlider from 'mui-image-slider';
 import Image from 'next/image'
 import React, { useEffect } from 'react'
+// import ImageSlider from '../components/ImageSlider'
+// import dynamic from 'next/dynamic'
+
+
+// const DynamicCarousel = dynamic(() => import('../components/ImageSlider'), { ssr: false })
+
+const images = [
+  'https://picsum.photos/seed/a/1600/900',
+  'https://picsum.photos/seed/b/1600/900',
+  'https://picsum.photos/seed/c/1600/900',
+];
 
 
 const inter = Inter({ subsets: ['latin'] })
 
-const images = [
+const image = [
   { url: 'https://picsum.photos/seed/a/1600/900' },
   { url: 'https://picsum.photos/seed/b/1920/1080' },
   { url: 'https://picsum.photos/seed/c/1366/768' }
@@ -42,15 +54,6 @@ export default function Home() {
     }
 
   }, [session])
-  // const items = [
-  //   {
-  //     name: "Random Name #1",
-  //     description: "Probably the most random thing you have ever seen!"
-  //   },
-  //   {
-  //     name: "Random Name #2",
-  //     description: "Hello World!"
-  //   }
   // ]
   return (
     <>
@@ -80,7 +83,8 @@ export default function Home() {
           </Carousel> */}
 
           {/* <Slider imageList={images} width={1000} height={300} /> */}
-          <Slider />
+          {/* <Slider /> */}
+          {/* <DynamicCarousel /> */}
         </div>
         <section className="text-gray-600 body-font">
           <div className="container px-5 py-24 mx-auto">

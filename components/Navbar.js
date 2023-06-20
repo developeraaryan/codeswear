@@ -163,7 +163,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     </span>
 
 
-    < div className={`flex flex-row md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-gray-200 dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
+    < div className={`flex flex-row md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-black dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
 
 
       <div className='absolute left-0'>
@@ -182,7 +182,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
 
 
-      <div className=" logo right-auto mx-auto invert hover:font-black dark:invert-0 my-auto ">
+      <div className=" logo right-auto mx-auto hover:font-black dark:invert-0 my-auto ">
         <Link href={'/'}>
           <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={40} height={60} priority loading='eager' />
         </Link>
