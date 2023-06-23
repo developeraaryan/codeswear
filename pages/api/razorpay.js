@@ -8,11 +8,11 @@ export default async function handler(req, res) {
     console.log("subtotal :", (req.body.subTotal));
     if (req.method === "POST") {
         // check if pincode is serviceable
-        if ((!Object.keys(pincodes).includes(req.body.pincode))) {
-            res.status(200).json({ success: false, "error": "pincode not serviceable!", clearCart: false })
-            return
+        // if ((!Object.keys(pincodes).includes(req.body.pincode))) {
+        //     res.status(200).json({ success: false, "error": "pincode not serviceable!", clearCart: false })
+        //     return
 
-        }
+        // }
 
 
         //  check if cart is tampered
@@ -50,10 +50,10 @@ export default async function handler(req, res) {
             res.status(200).json({ success: false, "error": "Please enter your 10 digit phone number", clearCart: false })
             return
         }
-        if ((req.body.pincode).length !== 6 || !Number.isInteger(Number(req.body.pincode))) {
-            res.status(200).json({ success: false, "error": "Please enter your 6 digit PINCODE", clearCart: false })
-            return
-        }
+        // if ((req.body.pincode).length !== 6 || !Number.isInteger(Number(req.body.pincode))) {
+        //     res.status(200).json({ success: false, "error": "Please enter your 6 digit PINCODE", clearCart: false })
+        //     return
+        // }
 
 
 

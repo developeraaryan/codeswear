@@ -1,6 +1,6 @@
+import "../styles/globals.css"
 import Footer from "../components/Footer"
 import Navbar from '../components/Navbar'
-import '../styles/globals.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';

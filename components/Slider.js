@@ -15,7 +15,7 @@ const Slider = () => {
         }}
             aria-label="My Favorite Images">
             <SplideSlide >
-                <Image  width={700} height={100} className='w-1/1 m-auto ' src="/assets/top poster.jpg" alt="Image 1" />
+                <Image width={700} height={100} className='w-1/1 m-auto ' src="/assets/top poster.jpg" alt="Image 1" />
             </SplideSlide>
             <SplideSlide>
                 <Image width={700} height={100} className='w-1/1 m-auto' src="/assets/images/slide-2.jpg" alt="Image 2" />

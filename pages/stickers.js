@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import React from 'react'
 import mongoose from 'mongoose'
-import Product from "@/Models/Product"
+import Product from "../Models/Product"
 
 const Stickers = ({ products }) => {
   return (

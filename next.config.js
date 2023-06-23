@@ -10,6 +10,10 @@ const nextConfig = {
         port: '',
       },
     ]
+  },
+  experimental: {
+    optimizeCss: true,
+    css: false,
   }
 }
 

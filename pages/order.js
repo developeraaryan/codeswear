@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Order from '../Models/Order'
 import mongoose from 'mongoose'
 import { Badge } from '@mui/material'
+import Tracker from '../components/Tracker'
 
 const MyOrder = ({ order, clearCart }) => {
   const products = order.products
@@ -59,10 +60,14 @@ const MyOrder = ({ order, clearCart }) => {
 
               </div>
             </div>
-            {tracker && <div className='bg-red-700 h-10'>This is tracker section</div>}
+
           </div>
           <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
         </div>
+        {tracker && <div >
+          <Tracker />
+        </div>
+        }
       </div>
     </section >
   )

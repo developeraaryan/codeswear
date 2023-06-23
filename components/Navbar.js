@@ -2,9 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
-import { BsFillBagCheckFill, BsFillCartCheckFill } from 'react-icons/bs';
+import { BsFillBagCheckFill, BsFillCartCheckFill, BsTwitter } from 'react-icons/bs';
 import { MdAccountCircle, MdManageAccounts } from 'react-icons/md'
-import { FaMugHot, FaTshirt } from 'react-icons/fa'
+import { FaFacebookF, FaMugHot, FaTshirt } from 'react-icons/fa'
 import { TbSticker } from 'react-icons/tb'
 import { useRouter } from 'next/router';
 import FeatherIcon from "feather-icons-react";
@@ -14,7 +14,9 @@ import {
   HomeOutlined,
 } from "@material-ui/icons"
 import { useSession, signIn, signOut, getSession } from 'next-auth/react';
-import { BiLogIn, BiLogOut } from 'react-icons/bi'
+import { BiLogIn, BiLogOut, BiUser } from 'react-icons/bi'
+import { RxCross2 } from 'react-icons/rx'
+import { FiInstagram } from 'react-icons/fi'
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal, params }) => {
   const { data: session } = useSession()
@@ -47,44 +49,119 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   const [open, setOpen] = useState(false);
 
 
-  const data = [
+  const CollectionData = [
     {
       name: "Home",
-      icon: <HomeOutlined style={{ color: "yellowgreen" }} />,
+      // icon: <HomeOutlined style={{ color: "yellowgreen" }} />,
       href: "/"
     },
     {
       name: "T-Shirts",
-      icon: <FaTshirt color='yellowgreen' />,
+      // icon: <FaTshirt color='yellowgreen' />,
       href: "/tshirts"
     },
     {
       name: "Hoodies",
-      icon: <GiHoodie color='yellowgreen' />,
+      // icon: <GiHoodie color='yellowgreen' />,
       href: "/hoodies"
     },
     {
       name: "Mugs",
-      icon: <FaMugHot color='yellowgreen' />,
+      // icon: <FaMugHot color='yellowgreen' />,
       href: "/mugs"
     },
     {
       name: "Stickers",
-      icon: <TbSticker color='yellowgreen' />,
+      // icon: <TbSticker color='yellowgreen' />,
       href: "/stickers"
     },
   ];
+
+  const CustomerData = [
+    {
+      name: "Track Order",
+      // icon: <HomeOutlined style={{ color: "yellowgreen" }} />,
+      href: "/"
+    },
+    {
+      name: "Wishlist",
+      // icon: <FaTshirt color='yellowgreen' />,
+      href: "/tshirts"
+    },
+    {
+      name: "My Cart",
+      // icon: <GiHoodie color='yellowgreen' />,
+      href: "/hoodies"
+    },
+    {
+      name: "Contact Us",
+      // icon: <FaMugHot color='yellowgreen' />,
+      href: "/mugs"
+    },
+
+  ];
+
+  const socailData = [
+    {
+      name: "Facebook",
+      icon: <FaFacebookF
+        size={25} 
+      className='hover:text-[#0000ff]'
+      />,
+      href: "https://www.facebook.com/"
+    },
+    {
+      name: "Instagram",
+      icon: <FiInstagram
+        size={25} 
+        className='hover:text-[#ff0000]'
+        />,
+      href: "https://www.instagram.com/"
+
+    },
+    {
+      name: "Twitter",
+      icon: <BsTwitter 
+      className='hover:text-indigo-500'
+      size={25} />,
+      href: "https://twitter.com/"
+    },
+
+  ]
+
   const getList = () => (
 
-    <div className='bg-gray-600' style={{
+    <div className='bg-white' style={{
       top: 10,
       width: 250,
-      color: "white",
-      height: "100vh"
+      color: "black",
+      height: "100vh",
     }} onClick={() => setOpen(false)}>
-      {data.map((item, index) => (
-        <ListItem ListItem className={`hover:!bg-blue-400 }`} key={index} >
-          <Link className='flex' href={item.href}>
+      <ListItem ListItem className={`absolute top-3 h-8`}>
+        <Link className='flex' href={'/login'}>
+
+          <ListItemIcon><BiUser className='text-3xl p-1 mt-2 bg-gray-400 rounded-full text-black'/></ListItemIcon>
+          <ListItemText className='pt-2 -ml-3' primary='LOGIN/SIGNUP' />
+
+        </Link>
+
+      </ListItem>
+      <ListItemIcon>
+        <Button><RxCross2 onClick={() => setOpen(true)} className='text-xl -right-48 relative -top-8 bg-white rounded-full text-black font-bold' />
+        </Button>
+      </ListItemIcon>
+      <Image src='/assets/free-shipping.png' width={200} height={200} className='mx-0 w-fit -mb-3' />
+      <ListItem ListItem className={`absolute top-3 mb-3 bg-gray-300`}>
+        <Link className='flex' href={'/login'}>
+
+          <ListItemText className='mx-4 !font-bold' primary='COLLECTIONS' />
+
+        </Link>
+
+      </ListItem>
+      {CollectionData.map((item, index) => (
+        <ListItem ListItem className={`hover:!bg-blue-400 h-10`} key={index} >
+          <Link className='flex hover:translate-x-10 transition-all duration-500' href={item.href}>
 
             <ListItemIcon>{item.icon}</ListItemIcon>
             <ListItemText primary={item.name} />
@@ -92,6 +169,47 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         </ListItem>
       ))
       }
+      <ListItem ListItem className={`absolute top-3 -mt-3 mb-3 bg-gray-300`}>
+        <Link className='flex' href={'/login'}>
+
+          <ListItemText className='mx-4 !font-bold' primary='CUSTOMER SERVICE' />
+
+        </Link>
+
+      </ListItem>
+      {CustomerData.map((item, index) => (
+        <ListItem ListItem className={`hover:!bg-blue-400 h-10`} key={index} >
+          <Link className='flex hover:translate-x-10 transition-all duration-500' href={item.href}>
+
+            <ListItemIcon>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.name} />
+          </Link>
+        </ListItem>
+      ))
+      }
+      <ListItem ListItem className={`absolute top-3 -mt-3 mb-3 bg-gray-300`}>
+        <Link className='flex' href={'/login'}>
+
+          <ListItemText className='mx-4 !font-bold' primary='CONNECT WITH US' />
+
+        </Link>
+
+      </ListItem>
+
+      <ListItem ListItem className={`absolute top-0 mb-3 bg-gray-200`}>
+        {socailData.map((item) => {
+          return <Link key={item.name} className='flex' target='_blank' href={item.href}>
+
+            <ListItemIcon className='mx-2 mr-3 !font-bold'  >
+              {item.icon}
+            </ListItemIcon>
+
+          </Link>
+        })}
+
+      </ListItem>
+      <Image src='/assets/thank-you.png' width={400} height={400} className='mx-0 w-full -mt-4' />
+
     </div >
   );
 
