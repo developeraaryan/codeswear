@@ -7,8 +7,40 @@ import theme from "../../src/theme/theme"
 import FullLayout from "../../src/layouts/FullLayout"
 import mongoose from 'mongoose'
 import Product from '../../Models/Product'
+import { getSession, useSession } from "next-auth/react"
+import { useEffect } from "react";
+import { red } from "@mui/material/colors";
+import { useRouter } from "next/router";
+
+let role = "user";
 
 export default function Index({ Products }) {
+    const router = useRouter()
+    const { data: session } = useSession()
+    console.log(session?.user?.email);
+    const getUserRole = async () => {
+        const userEmail = session?.user?.email
+        console.log(userEmail);
+        let response = await fetch(`api/getrole`, {
+            method: "POST",
+            headers: {
+                "content-Type": "application/json"
+            },
+            body: JSON.stringify(userEmail)
+        })
+        let res = await response.json()
+        console.log(res);
+        if (res.role === "admin") {
+            role = "admin"
+        }
+        else {
+            role = "user"
+        }
+
+    }
+    useEffect(() => {
+        getUserRole()
+    }, [])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>
@@ -42,12 +74,24 @@ export default function Index({ Products }) {
 }
 
 
-export async function getServerSideProps(context) {
-    if (!mongoose.connections[0].readyState) {
+export async function getServerSideProps({ req }) {
+    const session = await getSession({ req })
+    if (!session && role === "user") {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    }
+
+
+    else if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
     }
     let Products = await Product.find()
     return {
-        props: { Products: JSON.parse(JSON.stringify(Products)) },
+        props: { session, Products: JSON.parse(JSON.stringify(Products)) },
     };
 }
+

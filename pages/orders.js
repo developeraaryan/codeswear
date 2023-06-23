@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, React, useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 const Orders = () => {
+    const { data: session } = useSession()
     const router = useRouter();
     const [orders, setOrders] = useState([])
     const fetchOrders = async () => {
@@ -11,18 +13,19 @@ const Orders = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ token: JSON.parse(localStorage.getItem("myuser")).token })
+            body: JSON.stringify(session?.user)
         })
         let res = await a.json()
         setOrders(res.orders)
     }
     useEffect(() => {
         if (!localStorage.getItem("myuser")) {
-            router.push('/')
+            // router.push('/')
+            console.log("no user");
         } else {
-            fetchOrders()
-
+            console.log("user");
         }
+        fetchOrders()
     }, [])
 
     return (

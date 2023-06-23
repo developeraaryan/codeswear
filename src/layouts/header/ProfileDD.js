@@ -13,7 +13,9 @@ import {
   Button,
   Divider,
 } from "@mui/material";
+import { signOut, useSession } from "next-auth/react";
 const ProfileDD = () => {
+  const { data: session } = useSession()
   const [anchorEl4, setAnchorEl4] = React.useState(null);
 
   const handleClick4 = (event) => {
@@ -34,7 +36,7 @@ const ProfileDD = () => {
       >
         <Box display="flex" alignItems="center">
           <Image
-            src={userimg}
+            src={session?.user?.image || userimg}
             alt={userimg}
             width="30"
             height="30"
@@ -64,7 +66,7 @@ const ProfileDD = () => {
                 ml: 1,
               }}
             >
-              Julia
+              {session?.user?.name}
             </Typography>
             <FeatherIcon icon="chevron-down" width="20" height="20" />
           </Box>
@@ -109,7 +111,7 @@ const ProfileDD = () => {
           <Divider />
           <Box p={2}>
             <Link to="/">
-              <Button fullWidth variant="contained" color="primary">
+              <Button onClick={signOut} fullWidth variant="contained" color="primary">
                 Logout
               </Button>
             </Link>

@@ -30,6 +30,21 @@ const image = [
 
 export default function Home() {
   const { data: session } = useSession()
+  const getUserRole = async () => {
+    const data = {
+      email: session?.user?.email
+    }
+    console.log(data.email);
+    let response = await fetch(`api/getrole`, {
+      method: "POST",
+      headers: {
+        "content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+    })
+    let res = await response.json()
+    console.log(res);
+  }
   useEffect(() => {
     const getgoogle = async () => {
       const data = {
@@ -51,6 +66,7 @@ export default function Home() {
     }
     if (session) {
       getgoogle()
+      getUserRole()
     }
 
   }, [session])
