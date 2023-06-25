@@ -67,7 +67,7 @@ const Login = () => {
     if (e.target.name == "email") {
       setEmail(e.target.value)
     }
-    else if (e.target.name == "password") {
+    else if (e.target.name === "password") {
       setPassword(e.target.value)
     }
 

@@ -11,10 +11,7 @@ const nextConfig = {
       },
     ]
   },
-  experimental: {
-    optimizeCss: true,
-    css: false,
-  }
+
 }
 
 const withImages = require("next-images");

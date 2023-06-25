@@ -281,7 +281,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     </span>
 
 
-    < div className={`flex flex-row md:flex-row md:justify-start justify-center items-center shadow-md mb-1 py-2 sticky top-0 bg-black dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
+    < div className={`flex mb-0 flex-row md:flex-row md:justify-start justify-center items-center shadow-md py-2 sticky top-0 bg-black dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
 
 
       <div className='absolute left-0'>
