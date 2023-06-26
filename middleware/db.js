@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 
 const uri = process.env.NEXT_PUBLIC_MONGO_URI; // Replace with your MongoDB connection string
-const dbName = 'myDatabase'; // Replace with your database name
+const dbName = 'blackworn'; // Replace with your database name
 
 export async function connectToDatabase() {
   const client = new MongoClient(uri, { useUnifiedTopology: true });

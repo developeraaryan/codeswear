@@ -9,6 +9,9 @@ import Image from 'next/image'
 import React, { useEffect } from 'react'
 // import ImageSlider from '../components/ImageSlider'
 import dynamic from 'next/dynamic'
+import mongoose from 'mongoose'
+import Product from '../Models/Product'
+import HomepageCard from '../components/HomepageCard'
 
 
 const DynamicCarousel = dynamic(() => import('../components/ImageSlider'), { ssr: false })
@@ -104,35 +107,70 @@ export default function Home() {
           {/* 
           to do : sytles section
           */}
+          <section className='bg-gray-300 relative bottom-10'>
+            <div className="my-10 container  pt-7 mx-auto">
+              <div className="relative mx-auto justify-center flex">
+                <hr className="border-gray-400 h- w-9/12" />
+                <div className="absolute inset-x-0 flex items-center justify-center -mt-[0.875rem]">
+                  <span className="bg-gray-300 font-bold  px-3 text-black text-2xl">STYLES</span>
+                </div>
+              </div>
+              <div className="image flex my-5 text-center">
+                <div className="ml10">
+                  <span className='pr-7 font-bold'>OVERSIZED</span>
+                  <Image
+                    src="/assets/oversized(styles).png"
+                    alt="oversized"
+                    width={4000}
+                    height={10}
+                    className='relative -left-2'
+                  />
+                </div>
+
+                <div className="">
+                  <span className='pl-11 text-red-700 font-bold'>BASIC</span>
+                  <Image
+                    src="/assets/coming-soon-(styles).png"
+                    alt="oversized"
+                    width={4000}
+                    height={10}
+                    className='h-[12.5rem] relative -right-7'
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
           <Image
             src={'/assets/crazy-deal-web.png'}
             alt='crazy deals'
             width={4000}
             height={10}
-            className='mb-0'
+            className='mb-0 relative bottom-20'
           />
           <Image
             src={'/assets/coming-soon-web.png'}
             alt='Commig soon'
             width={4000}
             height={10}
-            className='relative -top-7 md:-top-[7.5rem] right-0'
+            className='relative md:-top-[7.5rem] right-0 bottom-[6.75rem]'
           />
           <Image
             src={'/assets/feature-web.png'}
             alt='features'
             width={4000}
             height={10}
-            className='relative -top-14 md:-top-[15.25rem] right-0'
+            className='relative bottom-[8.55rem] md:-top-[15.25rem] right-0'
           />
         </div>
-        <div className='-mt-10 md:-mt-52'>
+        <div className='-mt-28 md:-mt-52'>
           <h4 className='font-bold md:text-4xl text-center'>
             PREMIUM <span className='text-red-600'>OVERSIZRED</span> T SHIRT
           </h4>
         </div>
       </div>
-
+      <HomepageCard />
     </>
   )
 }
+
+
