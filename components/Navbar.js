@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle } from 'react-icons/ai'
-import { BsFillBagCheckFill, BsFillCartCheckFill, BsTwitter } from 'react-icons/bs';
+import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle, AiOutlineUser, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai'
+import { BsFillBagCheckFill, BsFillCartCheckFill, BsHandbag, BsSearch, BsTwitter } from 'react-icons/bs';
 import { MdAccountCircle, MdManageAccounts } from 'react-icons/md'
 import { FaFacebookF, FaMugHot, FaTshirt } from 'react-icons/fa'
 import { TbSticker } from 'react-icons/tb'
@@ -17,6 +17,7 @@ import { useSession, signIn, signOut, getSession } from 'next-auth/react';
 import { BiLogIn, BiLogOut, BiUser } from 'react-icons/bi'
 import { RxCross2 } from 'react-icons/rx'
 import { FiInstagram } from 'react-icons/fi'
+import HeartIcon from './HeartIcon';
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal, params }) => {
   const { data: session } = useSession()
@@ -105,25 +106,25 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     {
       name: "Facebook",
       icon: <FaFacebookF
-        size={25} 
-      className='hover:text-[#0000ff]'
+        size={25}
+        className='hover:text-[#0000ff]'
       />,
       href: "https://www.facebook.com/"
     },
     {
       name: "Instagram",
       icon: <FiInstagram
-        size={25} 
+        size={25}
         className='hover:text-[#ff0000]'
-        />,
+      />,
       href: "https://www.instagram.com/"
 
     },
     {
       name: "Twitter",
-      icon: <BsTwitter 
-      className='hover:text-indigo-500'
-      size={25} />,
+      icon: <BsTwitter
+        className='hover:text-indigo-500'
+        size={25} />,
       href: "https://twitter.com/"
     },
 
@@ -140,7 +141,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       <ListItem ListItem className={`absolute top-3 h-8`}>
         <Link className='flex' href={'/login'}>
 
-          <ListItemIcon><BiUser className='text-3xl p-1 mt-2 bg-gray-400 rounded-full text-black'/></ListItemIcon>
+          <ListItemIcon><BiUser className='text-3xl p-1 mt-2 bg-gray-400 rounded-full text-black' /></ListItemIcon>
           <ListItemText className='pt-2 -ml-3' primary='LOGIN/SIGNUP' />
 
         </Link>
@@ -216,46 +217,17 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   return (<>
 
     <span>
-      {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='absolute right-16 bg-[#272A30]  text-white  shadow-lg shadow-slate-600  top-10 py-4  rounded-md px-5 w-40 z-30 '>
+      {dropdown && <div onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className='absolute right-10 bg-[#272A30]  text-white  shadow-lg shadow-slate-600  top-10 py-4  rounded-md px-5 w-40 z-30 '>
         <ul>
-          {/* {!user.value && <>
-            <li>
-              <Link href={'/login'}>
-                <BiLogIn className=' text-xl mx-2' />
-                <span className='font-bold text-sm hover:text-red-500'>Login</span>
-              </Link>
-            </li>
-          </>
-          } */}
           {!session && <>
             <li>
-              <Link href={'/login'}>
-                {/* <BiLogIn className=' text-xl mx-2' /> */}
-                <span className='font-bold text-sm hover:text-red-500'>Login</span>
+              <Link href={'/login'} className='flex hover:text-red-500'>
+                <BiLogIn className=' text-2xl -ml-1' />
+                <span className='font-bold text-sm  items-center pt-1 px-3' >Login</span>
               </Link>
             </li>
           </>
           }
-          {/* {user.value && <>
-            <li>
-              <Link href={'/myaccount'}>
-                <MdManageAccounts className=' text-xl' />
-                <span className='font-bold text-sm hover:text-red-500'>My Account</span>
-              </Link></li>
-            <li>
-              <Link href={'/orders'}>
-                <BsFillCartCheckFill className=' text-3xl md:text-3xl mx-2 -ml-1' />
-                <span className='font-bold text-sm hover:text-red-500'>Orders</span>
-              </Link>
-            </li>
-            <li>
-              <a onClick={logout}>
-                <BiLogIn className=' text-3xl md:text-3xl mx-2 -ml-1' />
-                <span className='font-bold text-sm hover:text-red-500 cursor-pointer'>Logout</span>
-              </a>
-            </li>
-          </>
-          } */}
           {session && <>
             <li className='py-4'>
               <Link href={'/myaccount'} className='flex hover:text-red-500'>
@@ -278,7 +250,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
           }
         </ul>
       </div>}
-    </span>
+    </span >
 
 
     < div className={`flex mb-0 flex-row md:flex-row md:justify-start justify-center items-center shadow-md py-2 sticky top-0 bg-black dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`} >
@@ -309,23 +281,27 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
       <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer items-center ">
 
-
-        <span onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className="dropdown" >
-          <label tabIndex={0} className="cursor-pointer">
-            <MdAccountCircle className=' text-3xl md:text-2xl mx-2' />
-          </label>
+        <span className=''>
+          <BsSearch className=' text-3xl md:text-xl' onClick={toggleCart} />
         </span>
 
-
+        <Badge className='z-0 mx-2 ' color="primary">
+          <HeartIcon className='rounded-full hover:fill-red-700 text-3xl md:text-2xl' onClick={'/wishlist'} />
+        </Badge>
 
         <Badge className='z-0' badgeContent={Object.keys(cart).length} color="primary">
-          <AiOutlineShoppingCart className=' text-3xl md:text-2xl' onClick={toggleCart} />
+          <BsHandbag className=' text-3xl md:text-2xl' onClick={toggleCart} />
         </Badge>
+        <span onMouseOver={() => { setDropdown(true) }} onMouseLeave={() => { setDropdown(false) }} className="dropdown" >
+          <label tabIndex={0} className="cursor-pointer">
+            <AiOutlineUser className=' text-3xl md:text-2xl mx-2' />
+          </label>
+        </span>
       </div>
       <div ref={ref} className={`overflow-y-scroll w-72 h-[100vh] sideCart absolute top-0  bg-gray-800 text-white dark:text-black py-2 px-8 p-10  transition-all ${sidebar ? `right-0` : `-right-96`}`}>
         <h2 className='font-bold text-xl text-center text-white'>Shoping Cart</h2>
-        <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-indigo-300">
-          <AiFillCloseCircle />
+        <span onClick={toggleCart} className="absolute top-5 right-2 cursor-pointer text-2xl text-indigo-300 transition-all hover:rotate-[180deg] duration-300">
+          <AiOutlineClose />
         </span>
         <ol className='list-decimal font-semibold text-white' >
           {Object.keys(cart).length === 0 &&
