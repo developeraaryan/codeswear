@@ -20,6 +20,6 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('tw-elements/dist/plugin.cjs'),
     require('tailwind-scrollbar'),
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
   ],
 }

@@ -9,6 +9,7 @@ import {
   TableRow,
   Chip,
   TableContainer,
+  Link,
 } from "@mui/material";
 import BaseCard from "../baseCard/BaseCard";
 import Image from "next/image";
@@ -74,14 +75,17 @@ const AllProducts = ({ Products }) => {
 
               <TableRow key={product._id}>
                 <TableCell>
-                  <Typography
+                  <Link
+                    underline="none"
+                    href={`/admin/product/${product._id}`}
                     sx={{
                       fontSize: "15px",
                       fontWeight: "500",
+                      color: "text.primary",
                     }}
                   >
                     {product.title}
-                  </Typography>
+                  </Link>
                 </TableCell>
                 <TableCell>
                   <Box

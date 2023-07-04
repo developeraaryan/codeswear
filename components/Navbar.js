@@ -138,7 +138,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       color: "black",
       height: "100vh",
     }} onClick={() => setOpen(false)}>
-      <ListItem ListItem className={`absolute top-3 h-8`}>
+      <ListItem ListItem className={`relative top-3 h-8`}>
         <Link className='flex' href={'/login'}>
 
           <ListItemIcon><BiUser className='text-3xl p-1 mt-2 bg-gray-400 rounded-full text-black' /></ListItemIcon>
@@ -152,7 +152,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         </Button>
       </ListItemIcon>
       <Image src='/assets/free-shipping.png' width={200} height={200} className='mx-0 w-fit -mb-3' />
-      <ListItem ListItem className={`absolute top-3 mb-3 bg-gray-300`}>
+      <ListItem ListItem className={`relative top-3 mb-3 bg-gray-300`}>
         <Link className='flex' href={'/login'}>
 
           <ListItemText className='mx-4 !font-bold' primary='COLLECTIONS' />
@@ -170,7 +170,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         </ListItem>
       ))
       }
-      <ListItem ListItem className={`absolute top-3 -mt-3 mb-3 bg-gray-300`}>
+      <ListItem ListItem className={`relative top-3 -mt-3 mb-3 bg-gray-300`}>
         <Link className='flex' href={'/login'}>
 
           <ListItemText className='mx-4 !font-bold' primary='CUSTOMER SERVICE' />
@@ -188,7 +188,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         </ListItem>
       ))
       }
-      <ListItem ListItem className={`absolute top-3 -mt-3 mb-3 bg-gray-300`}>
+      <ListItem ListItem className={`relative top-3 -mt-3 mb-3 bg-gray-300`}>
         <Link className='flex' href={'/login'}>
 
           <ListItemText className='mx-4 !font-bold' primary='CONNECT WITH US' />
@@ -197,7 +197,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
       </ListItem>
 
-      <ListItem ListItem className={`absolute top-0 mb-3 bg-gray-200`}>
+      <ListItem ListItem className={`relative top-0 mb-3 bg-gray-200`}>
         {socailData.map((item) => {
           return <Link key={item.name} className='flex' target='_blank' href={item.href}>
 
