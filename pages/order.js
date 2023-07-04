@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Order from '../Models/Order'
 import mongoose from 'mongoose'
 import { Badge } from '@mui/material'
-import Tracker from '../components/Tracker'
+import OrderTracker from '../components/OrderTracker'
 
 const MyOrder = ({ order, clearCart }) => {
   const products = order.products
@@ -65,7 +65,7 @@ const MyOrder = ({ order, clearCart }) => {
           <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
         </div>
         {tracker && <div >
-          <Tracker />
+          <OrderTracker status={order.deliverStatus} />
         </div>
         }
       </div>

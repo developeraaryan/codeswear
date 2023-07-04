@@ -18,7 +18,6 @@ module.exports = {
   darkMode: 'media', // or 'media' or 'class'
   plugins: [
     require('@tailwindcss/forms'),
-    require("daisyui"),
     require('tw-elements/dist/plugin.cjs'),
     require('tailwind-scrollbar'),
     require('flowbite/plugin')
