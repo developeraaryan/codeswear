@@ -12,6 +12,7 @@ import {
   TableContainer,
 } from "@mui/material";
 import BaseCard from "../baseCard/BaseCard";
+import { IconTypography } from "@tabler/icons-react";
 
 
 
@@ -155,7 +156,7 @@ const AllProducts = ({ orders }) => {
                   <Typography sx={{
                     color: order.availableqty == 0 ? "Red" : "Green"
                   }} variant="h6">
-                    <Button href="/" className="!bg-[#05b1bda1] hover:!bg-[#05b2bd]" variant="contained" mt={2}>
+                    <Button href={`/admin/order?id=${order._id}&clearcart=${1}`} className="!bg-[#05b1bda1] hover:!bg-[#05b2bd]" variant="contained" mt={2}>
                       Details
                     </Button>
                   </Typography>
