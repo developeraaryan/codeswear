@@ -23,6 +23,7 @@
     "@milon27/react-sidebar": "^4.11.0",
     "@mui/lab": "^5.0.0-alpha.133",
     "@mui/material": "^5.13.4",
+    "@nextui-org/react": "^1.0.0-beta.13",
     "@preline/overlay": "^1.4.0",
     "@react-buddy/ide-toolbox-next": "^2.4.0",
     "@react-buddy/palette-mui": "^5.0.1",
