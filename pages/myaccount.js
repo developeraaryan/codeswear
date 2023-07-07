@@ -19,15 +19,6 @@ const Myaccount = ({ }) => {
 
 
     useEffect(() => {
-        const myuser = JSON.parse(localStorage.getItem("myuser"))
-        if (!myuser) {
-            router.push('/')
-        }
-        if (myuser && myuser.token) {
-            setUser(myuser)
-            setEmail(myuser.email)
-            fetchData(myuser.token)
-        }
     }, [router, router.query])
 
     const fetchData = async (token) => {

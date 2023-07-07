@@ -191,9 +191,10 @@ const UpdateProduct = () => {
 
 
                                     <Button
+                                        pill
                                         type='submit'
-                                        className='!bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-500 hover:to-blue-500' gradientDuoTone="cyanToBlue">
-                                        Cyan to Blue
+                                        className={`!bg-gradient-to-r from-cyan-400 to-blue-400 hover:from-cyan-500   hover:to-blue-500 `} gradientDuoTone="cyanToBlue">
+                                        Update Product
                                     </Button>
                                 </form>
                             </BaseCard>

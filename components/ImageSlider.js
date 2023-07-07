@@ -22,14 +22,14 @@ function CarouselExample() {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        setImageSrc1('/assets/top-poster.jpg')
-        setImageSrc2('/assets/top-poster.jpg')
-        setImageSrc3('/assets/top-poster.jpg')
+        setImageSrc1('/assets/home-poster-mobile.jpg')
+        setImageSrc2('/assets/home-poster-mobile.jpg')
+        setImageSrc3('/assets/home-poster-mobile.jpg')
       }
       else {
-        setImageSrc1('/assets/top-poster-web.jpg')
-        setImageSrc2('/assets/top-poster-web.jpg')
-        setImageSrc3('/assets/top-poster-web.jpg')
+        setImageSrc1('/assets/web-home-screen-1st.jpg')
+        setImageSrc2('/assets/web-home-screen-1st.jpg')
+        setImageSrc3('/assets/web-home-screen-1st.jpg')
       }
     }
 
@@ -44,7 +44,7 @@ function CarouselExample() {
 
   }, [])
   return (
-    <div className="h-96 md:h-[26rem]   rounded-b-lg">
+    <div className="h-96 md:h-[37rem]   rounded-b-lg">
       <Carousel leftControl=" "
         rightControl=" "
       >
@@ -55,21 +55,21 @@ function CarouselExample() {
           alt="wear the code"
           width={4000}
           height={10}
-          className="h-96 md:h-[26rem]"
+          className="h-96 md:h-[37rem]"
         />
         <Image
           src={imageSrc2}
           alt="wear the code"
           width={4000}
           height={10}
-          className="h-96 md:h-[26rem]"
+          className="h-96 md:h-[37rem]"
         />
         <Image
           src={imageSrc3}
           alt="wear the code"
           width={4000}
           height={10}
-          className="h-96 md:h-[26rem]"
+          className="h-96 md:h-[37rem]"
         />
 
       </Carousel>

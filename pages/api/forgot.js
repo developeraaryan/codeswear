@@ -1,6 +1,6 @@
-import Forgot from "@/Models/Forgot";
-import User from "@/Models/User";
-import connectDb from "@/middleware/mongoose";
+import Forgot from "../../Models/Forgot";
+import User from "../../Models/User";
+import connectDb from "../../middleware/mongoose";
 import { v4 as uuidv4 } from 'uuid';
 import CryptoJS from 'crypto-js';
 import sgMail from '@sendgrid/mail';

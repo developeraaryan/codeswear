@@ -1,3 +1,4 @@
+"use client"
 import Head from 'next/head'
 import { Inter } from 'next/font/google'
 import Slider from '../components/Slider'
@@ -6,33 +7,48 @@ import Slider from '../components/Slider'
 import { signOut, useSession } from 'next-auth/react'
 // import MuiImageSlider from 'mui-image-slider';
 import Image from 'next/image'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 // import ImageSlider from '../components/ImageSlider'
 import dynamic from 'next/dynamic'
 import mongoose from 'mongoose'
 import Product from '../Models/Product'
 import HomepageCard from '../components/HomepageCard'
+import localFont from "next/font/local"
 
+
+const neutro = localFont({ src: "../assets/fonts/neutro/Neutro-ExtraBold.otf" })
 
 const DynamicCarousel = dynamic(() => import('../components/ImageSlider'), { ssr: false })
 
-const images = [
-  'https://picsum.photos/seed/a/1600/900',
-  'https://picsum.photos/seed/b/1600/900',
-  'https://picsum.photos/seed/c/1600/900',
-];
 
 
-const inter = Inter({ subsets: ['latin'] })
 
-const image = [
-  { url: 'https://picsum.photos/seed/a/1600/900' },
-  { url: 'https://picsum.photos/seed/b/1920/1080' },
-  { url: 'https://picsum.photos/seed/c/1366/768' }
-]
 
 export default function Home() {
   const { data: session } = useSession()
+  const [comingSrc, setComingSrc] = useState('')
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setComingSrc('/assets/crazy-deal-mobile.jpg')
+      }
+      else {
+        setComingSrc('/assets/crazy-deal-web-mode.jpg')
+      }
+
+      handleResize()
+
+
+      window.addEventListener('resize', handleResize);
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+
+  }, [])
+
+
   const getUserRole = async () => {
     const data = {
       email: session?.user?.email
@@ -76,7 +92,7 @@ export default function Home() {
   // ]
   return (
     <>
-      <div className=''>
+      <div className='overflow-x-hidden'>
         <Head>
           <title>blackworn.com - wear the style</title>
           <meta name="description" content="blackworn.com - wear the style" />
@@ -84,88 +100,99 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
 
-        {session && <div className="data">
-          Name : {session?.user?.name}
-          <br />
-          Email : {session?.user?.email}
-          <br />
-          <Image src={session?.user?.image} height={100} width={100} alt='user profile' />
-          <br />
-          <button onClick={signOut}>Signout</button>
-        </div>}
-        <div>
-          {/* <Image src="/assets/men.jpg" alt="wear the code" width={4000} height={10} /> */}
-          {/* <Carousel>
-            {
-              items.map((item, i) => <Item key={i} item={item} />)
-            }
-          </Carousel> */}
 
-          {/* <Slider imageList={images} width={1000} height={300} /> */}
-          {/* <Slider /> */}
+        <div>
+
           <DynamicCarousel />
           {/* 
           to do : sytles section
           */}
-          <section className='bg-gray-300 relative bottom-10'>
+          <section className='bg-white relative bottom-10'>
             <div className="my-10 container  pt-7 mx-auto">
               <div className="relative mx-auto justify-center flex">
                 <hr className="border-gray-400 h- w-9/12" />
                 <div className="absolute inset-x-0 flex items-center justify-center -mt-[0.875rem]">
-                  <span className="bg-gray-300 font-bold  px-3 text-black text-2xl">STYLES</span>
+                  <div className={neutro.className}>
+                    <span className="bg-white font-bold style px-3 text-black
+                    text-xl md:text-5xl">STYLES</span>
+                  </div>
                 </div>
               </div>
-              <div className="image flex my-5 text-center">
-                <div className="ml10">
-                  <span className='pr-7 font-bold'>OVERSIZED</span>
-                  <Image
-                    src="/assets/oversized(styles).png"
-                    alt="oversized"
-                    width={4000}
-                    height={10}
-                    className='relative -left-2'
-                  />
-                </div>
+              <div className={neutro.className}>
+                <div className="image space-x-2 md:space-x-0 md:justify-center flex relative -ml-5 mt-10 md:mt-20 text-center">
+                  <div className="ml-0 md:ml-10  relative left-0 md:-left-10">
+                    <span className='pr-7 text-base md:text-[2.25rem] relative left-4 font-bold'>OVERSIZED</span>
+                    <Image
+                      src="/assets/oversized(styles).jpg"
+                      alt="oversized"
+                      width={4000}
+                      height={10}
+                      unoptimized={false}
+                      placeholder='blur'
+                      blurDataURL='/assets/blur.png'
 
-                <div className="">
-                  <span className='pl-11 text-red-700 font-bold'>BASIC</span>
-                  <Image
-                    src="/assets/coming-soon-(styles).png"
-                    alt="oversized"
-                    width={4000}
-                    height={10}
-                    className='h-[12.5rem] relative -right-7'
-                  />
+
+                    />
+                  </div>
+                  <div className="ml-0 md:ml-10 relative left-0 md:left-0">
+                    <span className='pr-7 text-base md:text-[2.25rem] relative -right-4 text-red-600 font-bold'>BASIC<span className='text-black'>TEES</span></span>
+                    <Image
+                      src="/assets/coming-(styles).png"
+                      alt="oversized"
+                      width={4000}
+                      height={10}
+                      unoptimized={false}
+                      placeholder='blur'
+                      blurDataURL='/assets/blur.png'
+
+
+                    />
+                  </div>
+
                 </div>
               </div>
             </div>
           </section>
           <Image
-            src={'/assets/crazy-deal-web.png'}
+            src={'/assets/crazy-deal-mobile.jpg'}
             alt='crazy deals'
             width={4000}
             height={10}
-            className='mb-0 relative bottom-20'
+            unoptimized={false}
+            placeholder='blur'
+            blurDataURL='/assets/blur.png'
+            className='-mt-20 '
+
+
           />
           <Image
-            src={'/assets/coming-soon-web.png'}
+            src={'/assets/comming-soon-web-mode .jpg'}
             alt='Commig soon'
             width={4000}
             height={10}
-            className='relative md:-top-[7.5rem] right-0 bottom-[6.75rem]'
+            unoptimized={false}
+            placeholder='blur'
+            blurDataURL='/assets/blur.png'
+
+
           />
           <Image
             src={'/assets/feature-web.png'}
             alt='features'
             width={4000}
             height={10}
-            className='relative bottom-[8.55rem] md:-top-[15.25rem] right-0'
+            unoptimized={false}
+            placeholder='blur'
+            blurDataURL='/assets/blur.png'
+
           />
         </div>
-        <div className='-mt-28 md:-mt-52'>
-          <h4 className='font-bold md:text-4xl text-center'>
-            PREMIUM <span className='text-red-600'>OVERSIZRED</span> T SHIRT
-          </h4>
+        <div className='my-14'>
+          <div className={neutro.className}>
+            <h4 className='font-bold md:text-4xl text-center'>
+              PREMIUM <span className='text-red-600'>OVERSIZRED</span> T SHIRT
+            </h4>
+          </div>
         </div>
       </div>
       <HomepageCard />

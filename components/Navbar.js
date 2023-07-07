@@ -1,37 +1,25 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import { AiFillCloseCircle, AiOutlineShoppingCart, AiFillPlusCircle, AiFillMinusCircle, AiOutlineUser, AiOutlineClose, AiOutlineHeart } from 'react-icons/ai'
-import { BsFillBagCheckFill, BsFillCartCheckFill, BsHandbag, BsSearch, BsTwitter } from 'react-icons/bs';
-import { MdAccountCircle, MdManageAccounts } from 'react-icons/md'
-import { FaFacebookF, FaMugHot, FaTshirt } from 'react-icons/fa'
-import { TbSticker } from 'react-icons/tb'
+import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineUser, AiOutlineClose } from 'react-icons/ai'
+import { BsFillBagCheckFill, BsFillCartCheckFill, BsHandbag, BsTwitter } from 'react-icons/bs';
+import { MdManageAccounts } from 'react-icons/md'
+import { FaFacebookF } from 'react-icons/fa'
 import { useRouter } from 'next/router';
-import FeatherIcon from "feather-icons-react";
-import { GiHoodie } from 'react-icons/gi'
-import { Badge, Button, Drawer, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import {
-  HomeOutlined,
-} from "@material-ui/icons"
-import { useSession, signIn, signOut, getSession } from 'next-auth/react';
-import { BiLogIn, BiLogOut, BiUser } from 'react-icons/bi'
+import { Badge, Button, Drawer, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { useSession, signOut } from 'next-auth/react';
+import { BiLogIn, BiUser } from 'react-icons/bi'
 import { RxCross2 } from 'react-icons/rx'
 import { FiInstagram } from 'react-icons/fi'
 import HeartIcon from './HeartIcon';
+import SearchDD from '../src/layouts/header/SearchDD';
+import { FaBarsStaggered } from "react-icons/fa6";
 
 const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal, params }) => {
   const { data: session } = useSession()
   const [sidebar, setSidebar] = useState(false)
   const [dropdown, setDropdown] = useState(false)
   function toggleCart() {
-    // if (ref.current.classList.contains('translate-x-full')) {
-    //   ref.current.classList.remove('translate-x-full');
-    //   ref.current.classList.add('translate-x-0');
-    // }
-    // else if (!ref.current.classList.contains('translate-x-full')) {
-    //   ref.current.classList.remove('translate-x-0');
-    //   ref.current.classList.add('translate-x-full');
-    // }
     setSidebar(!sidebar)
   }
   const router = useRouter()
@@ -138,6 +126,17 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
       color: "black",
       height: "100vh",
     }} onClick={() => setOpen(false)}>
+      <ListItem ListItem className={`relative  top-0 h-14  bg-black text-white`}>
+        <Link className='flex' href={'/login'}>
+
+          <ListItemText
+            className='pt-2 mx-14'
+            primaryTypographyProps={{fontSize: "18px"}}
+            primary='BLACK WORN' />
+
+        </Link>
+
+      </ListItem>
       <ListItem ListItem className={`relative top-3 h-8`}>
         <Link className='flex' href={'/login'}>
 
@@ -257,14 +256,23 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
 
       <div className='absolute left-0'>
-        <Button onClick={() => setOpen(true)}><FeatherIcon
+        <Button onClick={() => setOpen(true)}>
+          <FaBarsStaggered
+            style={{
+              color: `white`,
+              width: `20px`,
+              height: `20px`
+            }}
+          />
+          {/* <FeatherIcon
           style={{
             color: `white`,
           }}
           icon="align-justify"
           width="20"
           height="20"
-        /></Button>
+        /> */}
+        </Button>
         <Drawer open={open} anchor={"left"} onClose={() => setOpen(false)}>
           {getList()}
         </Drawer>
@@ -272,21 +280,27 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
 
 
-      <div className=" logo right-auto mx-auto hover:font-black dark:invert-0 my-auto ">
+      <div className=" logo left-[3.75rem] md:left-[45rem] absolute hover:font-black  dark:invert-0 my-auto ">
         <Link href={'/'}>
-          <Image src='/assets/BW LOGO White.png' alt='codeswear logo' width={40} height={60} priority loading='eager' />
+          <Image
+            src='/assets/BW LOGO White.png' alt='codeswear logo'
+            width={40}
+            height={60}
+
+          />
         </Link>
       </div>
 
 
-      <div className="flex cart absolute right-0 mx-5 md:top-4 cursor-pointer items-center ">
+      <div className="flex cart absolute right-0 mx-5 md:top-2 cursor-pointer items-center ">
 
         <span className=''>
-          <BsSearch className=' text-3xl md:text-xl' onClick={toggleCart} />
+          {/* <BsSearch className=' text-3xl md:text-xl' onClick={toggleCart} /> */}
+          <SearchDD />
         </span>
 
         <Badge className='z-0 mx-2 ' color="primary">
-          <HeartIcon className='rounded-full hover:fill-red-700 text-3xl md:text-2xl' onClick={'/wishlist'} />
+          <HeartIcon className='rounded-full fill-black hover:fill-green-700 text-3xl md:text-2xl' />
         </Badge>
 
         <Badge className='z-0' badgeContent={Object.keys(cart).length} color="primary">

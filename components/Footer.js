@@ -37,10 +37,10 @@ const Footer = () => {
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CONTACT</h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Contact Us</Link>
+                  <Link href={'/contact'} className="text-gray-600 hover:text-gray-800">Contact Us</Link>
                 </li>
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">About Us</Link>
+                  <Link href={'/about'} className="text-gray-600 hover:text-gray-800">About Us</Link>
                 </li>
                 <li>
                   <Link href={'/'} className="text-gray-600 hover:text-gray-800">Customer Services</Link>
@@ -54,10 +54,10 @@ const Footer = () => {
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">POLICY</h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Privacy Policy</Link>
+                  <Link href={'/privacy'} className="text-gray-600 hover:text-gray-800">Privacy Policy</Link>
                 </li>
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Terms & Conditions</Link>
+                  <Link href={'/terms'} className="text-gray-600 hover:text-gray-800">Terms & Conditions</Link>
                 </li>
                 <li>
                   <Link href={'/'} className="text-gray-600 hover:text-gray-800">Return Policy</Link>

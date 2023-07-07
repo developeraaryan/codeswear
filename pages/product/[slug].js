@@ -5,9 +5,11 @@ import Product from "../../Models/Product"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Error from 'next/error';
+const { useSession } = require('next-auth/react')
 
 
 const Slug = ({ addToCart, product, varients, buyNow, error }) => {
+    const { data: session } = useSession()
     const router = useRouter()
     const [color, setColor] = useState()
     const [size, setSize] = useState()
@@ -93,6 +95,53 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
         return <Error statusCode={404} />
     }
 
+
+    const handleWish = async (e) => {
+        e.preventDefault()
+        if (session) {
+            let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/wishlist`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    product: product._id,
+                    email: session?.user?.email
+                })
+
+            })
+            let data = await res.json()
+            if (data.success) {
+                toast.success('Added to wishlist!', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+            else {
+                toast.error('Already in wishlist!', {
+                    position: "top-center",
+                    autoClose: 1000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+            }
+        }
+        else {
+            router.push('/login')
+        }
+    }
+
+
     return (
         <>
             <section className="text-gray-600 body-font overflow-hidden min-h-screen">
@@ -116,19 +165,19 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color})</h1>
                             <div className="flex mb-4">
                                 {/* <span className="flex items-center">
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-pink-500" viewBox="0 0 24 24">
+                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                     </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-pink-500" viewBox="0 0 24 24">
+                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                     </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-pink-500" viewBox="0 0 24 24">
+                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                     </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-pink-500" viewBox="0 0 24 24">
+                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                     </svg>
-                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-pink-500" viewBox="0 0 24 24">
+                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
                                         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
                                     </svg>
                                     <span className="text-gray-600 ml-3">4 Reviews</span>
@@ -153,20 +202,10 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                             </div>
                             <p className="leading-relaxed">{product.desc}</p>
                             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                                <div className="flex">
-                                    <span className="mr-3">Color</span>
-                                    {Object.keys(varients).includes('White') && Object.keys(varients['White']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'White') }} className={`border-2  rounded-full w-6 h-6 focus:outline-none ${color === 'White' ? `border-black` : `border-gray-300`}`}></button>}
-                                    {Object.keys(varients).includes('Black') && Object.keys(varients['Black']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'Black') }} className={`border-2  ml-1 bg-black rounded-full w-6 h-6 focus:outline-none ${color === 'Black' ? `border-black` : `border-gray-300`}`}></button>}
-                                    {Object.keys(varients).includes('Red') && Object.keys(varients['Red']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'Red') }} className={`border-2  ml-1 bg-red-500 rounded-full w-6 h-6 focus:outline-none ${color === 'Red' ? `border-black` : `border-gray-300`}`}></button>}
-                                    {Object.keys(varients).includes('Purple') && Object.keys(varients['Purple']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'Purple') }} className={`border-2  ml-1 bg-purple-500 rounded-full w-6 h-6 focus:outline-none ${color === 'Purple' ? `border-black` : `border-gray-300`}`}></button>}
-                                    {Object.keys(varients).includes('Blue') && Object.keys(varients['Blue']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'Blue') }} className={`border-2  ml-1 bg-blue-500 rounded-full w-6 h-6 focus:outline-none ${color === 'Blue' ? `border-black` : `border-gray-300`}`}></button>}
-                                    {Object.keys(varients).includes('Green') && Object.keys(varients['Green']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'Green') }} className={`border-2  ml-1 bg-green-500 rounded-full w-6 h-6 focus:outline-none ${color === 'Green' ? `border-black` : `border-gray-300`}`}></button>}
-                                    {Object.keys(varients).includes('Yellow') && Object.keys(varients['Yellow']).includes(size) && <button onClick={(e) => { refreshVarient(size, 'Yellow') }} className={`border-2  ml-1 bg-yellow-500 rounded-full w-6 h-6 focus:outline-none ${color === 'Yellow' ? `border-black` : `border-gray-300`}`}></button>}
-                                </div>
                                 <div className="flex ml-6 items-center">
                                     <span className="mr-3">Size</span>
                                     <div className="relative">
-                                        <select value={size} onChange={(e) => { refreshVarient(e.target.value, color) }} className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-pink-200 focus:border-pink-500 text-base pl-3 pr-10">
+                                        <select value={size} onChange={(e) => { refreshVarient(e.target.value, color) }} className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-base pl-3 pr-10">
                                             {color && Object.keys(varients[color]).includes('S') && <option value={'S'}>S</option>}
                                             {color && Object.keys(varients[color]).includes('M') && <option value={'M'}>M</option>}
                                             {color && Object.keys(varients[color]).includes('L') && <option value={'L'}>L</option>}
@@ -189,22 +228,63 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     {!product.availableqty <= 0 && product.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product.availableqty} left</span>}
                                 </div>
 
-                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-pink-300 flex ml-8 text-white bg-pink-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-pink-600 rounded">Add to cart</button>
-                                <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-pink-300 flex ml-4 text-white bg-pink-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-pink-600 rounded">Buy Now</button>
-                                {/* <button className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Add to cart</button>
+                                <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Buy Now</button>
+
+                                {/* Wishlist */}
+                                <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                                     <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                         <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
                                     </svg>
-                                </button> */}
+                                </button>
                             </div>
                             <div className="pin mt-6 flex space-x-2 text-sm">
                                 <input onChange={onChangePin} type="text" className='px-2 border-2 border-gray-400 rounded-md focus:bg-inherit' placeholder='Enter your PINCODE here' required />
-                                <button onClick={checkServiceability} className="text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Check</button>
+                                <button onClick={checkServiceability} className="text-white bg-blue-500 border-0 py-2 px-6 focus:outline-none hover:bg-blue-600 rounded">Check</button>
                             </div>
                             {(!service && service != null) && <div className="text-red-700 text-sm mt-3">Sorry! We do not deliver to this pincode yet.</div>}
                             {(service && service != null) && <div className="text-green-700 text-sm mt-3">Yey! This Pincode is serviceable</div>}
                         </div>
                     </div>
+                </div>
+                <div className="size flex flex-col justify-center">
+                    <div className="text flex justify-center space-x-32 md:space-x-[30rem]">
+                        <h5>SELECT SIZE</h5>
+                        <h5> SEE CHART</h5>
+                    </div>
+                    <div className="flex justify-center my-4">
+                        <button disabled={color && Object.keys(varients[color]).includes('S')} className='disabled:cursor-not-allowed disabled:opacity-40 focus:text-white focus:bg-black flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                S
+                            </div>
+
+                        </button>
+                        <button disabled={color && Object.keys(varients[color]).includes('M')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                M
+                            </div>
+
+                        </button>
+                        <button disabled={color && Object.keys(varients[color]).includes('L')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                L
+                            </div>
+
+                        </button>
+                        <button disabled={color && Object.keys(varients[color]).includes('XL')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                XL
+                            </div>
+
+                        </button>
+                        <button disabled={color && Object.keys(varients[color]).includes('XXL')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                XXL
+                            </div>
+
+                        </button>
+                    </div>
+
                 </div>
             </section>
         </>
