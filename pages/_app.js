@@ -153,6 +153,8 @@ export default function App({ Component,
       router.push('/login')
     }, 3000);
   }
+
+
   return <>
     <SessionProvider session={session}>
       <main className="font-Inter h-screen overflow-auto">

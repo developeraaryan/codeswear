@@ -3,6 +3,7 @@ import connectDb from "../../middleware/mongoose";
 
 const handler = async (req, res) => {
     if (req.method !== "POST") {
+        res.status(405).json({ success: false, message: "Method not allowed" });
         return;
     }
     const { product, email } = req.body;

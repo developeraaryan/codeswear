@@ -5,20 +5,39 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { Card, Grid, Row, Text, Button } from "@nextui-org/react";
 import CrossIcon from "../components/CrossIcon";
+import mongoose from 'mongoose'
+import Wishlist from '../Models/Wishlist'
+import Product from '../Models/Product'
 
-const wishlist = () => {
+const wishlist = ({ wishes }) => {
+    console.log(wishes, 'wishes');
     const router = useRouter()
     const [isEmpty, setIsEmpty] = React.useState(true)
     return (
         <div className='container mx-auto min-h-screen overflow-x-hidden'>
             <h1 className='text-3xl text-center my-4 leading-10'>Wishlist</h1>
-            {!isEmpty ? emptyWishlist(router) : wishlistItem()}
+            {!isEmpty ? emptyWishlist(router) : wishlistItem(wishes)}
         </div>
     )
 }
 
 
-const wishlistItem = () => {
+const removeWish = async (id) => {
+    console.log(id, 'id');
+    const res = await fetch(`/api/wishlist/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+    const data = await res.json()
+    console.log(data, 'data');
+    return data
+}
+
+
+
+const wishlistItem = (wishes) => {
     const list = [
         {
             title: "Orange",
@@ -63,13 +82,13 @@ const wishlistItem = () => {
     ];
     return (
         <>
-            <Grid.Container gap={2} className='overflow-y-hidden' justify="flex-start">
-                {list.map((item, index) => (
+            < Grid.Container gap={2} className='overflow-y-hidden' justify="flex-start">
+                {wishes && wishes.map((item, index) => (
                     <Grid xs={6} sm={3} key={index}>
-                        <Card isPressable>
-                            <Card.Body className='shadow-lg rounded-md shadow-slate-500' css={{ p: 0 }}>
+                        <Card isPressable isHoverable>
+                            <Card.Body className='shadow-lg rounded-md shadow-gray-300' css={{ p: 0 }}>
                                 <Card.Image
-                                    src={"https://nextui.org" + item.img}
+                                    src={item.img}
                                     objectFit="cover"
                                     width="100%"
                                     height={300}
@@ -102,6 +121,7 @@ const wishlistItem = () => {
                                         color="error"
                                         icon={<CrossIcon />}
                                         variant="outlined"
+                                        onClick={removeWish(item._id)}
                                         css={{ borderRadius: '50%', padding: '0.5rem', color: 'red', borderColor: 'red', backgroundColor: 'white' }}
                                     />
 
@@ -120,7 +140,7 @@ const wishlistItem = () => {
                         </Card>
                     </Grid>
                 ))}
-            </Grid.Container>
+            </ Grid.Container>
         </>
     )
 }
@@ -145,3 +165,35 @@ const emptyWishlist = (router) => {
 }
 
 export default wishlist
+
+
+export async function getStaticProps(context) {
+
+    if (!mongoose.connections[0].readyState) {
+        await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
+    }
+
+    const wishes = await Wishlist.find({ email: 'aryanak9163@gmail.com' })
+    let result = [];
+    if (wishes.length > 0) {
+        for (let i = 0; i < wishes.length; i++) {
+            result[i] = wishes[i]?.product.toString()
+        }
+    }
+
+    let data = [];
+    if (result.length > 0) {
+        for (let i = 0; i < result.length; i++) {
+            data[i] = await Product.findById(result[i])
+        }
+    }
+
+    console.log(data, 'result');
+
+
+    return {
+        props: {
+            wishes: JSON.parse(JSON.stringify(data)),
+        },
+    }
+}
