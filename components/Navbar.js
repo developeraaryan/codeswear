@@ -19,11 +19,24 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   const { data: session } = useSession()
   const [sidebar, setSidebar] = useState(false)
   const [dropdown, setDropdown] = useState(false)
+  const [wishlist, setWishlist] = useState([])
   function toggleCart() {
     setSidebar(!sidebar)
   }
   const router = useRouter()
   useEffect(() => {
+    const getWishlist = async () => {
+      const res = await fetch(`/api/getwishes`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setWishlist(data?.data)
+    }
+    getWishlist()
+    console.log(wishlist, 'wishlist');
     Object.keys(cart).length !== 0 && setSidebar(true)
     const exapted = ["/checkout", "/order", "/orders", "/myaccount", "/login", "/signup"]
     if (exapted.includes(router.pathname)) {
@@ -131,7 +144,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
 
           <ListItemText
             className='pt-2 mx-14'
-            primaryTypographyProps={{fontSize: "18px"}}
+            primaryTypographyProps={{ fontSize: "18px" }}
             primary='BLACK WORN' />
 
         </Link>
@@ -299,7 +312,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
           <SearchDD />
         </span>
 
-        <Badge className='z-0 mx-2 ' color="primary">
+        <Badge className='z-0 mx-2 ' badgeContent={wishlist.length} color="primary">
           <HeartIcon className='rounded-full fill-black hover:fill-green-700 text-3xl md:text-2xl' />
         </Badge>
 
