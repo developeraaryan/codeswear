@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import emptyImg from '../public/assets/empty.png'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -8,36 +8,33 @@ import CrossIcon from "../components/CrossIcon";
 import mongoose from 'mongoose'
 import Wishlist from '../Models/Wishlist'
 import Product from '../Models/Product'
-
+import { Toaster, toast } from 'react-hot-toast'
 const wishlist = ({ wishes }) => {
     console.log(wishes, 'wishes');
+    // const [wishes, setWishes] = React.useState()
     const router = useRouter()
     const [isEmpty, setIsEmpty] = React.useState(true)
+    useEffect(() => {
+
+        if (wishes.length > 0) {
+            setIsEmpty(false)
+        }
+    }, [])
+
     return (
         <div className='container mx-auto min-h-screen overflow-x-hidden'>
             <h1 className='text-3xl text-center my-4 leading-10'>Wishlist</h1>
-            {!isEmpty ? emptyWishlist(router) : wishlistItem(wishes)}
+            {isEmpty ? emptyWishlist(router) : wishlistItem(wishes, router)}
         </div>
     )
 }
 
 
-const removeWish = async (id) => {
-    console.log(id, 'id');
-    const res = await fetch(`/api/wishlist/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-    })
-    const data = await res.json()
-    console.log(data, 'data');
-    return data
-}
 
 
 
-const wishlistItem = (wishes) => {
+
+const wishlistItem = (wishes, router) => {
     const list = [
         {
             title: "Orange",
@@ -80,9 +77,30 @@ const wishlistItem = (wishes) => {
             price: "$12.20",
         },
     ];
+    const removeWish = async (id) => {
+        console.log(id, 'id');
+        const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/deletewish`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id })
+        })
+        const data = await res.json()
+        console.log(data, 'data');
+        if (data.success) {
+            toast.success(data.message)
+            // router.push('/wishlist')
+        }
+
+        return data
+    }
     return (
         <>
             < Grid.Container gap={2} className='overflow-y-hidden' justify="flex-start">
+                <Toaster
+                    position='top-center'
+                />
                 {wishes && wishes.map((item, index) => (
                     <Grid xs={6} sm={3} key={index}>
                         <Card isPressable isHoverable>
@@ -121,7 +139,7 @@ const wishlistItem = (wishes) => {
                                         color="error"
                                         icon={<CrossIcon />}
                                         variant="outlined"
-                                        onClick={removeWish(item._id)}
+                                        onClick={() => removeWish(item._id)}
                                         css={{ borderRadius: '50%', padding: '0.5rem', color: 'red', borderColor: 'red', backgroundColor: 'white' }}
                                     />
 

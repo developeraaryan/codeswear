@@ -5,14 +5,13 @@ import Product from "../../Models/Product"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Error from 'next/error';
-const { useSession } = require('next-auth/react')
 import { AiOutlineDoubleRight } from 'react-icons/ai'
 import { SendButton } from '../../components/SendButton';
 import { SendIcon } from '../../components/SendIcon';
 import { Button, Input, Modal, Text } from '@nextui-org/react';
 import { Image } from '@nextui-org/react';
-import Empty from '../../public/assets/empty.png'
 
+const { useSession } = require('next-auth/react')
 const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
@@ -28,6 +27,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const [pin, setPin] = useState()
     const [service, setService] = useState()
     useEffect(() => {
+        console.log(session, 'router')
         handler()
         if (!error) {
             setColor(product.color)

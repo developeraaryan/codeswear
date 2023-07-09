@@ -1,24 +1,20 @@
 "use client"
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import Slider from '../components/Slider'
 // import Slider from '@madzadev/image-slider'
 // import "@madzadev/image-slider/dist/index.css";
-import { signOut, useSession } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 // import MuiImageSlider from 'mui-image-slider';
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
 // import ImageSlider from '../components/ImageSlider'
 import dynamic from 'next/dynamic'
-import mongoose from 'mongoose'
-import Product from '../Models/Product'
 import HomepageCard from '../components/HomepageCard'
 import localFont from "next/font/local"
 
 
 const neutro = localFont({ src: "../assets/fonts/neutro/Neutro-ExtraBold.otf" })
 
-const DynamicCarousel = dynamic(() => import('../components/ImageSlider'), { ssr: false })
+const DynamicCarousel = dynamic(async () => await import('../components/ImageSlider'), { ssr: false })
 
 
 
