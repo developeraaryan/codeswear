@@ -28,7 +28,6 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const [service, setService] = useState()
     useEffect(() => {
         console.log(session, 'router')
-        handler()
         if (!error) {
             setColor(product.color)
             setSize(product.size)
@@ -258,7 +257,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                     </div>
                 </div>
                 <div className="size flex flex-col justify-center">
-                    <div className="text flex justify-center font-semibold space-x-32 md:space-x-[30rem] z-0">
+                    <div className="text flex justify-center font-semibold space-x-[4.5rem] relative left-7 md:space-x-[30rem] z-0">
                         <h5>SELECT SIZE</h5>
                         <Button
                             light

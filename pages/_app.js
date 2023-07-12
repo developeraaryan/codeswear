@@ -9,7 +9,7 @@ import '@milon27/react-sidebar/dist/react-sidebar.css'
 import LoadingBar from 'react-top-loading-bar'
 import { SessionProvider } from 'next-auth/react'
 import { Roboto } from "next/font/google";
-
+import { ScrollTop } from 'primereact/scrolltop';
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 
