@@ -8,14 +8,19 @@ import { ScrollTop } from 'primereact/scrolltop'
 import CartItem from '../components/CartItem'
 
 
-const cart = () => {
+const cart = ({ cart, removeFromCart }) => {
     const [isEmpty, setIsEmpty] = React.useState(true)
     const router = useRouter()
+    React.useEffect(() => {
+        if (Object.keys(cart).length > 0) {
+            setIsEmpty(false)
+        }
+    }, [cart])
     return (
         <>
             <div className='container mx-auto min-h-screen overflow-x-hidden'>
                 <h1 className='text-3xl text-center my-4 leading-10'>My Cart</h1>
-                {!isEmpty ? emptyCart(router) : cartItem(router)}
+                {isEmpty ? emptyCart(router) : cartItem(cart, removeFromCart)}
 
 
             </div>
@@ -24,7 +29,7 @@ const cart = () => {
     )
 }
 
-const cartItem = (cart, router) => {
+const cartItem = (cart, removeFromCart) => {
     const routers = useRouter()
     return (
         <>
@@ -77,7 +82,10 @@ const cartItem = (cart, router) => {
                     </div> */}
                 {/* </div>  */}
 
-                <CartItem />
+                <CartItem
+                    cart={cart}
+                    removeFromCart={removeFromCart}
+                />
 
 
 

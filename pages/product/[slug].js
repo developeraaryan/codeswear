@@ -240,7 +240,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     {!product.availableqty <= 0 && product.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product.availableqty} left</span>}
                                 </div> */}
 
-                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Add to cart</button>
+                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color,product.img) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Add to cart</button>
                                 <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Buy Now</button>
 
                                 {/* Wishlist */}
