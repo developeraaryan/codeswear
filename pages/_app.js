@@ -10,6 +10,7 @@ import LoadingBar from 'react-top-loading-bar'
 import { SessionProvider } from 'next-auth/react'
 import { Roboto } from "next/font/google";
 import { ScrollTop } from 'primereact/scrolltop';
+import Head from "next/head"
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 
@@ -91,7 +92,7 @@ export default function App({ Component,
     setCart(newCart)
     saveCart(newCart)
   }
-  const removeFromCart = (itemCode, qty, price, name, size, color,img) => {
+  const removeFromCart = (itemCode, qty, price, name, size, color, img) => {
     let newCart = JSON.parse(JSON.stringify(cart));
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty - qty
@@ -126,9 +127,9 @@ export default function App({ Component,
       theme: "dark",
     });
   }
-  const buyNow = (itemCode, qty, price, name, size, color,img) => {
+  const buyNow = (itemCode, qty, price, name, size, color, img) => {
     let newCart = {}
-    newCart[itemCode] = { qty: 1, name, size, price, color,img }
+    newCart[itemCode] = { qty: 1, name, size, price, color, img }
     setCart(newCart)
     saveCart(newCart)
     router.push('/checkout')
@@ -157,6 +158,10 @@ export default function App({ Component,
 
   return <>
     <SessionProvider session={session}>
+      <Head>
+        <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+        <title>Black Worn</title>
+      </Head>
       <main className="font-Inter h-screen overflow-auto">
         <style jsx global>
           {`
