@@ -59,11 +59,11 @@ const Login = () => {
   }, [router, session])
 
   const handleGoogle = async () => {
-    await signIn('google', { callbackUrl: 'http://localhost:3000/' })
+    await signIn('google', { callbackUrl: process.env.NEXT_PUBLIC_HOST })
   }
 
   const handleFacebook = async () => {
-    await signIn('facebook', { callbackUrl: 'http://localhost:3000/' })
+    await signIn('facebook', { callbackUrl: process.env.NEXT_PUBLIC_HOST })
   }
 
   const handleChange = (e) => {
