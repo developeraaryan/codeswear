@@ -32,7 +32,7 @@ const Privacy = () => {
                         </h4>
                         <div className='text-justify mx-4 mt-0 md:text-2xl'>
                             <span className='font-bold mx-1'>a.</span>
-                            The website <a className='text-blue-600 underline' target='_blank' href='https://www.blackworn.com'>blackworn.com</a> (referred to as "the website" or "our website") is owned and operated by Black Worn (referred to as "we," "us," or "our")
+                            The website <a className='text-blue-600 underline' target='_blank' href='https://www.blackworn.com'>blackworn.com</a> (referred to as &rdquo;the website&rdquo; or &rdquo;our website&rdquo;) is owned and operated by Black Worn (referred to as &rdquo;we,&rdquo; &rdquo;us,&rdquo; or &rdquo;our&rdquo;)
 
                         </div>
                         <div className='text-justify mx-4 mt-1 md:text-2xl'>

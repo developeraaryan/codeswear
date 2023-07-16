@@ -18,29 +18,30 @@ export default function Index({ Products }) {
     const router = useRouter()
     const { data: session } = useSession()
     console.log(session?.user?.email);
-    const getUserRole = async () => {
-        const userEmail = session?.user?.email
-        console.log(userEmail);
-        let response = await fetch(`api/getrole`, {
-            method: "POST",
-            headers: {
-                "content-Type": "application/json"
-            },
-            body: JSON.stringify(userEmail)
-        })
-        let res = await response.json()
-        console.log(res);
-        if (res.role === "admin") {
-            role = "admin"
-        }
-        else {
-            role = "user"
-        }
 
-    }
     useEffect(() => {
+        const getUserRole = async () => {
+            const userEmail = session?.user?.email
+            console.log(userEmail);
+            let response = await fetch(`api/getrole`, {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json"
+                },
+                body: JSON.stringify(userEmail)
+            })
+            let res = await response.json()
+            console.log(res);
+            if (res.role === "admin") {
+                role = "admin"
+            }
+            else {
+                role = "user"
+            }
+
+        }
         getUserRole()
-    }, [getUserRole])
+    }, [])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>

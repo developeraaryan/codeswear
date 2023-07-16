@@ -21,14 +21,13 @@ const Cart = ({ cart, removeFromCart }) => {
         <>
             <div className='container mx-auto min-h-screen overflow-x-hidden'>
                 <h1 className='text-3xl text-center my-4 leading-10'>My Cart</h1>
-                {isEmpty ? emptyCart(router) : cartItem(cart, removeFromCart)}
+                {isEmpty ? emptyCart(router) : cartItem(cart, removeFromCart, router)}
             </div>
         </>
     )
 }
 
-const cartItem = (cart, removeFromCart) => {
-    const router = useRouter()
+const cartItem = (cart, removeFromCart, router) => {
 
     return (
         <>
