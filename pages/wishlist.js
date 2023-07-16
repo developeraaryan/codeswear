@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect } from 'react'
 import emptyImg from '../public/assets/empty.png'
 import Image from 'next/image'
@@ -9,8 +10,13 @@ import mongoose from 'mongoose'
 import Wishlist from '../Models/Wishlist'
 import Product from '../Models/Product'
 import { Toaster, toast } from 'react-hot-toast'
-const wishlist = ({ wishes }) => {
-    console.log(wishes, 'wishes');
+import { getSession, useSession } from "next-auth/react"
+
+
+
+
+const wishlist = ({ wishes, context }) => {
+    const { data: session, status } = useSession()
     // const [wishes, setWishes] = React.useState()
     const router = useRouter()
     const [isEmpty, setIsEmpty] = React.useState(true)
@@ -35,50 +41,7 @@ const wishlist = ({ wishes }) => {
 
 
 const wishlistItem = (wishes, router) => {
-    const list = [
-        {
-            title: "Orange",
-            img: "/images/fruit-1.jpeg",
-            price: "$5.50",
-        },
-        {
-            title: "Tangerine",
-            img: "/images/fruit-2.jpeg",
-            price: "$3.00",
-        },
-        {
-            title: "Cherry",
-            img: "/images/fruit-3.jpeg",
-            price: "$10.00",
-        },
-        {
-            title: "Lemon",
-            img: "/images/fruit-4.jpeg",
-            price: "$5.30",
-        },
-        {
-            title: "Avocado",
-            img: "/images/fruit-5.jpeg",
-            price: "$15.70",
-        },
-        {
-            title: "Lemon 2",
-            img: "/images/fruit-6.jpeg",
-            price: "$8.00",
-        },
-        {
-            title: "Banana",
-            img: "/images/fruit-7.jpeg",
-            price: "$7.50",
-        },
-        {
-            title: "Watermelon",
-            img: "/images/fruit-8.jpeg",
-            price: "$12.20",
-        },
-    ];
     const removeWish = async (id) => {
-        console.log(id, 'id');
         const res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/deletewish`, {
             method: 'POST',
             headers: {
@@ -87,7 +50,6 @@ const wishlistItem = (wishes, router) => {
             body: JSON.stringify({ id })
         })
         const data = await res.json()
-        console.log(data, 'data');
         if (data.success) {
             toast.success(data.message)
             // router.push('/wishlist')
@@ -185,33 +147,50 @@ const emptyWishlist = (router) => {
 export default wishlist
 
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
 
-    if (!mongoose.connections[0].readyState) {
-        await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
-    }
+    const session = await getSession(context)
+    console.log(session, 'email');
 
-    const wishes = await Wishlist.find({ email: 'aryanak9163@gmail.com' })
-    let result = [];
-    if (wishes.length > 0) {
-        for (let i = 0; i < wishes.length; i++) {
-            result[i] = wishes[i]?.product.toString()
+
+    if (!session?.user) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false,
+            },
         }
     }
+    else {
 
-    let data = [];
-    if (result.length > 0) {
-        for (let i = 0; i < result.length; i++) {
-            data[i] = await Product.findById(result[i])
+
+
+
+        if (!mongoose.connections[0].readyState) {
+            await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
         }
-    }
 
-    console.log(data, 'result');
+        const wishes = await Wishlist.find({ email: session?.user?.email })
+        let result = [];
+        if (wishes.length > 0) {
+            for (let i = 0; i < wishes.length; i++) {
+                result[i] = wishes[i]?.product.toString()
+            }
+        }
+
+        let data = [];
+        if (result.length > 0) {
+            for (let i = 0; i < result.length; i++) {
+                data[i] = await Product.findById(result[i])
+            }
+        }
 
 
-    return {
-        props: {
-            wishes: JSON.parse(JSON.stringify(data)),
-        },
+
+        return {
+            props: {
+                wishes: JSON.parse(JSON.stringify(data)),
+            },
+        }
     }
 }

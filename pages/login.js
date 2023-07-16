@@ -14,6 +14,7 @@ import { HiAtSymbol } from 'react-icons/hi'
 
 let status;
 
+
 const onSubmit = async (values) => {
   // console.log(values);
   status = await signIn('credentials',
@@ -46,7 +47,9 @@ const Login = () => {
       router.push("/")
     }
     if (status?.ok) {
-      router.push(status.url)
+      // router.push(status.url)
+      // window.history.back()
+      router.back()
     }
     // else if (session) {
     //   router.push("/")

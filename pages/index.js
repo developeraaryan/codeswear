@@ -24,6 +24,7 @@ export default function Home() {
   const { data: session } = useSession()
   const [comingSrc, setComingSrc] = useState('')
   useEffect(() => {
+    console.log(session?.id, 'session');
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setComingSrc('/assets/crazy-deal-mobile.jpg')

@@ -62,6 +62,9 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       setDisabled(false)
       console.log(disabled);
     }
+    else if (subTotal == 0) {
+      setDisabled(true)
+    }
     else {
       setDisabled(true)
       console.log(disabled);
@@ -259,7 +262,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         </div>
       </div>
       <h2 className="font-semibold text-xl my-4">2. Review Cart Items</h2>
-      <div className=" sideCart  bg-pink-100  p-6 my-8  ">
+      <div className=" sideCart  bg-blue-100  p-6 my-8  ">
         <ol className='list-decimal font-semibold' >
           {Object.keys(cart).length === 0 &&
             <div className='my-12 text-lg text-center font-normal'>Your cart is empty</div>}
@@ -270,7 +273,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
                   {cart[k].name}&nbsp;({cart[k].size}/{cart[k].color})
                 </div>
                 <div className='flex items-center justify-center w-1/3 font-semibold text-lg'>
-                  <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-pink-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-pink-500 cursor-pointer' />
+                  <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-blue-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-blue-500 cursor-pointer' />
                 </div>
                 <div className='font-semibold right-8 absolute'>
                   {cart[k].img}
@@ -282,7 +285,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="font-bold">SubTotal : ₹{subTotal} </div>
       </div>
       <div className="mx-4">
-        <Link href={'/checkout'} className='cursor-default'><button disabled={disabled} onClick={makePayment} className="disabled:bg-pink-300 flex mr-2  text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
+        <Link href={'/checkout'} className='cursor-default'><button disabled={disabled} onClick={makePayment} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
       </div>
     </div>
   )
@@ -292,18 +295,18 @@ export default Checkout
 
 
 
-// export async function getServerSideProps({ req }) {
-//   const session = await getSession({ req })
+export async function getServerSideProps({ req }) {
+  const session = await getSession({ req })
 
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/login',
-//         permanent: false
-//       }
-//     }
-//   }
-//   return {
-//     props: { session }
-//   }
-// }
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/login',
+        permanent: false
+      }
+    }
+  }
+  return {
+    props: { session }
+  }
+}
