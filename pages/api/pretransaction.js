@@ -1,8 +1,8 @@
 const https = require('https');
 const PaytmChecksum = require('paytmchecksum');
-import Order from '@/Models/Order';
-import connectDb from '@/middleware/mongoose';
-import Product from '@/Models/Product';
+import Order from '../../Models/Order';
+import connectDb from '../../middleware/mongoose';
+import Product from '../../Models/Product';
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
