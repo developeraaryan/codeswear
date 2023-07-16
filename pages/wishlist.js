@@ -15,7 +15,7 @@ import { getSession, useSession } from "next-auth/react"
 
 
 
-const Wishlist = ({ wishes, context }) => {
+const WishlistComponent = ({ wishes, context }) => {
     const { data: session, status } = useSession()
     // const [wishes, setWishes] = React.useState()
     const router = useRouter()
@@ -144,7 +144,7 @@ const emptyWishlist = (router) => {
     )
 }
 
-export default Wishlist
+export default WishlistComponent
 
 
 export async function getServerSideProps(context) {
