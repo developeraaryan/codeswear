@@ -4,7 +4,7 @@ const nextConfig = {
   // output: 'export',
   images: {
     // unoptimized: true,
-    domains: ['https://images.unsplash.com', process.env.NEXT_PUBLIC_IMG_DOMAIN, 'lh3.googleusercontent.com'],
+    domains: ['https://images.unsplash.com', 'm.media-amazon.com', 'lh3.googleusercontent.com'],
     remotePatterns: [
       {
         protocol: 'https',
