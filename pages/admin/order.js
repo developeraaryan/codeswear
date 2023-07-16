@@ -7,6 +7,7 @@ import UpdateOrder from '../../src/components/dashboard/UpdateOrder'
 import theme from '../../src/theme/theme'
 import FullLayout from '../../src/layouts/FullLayout'
 import { Grid, ThemeProvider } from '@mui/material'
+import Image from 'next/image'
 
 
 
@@ -72,7 +73,7 @@ const MyOrder = ({ order, clearCart }) => {
         if (router.query.clearcart == 1) {
             clearCart()
         }
-    }, [])
+    }, [clearCart, router.query.clearcart, order.createdAt])
 
 
     return (
@@ -137,7 +138,11 @@ const MyOrder = ({ order, clearCart }) => {
                                 </div>
 
                             </div>
-                            <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
+                            <Image
+                                width={400}
+                                height={400}
+                                alt="ecommerce"
+                                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
                         </div>
                     </div>
                 </section >

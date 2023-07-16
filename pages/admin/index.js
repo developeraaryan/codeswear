@@ -40,7 +40,7 @@ export default function Index({ Products }) {
     }
     useEffect(() => {
         getUserRole()
-    }, [])
+    }, [getUserRole])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>

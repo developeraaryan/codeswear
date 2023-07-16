@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/404.module.css"
+import Link from "next/link";
 
 const NotFound = () => {
     return (
@@ -13,7 +14,7 @@ const NotFound = () => {
                     The page you are looking for might have been removed had its name
                     changed or is temporarily unavailable.
                 </p>
-                <a href="/">Go To Homepage</a>
+                <Link href="/">Go To Homepage</Link>
             </div>
         </div>
     );

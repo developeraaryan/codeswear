@@ -43,7 +43,7 @@ const UpdateProduct = () => {
 
         }
         getDetails()
-    }, [router.query.slug])
+    }, [router.query.slug, id])
 
     const handleSubmit = async (e) => {
         e.preventDefault();

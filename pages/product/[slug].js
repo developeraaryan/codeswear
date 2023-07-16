@@ -171,7 +171,12 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                 />
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                        <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded" src={product.img} />
+                        <Image
+                            width={500}
+                            height={500}
+                            alt="ecommerce"
+                            // className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded"
+                            src={product.img} />
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color})</h1>
@@ -240,7 +245,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     {!product.availableqty <= 0 && product.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product.availableqty} left</span>}
                                 </div> */}
 
-                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color,product.img) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Add to cart</button>
+                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color, product.img) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Add to cart</button>
                                 <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Buy Now</button>
 
                                 {/* Wishlist */}
@@ -340,6 +345,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     width={30}
                                     height={30}
                                     className='-mt-3 mr-1'
+                                    alt='tracking'
                                 />
                                 <h5>CHECK AVAILABILITY</h5>
                             </div>

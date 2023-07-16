@@ -24,7 +24,6 @@ export default function Home() {
   const { data: session } = useSession()
   const [comingSrc, setComingSrc] = useState('')
   useEffect(() => {
-    console.log(session?.id, 'session');
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setComingSrc('/assets/crazy-deal-mobile.jpg')
@@ -50,7 +49,6 @@ export default function Home() {
     const data = {
       email: session?.user?.email
     }
-    console.log(data.email);
     let response = await fetch(`api/getrole`, {
       method: "POST",
       headers: {
@@ -59,7 +57,6 @@ export default function Home() {
       body: JSON.stringify(data)
     })
     let res = await response.json()
-    console.log(res);
   }
   useEffect(() => {
     const getgoogle = async () => {
@@ -77,7 +74,6 @@ export default function Home() {
         body: JSON.stringify(data)
       })
       let res = await response.json()
-      console.log(res);
 
     }
     if (session) {
@@ -85,7 +81,7 @@ export default function Home() {
       getUserRole()
     }
 
-  }, [session])
+  }, [session, getUserRole, session?.id])
   // ]
   return (
     <>

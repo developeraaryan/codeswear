@@ -55,7 +55,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       setEmail(myuser.email)
       fetchData(myuser.token)
     }
-  }, [])
+  }, [fetchData, subTotal])
 
   useEffect(() => {
     if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3) {

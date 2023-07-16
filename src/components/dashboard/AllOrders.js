@@ -20,9 +20,6 @@ import { IconTypography } from "@tabler/icons-react";
 
 
 const AllProducts = ({ orders }) => {
-  useEffect(() => {
-    console.log((orders));
-  }, [])
   return (
     <BaseCard title="Orders">
       <TableContainer>

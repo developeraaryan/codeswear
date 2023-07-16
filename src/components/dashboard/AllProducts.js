@@ -17,9 +17,6 @@ import Image from "next/image";
 
 
 const AllProducts = ({ Products }) => {
-  useEffect(() => {
-    console.log(typeof Products);
-  }, [])
   return (
     <BaseCard title="Products">
       <TableContainer>

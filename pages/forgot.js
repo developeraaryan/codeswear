@@ -18,8 +18,7 @@ const Login = () => {
     }
     let rToken = router.query.token;
     setToken(rToken);
-    console.log(token);
-  }, [router]);
+  }, [router,token]);
 
   const handleResetPassword = async (e) => {
     e.preventDefault();

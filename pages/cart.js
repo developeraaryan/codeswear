@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import emptyImg from '../public/assets/empty-cart-png.png'
 import CartImg from '../public/assets/oversized(styles).png'
 import { Button } from '@nextui-org/react'
@@ -9,9 +9,9 @@ import CartItem from '../components/CartItem'
 
 
 const cart = ({ cart, removeFromCart }) => {
-    const [isEmpty, setIsEmpty] = React.useState(true)
+    const [isEmpty, setIsEmpty] = useState(true)
     const router = useRouter()
-    React.useEffect(() => {
+    useEffect(() => {
         if (Object.keys(cart).length > 0) {
             setIsEmpty(false)
         }

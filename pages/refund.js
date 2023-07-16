@@ -66,7 +66,7 @@ const Refund = () => {
                 <div className='flex px-4'>
                     <h5 className='font-semibold'>c.</h5>
                     <span className='px-1'>
-                        The refund amount will be credited to the customer's account which has been given in the refund form after deducting a processing fee of INR 60.
+                        The refund amount will be credited to the customer&apos;s account which has been given in the refund form after deducting a processing fee of INR 60.
                     </span>
                 </div>
             </section>

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, React, useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 
 const Orders = () => {
     const { data: session } = useSession()
@@ -26,7 +26,7 @@ const Orders = () => {
             console.log("user");
         }
         fetchOrders()
-    }, [])
+    }, [error,session])
 
     return (
         <div className='min-h-screen container my-14 mx-auto text-black '>
@@ -88,3 +88,19 @@ const Orders = () => {
 
 
 export default Orders
+
+export async function getServerSideProps(context) {
+    const session = await getSession(context)
+    if (!session) {
+        return {
+            redirect: {
+                destination: '/',
+                permanent: false,
+            },
+        }
+    } else {
+        return {
+            props: { session }
+        }
+    }
+}

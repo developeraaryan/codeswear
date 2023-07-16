@@ -19,7 +19,7 @@ const About = () => {
         }} >
           <li >
             <span className='text-justify md:text-2xl'>
-              Black Worn is a clothing brand that is dedicated to providing high-quality and stylish clothing for men and women. We are committed to creating unique designs that reflect the latest fashion trends while also maintaining a timeless appeal. Our products are made with the finest materials to ensure durability and comfort. We believe that fashion should be accessible to everyone, which is why we offer our products at affordable prices. We are based in Patna, India, and sell our products online through our website. At Black Worn, we value our customers' privacy and are committed to protecting their personal information.
+              Black Worn is a clothing brand that is dedicated to providing high-quality and stylish clothing for men and women. We are committed to creating unique designs that reflect the latest fashion trends while also maintaining a timeless appeal. Our products are made with the finest materials to ensure durability and comfort. We believe that fashion should be accessible to everyone, which is why we offer our products at affordable prices. We are based in Patna, India, and sell our products online through our website. At Black Worn, we value our customers&apos; privacy and are committed to protecting their personal information.
             </span>
 
           </li>
