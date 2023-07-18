@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import HomepageCard from '../components/HomepageCard'
 import localFont from "next/font/local"
+import ScrollToTop from 'react-scroll-to-top'
 
 
 const neutro = localFont({ src: "../assets/fonts/neutro/Neutro-ExtraBold.otf" })
@@ -24,6 +25,7 @@ export default function Home() {
   const { data: session } = useSession()
   const [comingSrc, setComingSrc] = useState('')
   useEffect(() => {
+    window.scrollTo(0, 0)
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setComingSrc('/assets/crazy-deal-mobile.jpg')
@@ -187,8 +189,8 @@ export default function Home() {
             </h4>
           </div>
         </div>
-      </div>
       <HomepageCard />
+      </div>
     </>
   )
 }

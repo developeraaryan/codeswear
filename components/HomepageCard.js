@@ -25,7 +25,7 @@ export default function ECommerceCard({ addToCart }) {
                     return <Link href={`/product/${products[item].slug}`} key={products[item]._id} legacyBehavior>
 
 
-                        <div className="lg:w-1/4 md:w-1/2 p-4 w-full cursor-pointer shadow-md  hover:shadow-2xl m-5">
+                        <div className="lg:w-1/5 md:w-1/3  p-4 w-full cursor-pointer shadow-md  hover:shadow-2xl m-5">
                             <a className="block relative  rounded overflow-hidden">
                                 <img alt="ecommerce" className="m-auto  h-[30vh] md:h-[36vh]  block" src="/assets/women.jpg" />
                             </a>

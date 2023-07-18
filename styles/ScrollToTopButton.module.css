@@ -1,0 +1,16 @@
+.scrollToTopButton {
+    /* display: none; */
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.scrollToTopButton.visible {
+    display: block;
+    opacity: 1;
+}

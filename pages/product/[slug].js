@@ -2,21 +2,28 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import mongoose from 'mongoose'
 import Product from "../../Models/Product"
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Error from 'next/error';
 import { AiOutlineDoubleRight } from 'react-icons/ai'
+import { FaCopy, FaShare } from 'react-icons/fa'
 import { SendButton } from '../../components/SendButton';
 import { SendIcon } from '../../components/SendIcon';
 import { Button, Input, Modal, Text } from '@nextui-org/react';
 import { Image } from '@nextui-org/react';
-
+import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, TelegramIcon, TelegramShareButton, LinkedinShareButton, LinkedinIcon, RedditShareButton, RedditIcon, EmailShareButton, EmailIcon } from 'next-share';
+import toast, { Toaster } from 'react-hot-toast';
 const { useSession } = require('next-auth/react')
 const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
     const closeHandler = () => {
         setVisible(false);
+        console.log("closed");
+    };
+    const sHandler = () => setSVisible(true);
+    const sCloseHandler = () => {
+        setSVisible(false);
         console.log("closed");
     };
     const { data: session } = useSession()
@@ -26,6 +33,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const { slug } = router.query
     const [pin, setPin] = useState()
     const [service, setService] = useState()
+    const [sVisible, setSVisible] = useState(false);
     useEffect(() => {
         console.log(session, 'router')
         if (!error) {
@@ -35,23 +43,14 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     }, [router.query])
 
     const checkServiceability = async () => {
-        let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
-        let pinsjson = await pins.json()
-        console.log(pin)
-        if (pin && pin.length < 6) {
-            toast.error('Invalid Pincode!', {
-                position: "top-center",
-                autoClose: 1000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-            });
+        let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
+        let pinData = await pins.json()
+        console.log(pinData, 'pinData');
+        if (pinData[0].Status == 'Success') {
+            setService(true)
         }
-        else if (!pin) {
-            toast.error('Invalid Pincode!', {
+        if (service) {
+            toast.success('Service Available!', {
                 position: "top-center",
                 autoClose: 1000,
                 hideProgressBar: false,
@@ -63,39 +62,22 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
             });
         }
         else {
-            if (Object.keys(pinsjson).includes(pin)) {
-                setService(true)
-                toast.success('Your pincode is serviceable!', {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-
-            }
-            else {
-                setService(false)
-                toast.error('Sorry, pincode not serviceable!', {
-                    position: "top-center",
-                    autoClose: 1000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-
-            }
+            toast.error('Invalid Pincode!', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     }
     const onChangePin = (e) => {
-        console.log(e.target.value, 'pin');
-        setPin(e.target.value)
+        let currentPin = e.target.value
+        currentPin = Number.parseInt(currentPin)
+        setPin(currentPin)
     }
     const refreshVarient = (newSize, newColor) => {
         let url = `${process.env.NEXT_PUBLIC_HOST}/product/${varients[newColor][newSize]['slug']}`
@@ -153,10 +135,17 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
         }
     }
 
-
+    const copyHandler = () => {
+        navigator.clipboard.writeText(window.location.href)
+        toast.success('Link Copied!')
+    }
     return (
         <>
             <section className="text-gray-600 body-font overflow-hidden min-h-full">
+                <Toaster
+                    position="top-center"
+                    reverseOrder={false}
+                />
                 <ToastContainer
                     position="top-center"
                     autoClose={3000}
@@ -170,16 +159,120 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                     theme="dark"
                 />
                 <div className="container px-5 py-16 mx-auto">
-                    <div className="lg:w-4/5 mx-auto flex flex-wrap">
+                    <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
                         <Image
                             width={500}
                             height={500}
                             alt="ecommerce"
                             // className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded"
                             src={product.img} />
+                        <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-20 -right-52 md:-right-[45rem] justify-center text-gray-500 ml-4">
+                            <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
+                                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+                            </svg>
+                        </button>
+                        <div className="relative left-[55rem] top-20">
+                            {/* <FacebookShareButton
+                                url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
+                                quote={product.title}
+                                hashtag="#fashion"
+                                className="Demo__some-network__share-button">
+                                <FacebookIcon size={32} round />
+                            </FacebookShareButton> */}
+                        </div>
+                        <Button
+                            icon={<FaShare />}
+                            auto
+                            light
+                            ripple={false}
+                            className='hover:text-slate-700 relative left-64 md:left-[55rem] top-20'
+                            onPress={sHandler}
+                        />
+
+                        <Modal
+                            closeButton
+                            aria-labelledby="modal-title"
+                            open={sVisible}
+                            onClose={sCloseHandler}
+                        >
+                            <Modal.Header>
+                                <Text b id="modal-title" size={25}>
+                                    Share Now!
+                                </Text>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className='flex flex-row'>
+                                    <Input
+                                        readOnly
+                                        value={`${process.env.NEXT_PUBLIC_HOST} /product/${product.slug}`}
+                                        width='90%'
+                                    />
+                                    <Button
+                                        icon={<FaCopy />}
+                                        auto
+                                        light
+                                        ripple={false}
+                                        onPress={copyHandler}
+                                    />
+                                </div>
+                                <div className="grid grid-cols-7 gap-8">
+                                    <FacebookShareButton
+                                        url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
+                                        quote={product.title}
+                                        hashtag="#fashion"
+                                        className="Demo__some-network__share-button">
+                                        <FacebookIcon size={32} round />
+                                    </FacebookShareButton>
+                                    <TwitterShareButton
+                                        url={`https://twitter.com/intent/tweet?text=${product.title}&url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
+                                        title={product.title}
+                                        className="Demo__some-network__share-button">
+                                        <TwitterIcon size={32} round />
+                                    </TwitterShareButton>
+                                    <WhatsappShareButton
+                                        url={`${`https://localhost:3001`}/product/${product.slug}`}
+                                        title={product.title}
+                                        separator=":: "
+                                        className="Demo__some-network__share-button">
+                                        <WhatsappIcon size={32} round />
+                                    </WhatsappShareButton>
+                                    <TelegramShareButton
+                                        url={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}&text=${product.title}`}
+                                        title={product.title}
+                                        className="Demo__some-network__share-button">
+                                        <TelegramIcon size={32} round />
+                                    </TelegramShareButton>
+                                    <LinkedinShareButton
+                                        url={`https://www.linkedin.com/shareArticle?mini=true&url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}&title=${product.title}&summary=${product.title}&source=${process.env.NEXT_PUBLIC_HOST}`}
+                                        className="Demo__some-network__share-button">
+                                        <LinkedinIcon size={32} round />
+                                    </LinkedinShareButton>
+                                    <RedditShareButton
+                                        url={`https://www.reddit.com/submit?url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}&title=${product.title}`}
+                                        title={product.title}
+                                        windowWidth={660}
+                                        windowHeight={460}
+                                        className="Demo__some-network__share-button">
+                                        <RedditIcon size={32} round />
+                                    </RedditShareButton>
+                                    <EmailShareButton
+                                        url={`mailto:?subject=${product.title}&body=${product.title} ${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
+                                        subject={product.title}
+                                        body={product.title}
+                                        className="Demo__some-network__share-button">
+                                        <EmailIcon size={32} round />
+                                    </EmailShareButton>
+                                </div>
+
+
+
+                            </Modal.Body>
+
+                        </Modal>
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color})</h1>
+                            <h3 className='font-bold'>₹{product?.price}</h3>
                             <div className="flex mb-4">
                                 {/* <span className="flex items-center">
                                     <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
@@ -238,26 +331,24 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     </div>
                                 </div>
                             </div> */}
-                            <div className="flex fixed bottom-0 justify-center items-center bg-black w-full left-0 p-4 z-50">
+                            <div className="flex fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
                                 {/* <div className='flex flex-col'>
                                     {!product.availableqty <= 0 && <span className="title-font font-medium text-2xl text-gray-900">₹{product.price}</span>}
                                     {product.availableqty <= 0 && <span className="title-font font-medium text-2xl text-red-800">Out of stock</span>}
                                     {!product.availableqty <= 0 && product.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product.availableqty} left</span>}
                                 </div> */}
 
-                                <button onClick={() => { addToCart(slug, 1, product.price, product.title, size, color, product.img) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Add to cart</button>
-                                <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-blue-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-blue-600 rounded">Buy Now</button>
+                                <button onClick={() => {
+                                    session ? addToCart(slug, 1, product.price, product.title, size, color, product.img) :
+                                        toast.error('Login Please!')
+                                    router.push('/login')
+                                }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-rose-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
+                                <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 
                                 {/* Wishlist */}
-                                <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
-                                    <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                                        <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-                                    </svg>
-                                </button>
+
                             </div>
 
-                            {(!service && service != null) && <div className="text-red-700 text-sm mt-3">Sorry! We do not deliver to this pincode yet.</div>}
-                            {(service && service != null) && <div className="text-green-700 text-sm mt-3">Yey! This Pincode is serviceable</div>}
                         </div>
                     </div>
                 </div>
@@ -347,7 +438,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     className='-mt-3 mr-1'
                                     alt='tracking'
                                 />
-                                <h5>CHECK AVAILABILITY</h5>
+                                <h5 className='relative right-0 md:right-[37rem] top-1'>CHECK AVAILABILITY</h5>
                             </div>
                         </div>
 
@@ -374,7 +465,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                         </div>
                     </div>
 
-                    <div className="flex justify-center flex-row my-4 space-x-10">
+                    <div className="grid grid-cols-3">
                         <Image
                             showSkeleton
                             src='/assets/100-premium-cotton.png'

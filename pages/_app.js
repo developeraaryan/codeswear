@@ -2,7 +2,7 @@ import "../styles/globals.css"
 import Footer from "../components/Footer"
 import Navbar from '../components/Navbar'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '@milon27/react-sidebar/dist/react-sidebar.css'
@@ -10,7 +10,9 @@ import LoadingBar from 'react-top-loading-bar'
 import { SessionProvider } from 'next-auth/react'
 import { Roboto } from "next/font/google";
 import { ScrollTop } from 'primereact/scrolltop';
+import ScrollToTop from "react-scroll-to-top";
 import Head from "next/head"
+import ScrollButton from "../components/ScrollButton"
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 
@@ -157,29 +159,32 @@ export default function App({ Component,
 
 
   return <>
-    <SessionProvider session={session}>
-      <Head>
-        <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
-        <title>Black Worn</title>
-      </Head>
-      <main className="font-Inter h-screen overflow-auto">
-        <style jsx global>
-          {`
+    <Fragment>
+      <SessionProvider session={session}>
+        <Head>
+          <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+          <title>Black Worn</title>
+        </Head>
+        <main className="font-Inter h-screen overflow-auto">
+          <style jsx global>
+            {`
           html {
             font-family: ${roboto.style.fontFamily};
           }
           `}
-        </style>
-        <LoadingBar
-          color='#f11946'
-          progress={progress}
-          waitingTime={400}
-          onLoaderFinished={() => setProgress(0)}
-        />
-        {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
-        <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-        <Footer />
-      </main >
-    </SessionProvider>
+          </style>
+          <LoadingBar
+            color='#f11946'
+            progress={progress}
+            waitingTime={400}
+            onLoaderFinished={() => setProgress(0)}
+          />
+          {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
+          <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+          <Footer />
+        </main >
+      </SessionProvider>
+      {/* <ScrollButton /> */}
+    </Fragment>
   </>
 }
