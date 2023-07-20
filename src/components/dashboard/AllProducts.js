@@ -106,7 +106,7 @@ const AllProducts = ({ Products }) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="textSecondary" alignSelf="center">
-                    <Image src={product.img[0]} height={50} width={50} alt="a" />
+                    <Image src={product.img[0].url} height={50} width={50} alt="a" />
 
                   </Typography>
                 </TableCell>
