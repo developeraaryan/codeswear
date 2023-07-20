@@ -10,10 +10,20 @@ try {
         title: { type: String, reuired: true },
         slug: { type: String, reuired: true, unique: true },
         desc: { type: String, reuired: true },
-        img: { type: String, reuired: true },
+        img: [
+            {
+                public_id: {
+                    type: String,
+                    required: true
+                },
+                url: {
+                    type: String,
+                    required: true
+                }
+            }
+        ],
         category: { type: String, reuired: true },
         size: { type: String, },
-        color: { type: String, },
         price: { type: Number, required: true },
         availableqty: { type: Number, required: true },
     }, { timestamps: true });

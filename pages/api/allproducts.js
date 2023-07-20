@@ -1,32 +1,41 @@
-import Product from "../../Models/Product"
-import connectDb from "../../middleware/mongoose"
+import Product from "../../Models/Product";
+import connectDb from "../../middleware/mongoose";
 
 const handler = async (req, res) => {
-    let products = await Product.find({})
-    let product = {}
-    for (let items of products) {
-        if (items.title in product) {
-            if (!product[items.title].color.includes(items.color) && items.availableqty > 0) {
-                product[items.title].color.push(items.color)
-            }
-            if (!product[items.title].size.includes(items.size) && items.availableqty > 0) {
-                product[items.title].size.push(items.size)
-            }
+    let products = await Product.find({category: 'tshirts'});
+    let product = {};
 
+    for (let item of products) {
+        const {
+            title,
+            size,
+            availableqty,
+            img,
+            price,
+            slug,
+            desc,
+            category,
+        } = item;
+
+        if (title in product) {
+            if (!product[title].size.includes(size) && availableqty > 0) {
+                product[title].size.push(size);
+            }
         } else {
-            product[items.title] = JSON.parse(JSON.stringify(items))
-            if (items.availableqty > 0) {
-                product[items.title].color = [items.color]
-                product[items.title].size = [items.size]
-            }
-            else {
-                product[items.title].color = []
-                product[items.title].size = []
-            }
+            product[title] = {
+                size: availableqty > 0 ? [size] : [],
+                img,
+                price,
+                availableqty,
+                slug,
+                desc,
+                category,
+                title,
+            };
         }
     }
-    res.status(200).json({ products: JSON.parse(JSON.stringify(product)) })
 
-}
+    res.status(200).json({ products: Object.values(product) });
+};
 
-export default connectDb(handler)
+export default connectDb(handler);

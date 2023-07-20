@@ -1,29 +1,44 @@
-import Product from "../../Models/Product"
-import connectDb from "../../middleware/mongoose"
+import Product from "../../Models/Product";
+import connectDb from "../../middleware/mongoose";
 
 const handler = async (req, res) => {
-    if (req.method == "POST") {
-        for (let i = 0; i < req.body.length; i++) {
-            let p = new Product({
-                title: req.body[i].title,
-                slug: req.body[i].slug,
-                desc: req.body[i].desc,
-                img: req.body[i].img,
-                category: req.body[i].category,
-                size: req.body[i].size,
-                color: req.body[i].color,
-                price: req.body[i].price,
-                availableqty: req.body[i].availableqty,
-            })
-            await p.save()
-            console.log(p);
+    if (req.method === "POST") {
+        if (!req.body) {
+            return res.status(200).json({ error: "No data provided" });
         }
-        res.status(200).json({ success: "success", })
-    }
-    else {
-        res.status(400).json({ error: "This method is not allowed" })
+        const {
+            title,
+            slug,
+            desc,
+            img,
+            category,
+            size,
+            price,
+            availableqty,
+        } = req.body;
 
-    }
-}
+        const product = new Product({
+            title,
+            slug,
+            desc,
+            img,
+            category,
+            size,
+            price,
+            availableqty,
+        });
 
-export default connectDb(handler)
+        try {
+            const savedProduct = await product.save();
+            console.log(savedProduct);
+            res.status(200).json({ success: "Product added successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Failed to add the product" });
+        }
+    } else {
+        res.status(400).json({ error: "This method is not allowed" });
+    }
+};
+
+export default connectDb(handler);
