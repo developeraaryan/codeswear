@@ -106,7 +106,7 @@ const AllProducts = ({ Products }) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="textSecondary" alignSelf="center">
-                    <Image src={product.img} height={50} width={50} alt="a" />
+                    <Image src={product.img[0]} height={50} width={50} alt="a" />
 
                   </Typography>
                 </TableCell>
@@ -120,11 +120,11 @@ const AllProducts = ({ Products }) => {
                     sx={{
                       pl: "4px",
                       pr: "4px",
-                      backgroundColor: product.color == "White" ? "#f5f5f5" : product.color,
+                      backgroundColor: "White",
                       color: "Black",
                     }}
                     size="small"
-                    label={`(${product.size}/${product.color})`}
+                    label={`(${product.size}`}
                   ></Chip>
                 </TableCell>
                 <TableCell align="right">
