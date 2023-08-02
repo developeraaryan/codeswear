@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import mongoose from 'mongoose'
+import mongoose, { set } from 'mongoose'
 import Product from "../../Models/Product"
 import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,10 +11,11 @@ import { SendButton } from '../../components/SendButton';
 import { SendIcon } from '../../components/SendIcon';
 import { Button, Input, Modal, Text } from '@nextui-org/react';
 import { Image } from '@nextui-org/react';
+import SlideShow from '../../components/Slideshow'
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, TelegramIcon, TelegramShareButton, LinkedinShareButton, LinkedinIcon, RedditShareButton, RedditIcon, EmailShareButton, EmailIcon } from 'next-share';
 import toast, { Toaster } from 'react-hot-toast';
 const { useSession } = require('next-auth/react')
-const Slug = ({ addToCart, product, varients, buyNow, error }) => {
+const Slug = ({ addToCart, varients, buyNow, error }) => {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
     const closeHandler = () => {
@@ -29,19 +30,30 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
     const { data: session } = useSession()
     const router = useRouter()
     const [color, setColor] = useState()
-    const [size, setSize] = useState()
+    const [size, setSize] = useState("M")
     const { slug } = router.query
     const [pin, setPin] = useState()
     const [service, setService] = useState()
     const [sVisible, setSVisible] = useState(false);
+    const [product, setProduct] = useState()
     useEffect(() => {
-        console.log(session, 'router')
-        if (!error) {
-            setColor(product.color)
-            setSize(product.size)
+        const slugDetails = async () => {
+            let res = await fetch(`/api/slugproduct`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    slug: slug
+                })
+            })
+            let data = await res.json()
+            console.log(data, 'data');
+            setProduct(data.products[0])
         }
-    }, [router.query])
-
+        slugDetails()
+    }, [])
+    console.log(product, 'product');
     const checkServiceability = async () => {
         let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
         let pinData = await pins.json()
@@ -79,11 +91,6 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
         currentPin = Number.parseInt(currentPin)
         setPin(currentPin)
     }
-    const refreshVarient = (newSize, newColor) => {
-        let url = `${process.env.NEXT_PUBLIC_HOST}/product/${varients[newColor][newSize]['slug']}`
-        // window.location = url
-        router.push(url)
-    }
 
     if (error == 404) {
         return <Error statusCode={404} />
@@ -99,7 +106,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    product: product._id,
+                    product: product?._id,
                     email: session?.user?.email
                 })
 
@@ -160,12 +167,13 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                 />
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
-                        <Image
+                        {/* <Image
                             width={500}
                             height={500}
                             alt="ecommerce"
                             // className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded"
-                            src={product.img} />
+                            src={product?.img} /> */}
+                        <SlideShow images={product?.img} />
                         <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-20 -right-52 md:-right-[45rem] justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                 <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
@@ -173,8 +181,8 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                         </button>
                         <div className="relative left-[55rem] top-20">
                             {/* <FacebookShareButton
-                                url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
-                                quote={product.title}
+                                url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                quote={product?.title}
                                 hashtag="#fashion"
                                 className="Demo__some-network__share-button">
                                 <FacebookIcon size={32} round />
@@ -204,7 +212,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                 <div className='flex flex-row'>
                                     <Input
                                         readOnly
-                                        value={`${process.env.NEXT_PUBLIC_HOST} /product/${product.slug}`}
+                                        value={`${process.env.NEXT_PUBLIC_HOST} /product/${product?.slug}`}
                                         width='90%'
                                     />
                                     <Button
@@ -217,48 +225,48 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                 </div>
                                 <div className="grid grid-cols-7 gap-8">
                                     <FacebookShareButton
-                                        url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
-                                        quote={product.title}
+                                        url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                        quote={product?.title}
                                         hashtag="#fashion"
                                         className="Demo__some-network__share-button">
                                         <FacebookIcon size={32} round />
                                     </FacebookShareButton>
                                     <TwitterShareButton
-                                        url={`https://twitter.com/intent/tweet?text=${product.title}&url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
-                                        title={product.title}
+                                        url={`https://twitter.com/intent/tweet?text=${product?.title}&url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                        title={product?.title}
                                         className="Demo__some-network__share-button">
                                         <TwitterIcon size={32} round />
                                     </TwitterShareButton>
                                     <WhatsappShareButton
-                                        url={`${`https://localhost:3001`}/product/${product.slug}`}
-                                        title={product.title}
+                                        url={`${`https://localhost:3001`}/product/${product?.slug}`}
+                                        title={product?.title}
                                         separator=":: "
                                         className="Demo__some-network__share-button">
                                         <WhatsappIcon size={32} round />
                                     </WhatsappShareButton>
                                     <TelegramShareButton
-                                        url={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}&text=${product.title}`}
-                                        title={product.title}
+                                        url={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}&text=${product?.title}`}
+                                        title={product?.title}
                                         className="Demo__some-network__share-button">
                                         <TelegramIcon size={32} round />
                                     </TelegramShareButton>
                                     <LinkedinShareButton
-                                        url={`https://www.linkedin.com/shareArticle?mini=true&url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}&title=${product.title}&summary=${product.title}&source=${process.env.NEXT_PUBLIC_HOST}`}
+                                        url={`https://www.linkedin.com/shareArticle?mini=true&url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}&title=${product?.title}&summary=${product?.title}&source=${process.env.NEXT_PUBLIC_HOST}`}
                                         className="Demo__some-network__share-button">
                                         <LinkedinIcon size={32} round />
                                     </LinkedinShareButton>
                                     <RedditShareButton
-                                        url={`https://www.reddit.com/submit?url=${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}&title=${product.title}`}
-                                        title={product.title}
+                                        url={`https://www.reddit.com/submit?url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}&title=${product?.title}`}
+                                        title={product?.title}
                                         windowWidth={660}
                                         windowHeight={460}
                                         className="Demo__some-network__share-button">
                                         <RedditIcon size={32} round />
                                     </RedditShareButton>
                                     <EmailShareButton
-                                        url={`mailto:?subject=${product.title}&body=${product.title} ${process.env.NEXT_PUBLIC_HOST}/product/${product.slug}`}
-                                        subject={product.title}
-                                        body={product.title}
+                                        url={`mailto:?subject=${product?.title}&body=${product?.title} ${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                        subject={product?.title}
+                                        body={product?.title}
                                         className="Demo__some-network__share-button">
                                         <EmailIcon size={32} round />
                                     </EmailShareButton>
@@ -271,7 +279,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                         </Modal>
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
-                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title} ({product.size}/{product.color})</h1>
+                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title} ({size})</h1>
                             <h3 className='font-bold'>₹{product?.price}</h3>
                             <div className="flex mb-4">
                                 {/* <span className="flex items-center">
@@ -310,40 +318,21 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                                     </a>
                                 </span> */}
                             </div>
-                            {/* <p className="leading-relaxed">{product.desc}</p> */}
-                            {/* <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
-                                <div className="flex ml-6 items-center">
-                                    <span className="mr-3">Size</span>
-                                    <div className="relative">
-                                        <select value={size} onChange={(e) => { refreshVarient(e.target.value, color) }} className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-blue-200 focus:border-blue-500 text-base pl-3 pr-10">
-                                            {color && Object.keys(varients[color]).includes('S') && <option value={'S'}>S</option>}
-                                            {color && Object.keys(varients[color]).includes('M') && <option value={'M'}>M</option>}
-                                            {color && Object.keys(varients[color]).includes('L') && <option value={'L'}>L</option>}
-                                            {color && Object.keys(varients[color]).includes('XL') && <option value={'XL'}>XL</option>}
-                                            {color && Object.keys(varients[color]).includes('XXL') && <option value={'XXL'}>XXL</option>}
-                                            {color && Object.keys(varients[color]).includes('XXXL') && <option value={'XXXL'}>XXXL</option>}
-                                        </select>
-                                        <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
-                                            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4" viewBox="0 0 24 24">
-                                                <path d="M6 9l6 6 6-6"></path>
-                                            </svg>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div> */}
+                            <p className="leading-relaxed">{product?.category.toUpperCase()}</p>
+
                             <div className="flex fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
                                 {/* <div className='flex flex-col'>
-                                    {!product.availableqty <= 0 && <span className="title-font font-medium text-2xl text-gray-900">₹{product.price}</span>}
-                                    {product.availableqty <= 0 && <span className="title-font font-medium text-2xl text-red-800">Out of stock</span>}
-                                    {!product.availableqty <= 0 && product.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product.availableqty} left</span>}
+                                    {!product?.availableqty <= 0 && <span className="title-font font-medium text-2xl text-gray-900">₹{product?.price}</span>}
+                                    {product?.availableqty <= 0 && <span className="title-font font-medium text-2xl text-red-800">Out of stock</span>}
+                                    {!product?.availableqty <= 0 && product?.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product?.availableqty} left</span>}
                                 </div> */}
 
                                 <button onClick={() => {
-                                    session ? addToCart(slug, 1, product.price, product.title, size, color, product.img) :
+                                    session ? addToCart(slug, 1, product?.price, product?.title, size, color, product?.img) :
                                         toast.error('Login Please!')
                                     router.push('/login')
-                                }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-rose-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
-                                <button onClick={() => { buyNow(slug, 1, product.price, product.title, size, color) }} disabled={product.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
+                                }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-rose-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
+                                <button onClick={() => { buyNow(slug, 1, product?.price, product?.title, size, color) }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 
                                 {/* Wishlist */}
 
@@ -392,31 +381,41 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                         </Modal>
                     </div>
                     <div className="flex justify-center my-4">
-                        <button disabled={color && Object.keys(varients[color]).includes('S')} className='disabled:cursor-not-allowed disabled:opacity-40 focus:text-white focus:bg-black flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                        <button disabled={(product?.size.includes("S"))}
+                            onClick={() => setSize('S')}
+                            className='disabled:cursor-not-allowed disabled:opacity-40 focus:text-white focus:bg-black flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 S
                             </div>
 
                         </button>
-                        <button disabled={color && Object.keys(varients[color]).includes('M')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                        <button disabled={(product?.size.includes("M"))}
+                            onClick={() => setSize('M')}
+                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 M
                             </div>
 
                         </button>
-                        <button disabled={color && Object.keys(varients[color]).includes('L')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                        <button disabled={(product?.size.includes("M"))}
+                            onClick={() => setSize('L')}
+                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 L
                             </div>
 
                         </button>
-                        <button disabled={color && Object.keys(varients[color]).includes('XL')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                        <button disabled={(product?.size.includes("M"))}
+                            onClick={() => setSize('XL')}
+                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 XL
                             </div>
 
                         </button>
-                        <button disabled={color && Object.keys(varients[color]).includes('XXL')} className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                        <button disabled={(product?.size.includes("M"))}
+                            onClick={() => setSize('XXL')}
+                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 XXL
                             </div>
@@ -498,7 +497,7 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
                     <div className="flex flex-col justify-start container">
                         <h4 className='text-black font-black text-xl mx-8'>PRODUCT DESCRIPTION :</h4>
                         <p className='mx-10 md:mx-20 my-4'>
-                            {product.desc}
+                            {product?.desc}
                         </p>
                         <h4 className='text-black font-black text-xl mx-8'>WASH CARE :</h4>
                         <ul className='list-disc  mx-auto md:mx-20 my-4'>
@@ -525,33 +524,6 @@ const Slug = ({ addToCart, product, varients, buyNow, error }) => {
 }
 
 
-
-export async function getServerSideProps(context) {
-    let error = null;
-    if (!mongoose.connections[0].readyState) {
-        await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
-    }
-    let product = await Product.findOne({ slug: context.query.slug })
-    if (product == null) {
-        return {
-            props: { error: 404 }
-        };
-    }
-    let variants = await Product.find({ title: product.title, category: product.category })
-    let colorSizeSlug = {} // {red:{xl:{slug:"wear-the-code-xl"}}}
-    for (let items of variants) {
-        if (Object.keys(colorSizeSlug).includes(items.color)) {
-            colorSizeSlug[items.color][items.size] = { slug: items.slug }
-        }
-        else {
-            colorSizeSlug[items.color] = {}
-            colorSizeSlug[items.color][items.size] = { slug: items.slug }
-        }
-    }
-    return {
-        props: { error: error, varients: JSON.parse(JSON.stringify(colorSizeSlug)), product: JSON.parse(JSON.stringify(product)) }, // will be passed to the page component as props
-    };
-}
 
 
 

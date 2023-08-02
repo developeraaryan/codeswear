@@ -62,13 +62,31 @@ const UpdateProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log({ title, slug, price, desc, category, size, color, availableqty, img, id });
         const res = await fetch('/api/updateproducts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ _id: id, title: title, slug: slug, price: price, desc: desc, category: category, size: size, color: color, availableqty: availableqty, img: img }),
+            body: JSON.stringify({
+                _id: id, title: title, slug: slug, price: price, desc: desc, category: category, size: size, color: color, availableqty: availableqty, img: [
+                    {
+                        public_id: img1_public_id,
+                        url: img1
+                    },
+                    {
+                        public_id: img2_public_id,
+                        url: img2
+                    },
+                    {
+                        public_id: img3_public_id,
+                        url: img3
+                    },
+                    {
+                        public_id: img4_public_id,
+                        url: img4
+                    }
+                ]
+            }),
         })
         const data = await res.json()
         console.log(data)
@@ -117,8 +135,29 @@ const UpdateProduct = () => {
         else if (e.target.name === 'availableqty') {
             setAvailableqty(e.target.value)
         }
-        else if (e.target.name === 'img') {
-            setImg(e.target.value)
+        else if (e.target.name === 'img1') {
+            setImg1(e.target.value)
+        }
+        else if (e.target.name === 'img2') {
+            setImg2(e.target.value)
+        }
+        else if (e.target.name === 'img3') {
+            setImg3(e.target.value)
+        }
+        else if (e.target.name === 'img4') {
+            setImg4(e.target.value)
+        }
+        else if (e.target.name === 'img1_public_id') {
+            setImg1_public_id(e.target.value)
+        }
+        else if (e.target.name === 'img2_public_id') {
+            setImg2_public_id(e.target.value)
+        }
+        else if (e.target.name === 'img3_public_id') {
+            setImg3_public_id(e.target.value)
+        }
+        else if (e.target.name === 'img4_public_id') {
+            setImg4_public_id(e.target.value)
         }
     }
     return (

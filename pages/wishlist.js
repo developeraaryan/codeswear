@@ -68,21 +68,21 @@ const wishlistItem = (wishes, router) => {
                         <Card isPressable isHoverable>
                             <Card.Body className='shadow-lg rounded-md shadow-gray-300' css={{ p: 0 }}>
                                 <Card.Image
-                                    src={item.img}
+                                    src={item?.img[0].url}
                                     objectFit="cover"
                                     width="100%"
                                     height={300}
-                                    alt={item.title}
+                                    alt={item?.title}
                                 />
                             </Card.Body>
                             <Card.Body className='overflow-x-hidden' css={{ justifyItems: "flex-start" }}>
                                 <Row wrap="wrap" justify="space-between" align="center">
-                                    <Text b>{item.title}</Text>
+                                    <Text b>{item?.title}</Text>
 
                                 </Row>
                                 <Row wrap="wrap" justify="space-between" align="flex-start">
                                     <Text css={{ color: "$accents7", fontWeight: "$semibold", fontSize: "$sm" }}>
-                                        {item.price}
+                                        {item?.price}
                                     </Text>
 
                                 </Row>
@@ -93,15 +93,16 @@ const wishlistItem = (wishes, router) => {
 
                                 </Row>
                             </Card.Body>
-                            <Card.Header className='absolute left-[4.5rem] md:left-[18rem]' css={{ justifyItems: "flex-start" }} >
+                            <Card.Header className='absolute left-[4.5rem] md:left-[14.5rem]' css={{ justifyItems: "flex-start" }} >
                                 <Row wrap="wrap" justify="space-between" align="center">
                                     <Button
                                         auto
+                                        light
                                         size="md"
                                         color="error"
                                         icon={<CrossIcon />}
                                         variant="outlined"
-                                        onClick={() => removeWish(item._id)}
+                                        onClick={() => removeWish(item?._id)}
                                         css={{ borderRadius: '50%', padding: '0.5rem', color: 'red', borderColor: 'red', backgroundColor: 'white' }}
                                     />
 
@@ -109,7 +110,7 @@ const wishlistItem = (wishes, router) => {
 
                                 </Row>
                             </Card.Header>
-                            <Card.Footer className='relative bottom-2 md:bottom-0 md:left-[14rem]' css={{ justifyItems: "flex-start" }} >
+                            <Card.Footer className='relative bottom-2 md:bottom-0 md:left-40' css={{ justifyItems: "flex-start" }} >
                                 <Row wrap="wrap" justify="space-between" align="center">
                                     <Button auto size="md" color="success" variant="contained">
                                         Add to cart
