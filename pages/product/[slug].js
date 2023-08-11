@@ -354,7 +354,6 @@ const Slug = ({ addToCart, buyNow, error }) => {
                         <Modal
                             blur
                             closeButton={true}
-                            preventClose
                             aria-labelledby="modal-title"
                             animated
                             open={visible}
@@ -369,7 +368,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                 <div className='flex justify-center'>
 
                                     <Image
-                                        src={`/assets/empty.png`}
+                                        src={`/assets/size-chart-bw.jpg`}
                                         alt="size chart"
                                         width={500}
                                         height={500}
@@ -453,9 +452,9 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                 size='xl'
                                 height={300}
                                 contentRight={
-                                    <SendButton onClick={checkServiceability}>
-                                        <SendIcon />
-                                    </SendButton>
+                                    <Button light size={'xs'} onClick={checkServiceability}>
+                                        CHECK
+                                    </Button>
                                 }
                                 className='outline-none border-none focus:outline-none '
                             />
