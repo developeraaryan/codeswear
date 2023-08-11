@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import mongoose, { set } from 'mongoose'
 import Product from "../../Models/Product"
 import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,7 +14,7 @@ import SlideShow from '../../components/Slideshow'
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, TelegramIcon, TelegramShareButton, LinkedinShareButton, LinkedinIcon, RedditShareButton, RedditIcon, EmailShareButton, EmailIcon } from 'next-share';
 import toast, { Toaster } from 'react-hot-toast';
 const { useSession } = require('next-auth/react')
-const Slug = ({ addToCart, varients, buyNow, error }) => {
+const Slug = ({ addToCart, buyNow, error }) => {
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
     const closeHandler = () => {
@@ -381,7 +380,7 @@ const Slug = ({ addToCart, varients, buyNow, error }) => {
                         </Modal>
                     </div>
                     <div className="flex justify-center my-4">
-                        <button disabled={(product?.size.includes("S"))}
+                        <button disabled={(!product?.size.includes("S"))}
                             onClick={() => setSize('S')}
                             className='disabled:cursor-not-allowed disabled:opacity-40 focus:text-white focus:bg-black flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
@@ -389,7 +388,7 @@ const Slug = ({ addToCart, varients, buyNow, error }) => {
                             </div>
 
                         </button>
-                        <button disabled={(product?.size.includes("M"))}
+                        <button disabled={(!product?.size.includes("M"))}
                             onClick={() => setSize('M')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
@@ -397,7 +396,7 @@ const Slug = ({ addToCart, varients, buyNow, error }) => {
                             </div>
 
                         </button>
-                        <button disabled={(product?.size.includes("M"))}
+                        <button disabled={(!product?.size.includes("L"))}
                             onClick={() => setSize('L')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
@@ -405,7 +404,7 @@ const Slug = ({ addToCart, varients, buyNow, error }) => {
                             </div>
 
                         </button>
-                        <button disabled={(product?.size.includes("M"))}
+                        <button disabled={(!product?.size.includes("M"))}
                             onClick={() => setSize('XL')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
@@ -413,7 +412,7 @@ const Slug = ({ addToCart, varients, buyNow, error }) => {
                             </div>
 
                         </button>
-                        <button disabled={(product?.size.includes("M"))}
+                        <button disabled={(!product?.size.includes("M"))}
                             onClick={() => setSize('XXL')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">

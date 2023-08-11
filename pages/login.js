@@ -1,108 +1,82 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSession, signIn, signOut, getSession } from 'next-auth/react';
-// import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { FcGoogle } from 'react-icons/fc'
-import { FaFacebook } from 'react-icons/fa'
-// import { AiOutlineMail } from 'react-icons/ai'
-import { Formik, useFormik } from 'formik';
-import { login_validation } from '../lib/validate';
-import { HiAtSymbol } from 'react-icons/hi'
-
-let status;
-
-
-const onSubmit = async (values) => {
-  // console.log(values);
-  status = await signIn('credentials',
-    {
-      redirect: false,
-      email: values.email,
-      password: values.password,
-      callbackUrl: "/"
-    })
-  console.log(status.ok);
-
-}
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { useUserAuth } from '../context/UserAuthContext';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import { Button } from '@material-ui/core';
+import Link from 'next/link';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: ""
-    },
-    validate: login_validation,
-    onSubmit
-  })
-  console.log(formik.errors);
-  const { data: session } = useSession()
+  const { user } = useUserAuth()
+  React.useEffect(() => {
+    if (user) {
+      router.push('/')
+    }
+  }, [user])
   const router = useRouter()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  useEffect(() => {
-    if (localStorage.getItem("myuser")) {
-      router.push("/")
+  const [error, setError] = useState("");
+  const { setUpRecaptha } = useUserAuth();
+  const [number, setNumber] = useState("")
+  const [otp, setOtp] = useState("")
+  const [flag, setFlag] = useState(false)
+  const [confirmObj, setConfirmObj] = useState(false)
+
+  const getOtp = async (e) => {
+    e.preventDefault();
+    console.log("number", number);
+    setError("");
+    if (number === "" || number === undefined) {
+      return toast.error('Please enter phone number')
+
     }
-    if (status?.ok) {
-      // router.push(status.url)
-      // window.history.back()
-      router.back()
-    }
-    // else if (session) {
-    //   router.push("/")
-    // }
-    console.log(session);
-
-  }, [router, session])
-
-  const handleGoogle = async () => {
-    await signIn('google', { callbackUrl: process.env.NEXT_PUBLIC_HOST })
-  }
-
-  const handleFacebook = async () => {
-    await signIn('facebook', { callbackUrl: process.env.NEXT_PUBLIC_HOST })
-  }
-
-  const handleChange = (e) => {
-    if (e.target.name == "email") {
-      setEmail(e.target.value)
-    }
-    else if (e.target.name === "password") {
-      setPassword(e.target.value)
-    }
-
-  }
-  const handleSubmit = async (e) => {
     try {
-      e.preventDefault();
-      const data = { email, password }
-      let response = await fetch(`api/login`, {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-      let res = await response.json()
-      console.log(res);
-      if (res.success) {
-        localStorage.setItem('myuser', JSON.stringify({ token: res.token, email: res.email }))
-
-      }
-      setEmail("")
-      setPassword("")
-
+      const response = await setUpRecaptha(number);
+      console.log("response", response);
+      setConfirmObj(response)
+      setFlag(true)
+      toast.success('OTP sent successfully')
     } catch (error) {
-      console.error(error);
+      setError(error.message);
+    }
+  }
 
-
+  const verifyOtp = async (e) => {
+    e.preventDefault();
+    console.log("otp", otp);
+    setError("");
+    if (otp === "" || otp === undefined) {
+      return setError("Please enter otp")
+    }
+    try {
+      await confirmObj.confirm(otp)
+      router.push('/')
+    } catch (error) {
+      setError(error.message);
     }
   }
   return (
     <>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+      <style jsx>
+        {`
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        
+        /* Firefox */
+        input[type=number] {
+          -moz-appearance: textfield;
+        }
+        `}
+      </style>
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <h2 className='text-center text-2xl'>BLACK WORN</h2>
@@ -112,117 +86,50 @@ const Login = () => {
           </h2>
         </div>
 
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form
-            // onSubmit={handleSubmit}
-            onSubmit={formik.handleSubmit}
-            className="space-y-6" method="POST">
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  // onChange={handleChange}
-                  // value={email}
-                  // onChange={formilk.handleChange}
-                  // value={formilk.values.email}
-                  {...formik.getFieldProps('email')}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder='Enter your email'
-                />
-                <span>
-                  {formik.errors.email && formik.touched.email ? (
-                    <div className="text-rose-500 text-sm">{formik.errors.email}</div>
-                  ) : null}
-                </span>
-              </div>
-            </div>
+        <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm shadow-lg ${!flag ? "block" : "hidden"}`}>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                  Password
-                </label>
-                <span className="text-sm flex justify-between">
-                  <Link href={'/forgot'} className="font-semibold text-indigo-600 hover:text-indigo-500 right-0">
-                    Forgot password?
-                  </Link>
-                </span>
-
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  // onChange={handleChange}
-                  // value={password}
-                  // onChange={formilk.handleChange}
-                  // value={formilk.values.password}
-                  {...formik.getFieldProps('password')}
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 placeholder-black dark:placeholder-gray-400"
-                  placeholder="•••••••••"
-                />
-                <span>
-                  {formik.errors.password && formik.touched.password ? (
-                    <div className="text-rose-500 text-sm">{formik.errors.password}</div>
-                  ) : null}
-                </span>
-
-
-              </div>
-
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md !bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:!bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:!bg-indigo-600"
-              >
-                Login
-              </button>
-            </div>
+          <form className='my-10 mx-1 md:mx-10'>
+            <h4 className='text-center my-2'>Enter Phone Number</h4>
+            <PhoneInput
+              defaultCountry={'IN'}
+              placeholder='Enter phone number'
+              value={number}
+              onChange={setNumber}
+              enableSearch
+            />
           </form>
-
-          <hr className=" h-px mt-8 bg-gray-200 border-0 dark:bg-gray-700" />
-          <button onClick={handleGoogle} type="button" className="flex w-full justify-center rounded-md !bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:!bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:!bg-indigo-600">Sign In with Google<FcGoogle className='relative top-[0.4rem] left-2' /></button>
-          <button onClick={handleFacebook} type="button" className="flex w-full justify-center rounded-md !bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:!bg-indigo-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:!bg-indigo-600 my-2">Sign In with Facebook<FaFacebook className='relative top-[0.4rem] left-2' /></button>
-
-
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{' '}
-            <Link href={'/signup'} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-              Sign up
+          <div id="recaptcha-container" className='mx-1 md:mx-10' />
+          <div className="space-x-2 flex justify-end my-4 mr-4">
+            <Link href='/'>
+              <Button className='!bg-red-700' variant='contained'>cancel</Button>
             </Link>
-          </p>
+            <Button className='!bg-blue-700' variant='contained' onClick={getOtp}>Send OTP</Button>
+          </div>
+
+        </div>
+        <div className={`mt-10 sm:mx-auto sm:w-full sm:max-w-sm shadow-lg ${flag ? "block" : "hidden"}`}>
+
+          <form className='my-10 mx-1 md:mx-10'>
+            <h4 className='text-center my-2 text-black'>Enter Otp</h4>
+            <input
+              type="number"
+              name="otp"
+              id="otp"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              className='mx-4 w-[90%] border-2 border-gray-300 rounded-md py-2 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-purple-500'
+            />
+          </form>
+          <div className="space-x-2 flex justify-end my-4 mr-4">
+            <Link href='/'>
+              <Button className='!bg-red-700' variant='contained'>cancel</Button>
+            </Link>
+            <Button className='!bg-blue-700' variant='contained' onClick={verifyOtp}>Verify OTP</Button>
+          </div>
+
         </div>
       </div>
     </>
   )
 }
-export default Login
-
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req })
-  console.log(session);
-  if (session) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-  return {
-    props: { session },
-  }
-}
+export default Login;

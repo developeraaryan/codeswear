@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect, useRef, useState } from 'react';
-import { AiFillPlusCircle, AiFillMinusCircle, AiOutlineUser, AiOutlineClose } from 'react-icons/ai';
-import { BsFillBagCheckFill, BsFillCartCheckFill, BsHandbag, BsTwitter } from 'react-icons/bs';
+import React, { useEffect, useState } from 'react';
+import { AiOutlineUser } from 'react-icons/ai';
+import { BsFillCartCheckFill, BsHandbag, BsTwitter } from 'react-icons/bs';
 import { MdManageAccounts } from 'react-icons/md';
 import { FaFacebookF } from 'react-icons/fa';
 import { useRouter } from 'next/router';
@@ -15,12 +15,14 @@ import HeartIcon from './HeartIcon';
 import SearchDD from '../src/layouts/header/SearchDD';
 import { FaBarsStaggered } from 'react-icons/fa6';
 import { Modal, useModal, Text } from '@nextui-org/react';
-import CartImg from '../public/assets/oversized(styles).png';
 import emptyImg from '../public/assets/empty-cart-png.png';
 import CartItem from './CartItem';
+import { useUserAuth } from '../context/UserAuthContext';
 
-const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subTotal, params }) => {
+const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
+  const router = useRouter()
   const { setVisible, bindings } = useModal();
+  const { user, logOut } = useUserAuth()
   // const [visible, setVisible] = useState(false);
   const [isCartModalOpen, setCartModalOpen] = useState(false);
   const { data: session } = useSession();
@@ -28,13 +30,9 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
   const [dropdown, setDropdown] = useState(false);
   const [wishlist, setWishlist] = useState([]);
 
-  function toggleCart() {
-    setSidebar(!sidebar);
-  }
   const toggleCartModal = () => {
     setVisible(true);
   };
-  const router = useRouter();
 
   useEffect(() => {
     const getWishlist = async () => {
@@ -62,7 +60,6 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     }
   }, [cart, router.pathname]);
 
-  const ref = useRef();
   const [open, setOpen] = useState(false);
 
   const CollectionData = [
@@ -269,6 +266,15 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
     </div>
   );
 
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      router.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <>
       <span>
@@ -283,7 +289,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
             className="absolute right-10 bg-[#272A30]  text-white  shadow-lg shadow-slate-600  top-10 py-4  rounded-md px-5 w-40 z-30"
           >
             <ul>
-              {!session && (
+              {!user && (
                 <li>
                   <Link href="/login" className="flex hover:text-red-500">
                     <BiLogIn className=" text-2xl -ml-1" />
@@ -293,7 +299,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
                   </Link>
                 </li>
               )}
-              {session && (
+              {user && (
                 <>
                   <li className="py-4">
                     <Link
@@ -319,7 +325,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
                   </li>
                   <li className="py-4">
                     <a
-                      onClick={signOut}
+                      onClick={handleLogout}
                       className="flex hover:text-red-500 cursor-pointer"
                     >
                       <BiLogIn className=" text-3xl md:text-2xl mx-2 -ml-1" />
@@ -335,7 +341,7 @@ const Navbar = ({ logout, user, cart, addToCart, removeFromCart, clearCart, subT
         )}
       </span>
 
-      <div className={`flex mb-0 flex-row md:flex-row md:justify-start justify-center items-center shadow-md py-2 sticky top-0 bg-black dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`}>
+      <div className={`flex mb-0 mt-0 flex-row md:flex-row md:justify-start justify-center items-center shadow-md py-2 sticky top-0 bg-black dark:bg-black space dark:text-white z-10 h-14 dark:shadow-gray-400 dark:shadow-md ${!sidebar && 'overflow-hidden'}`}>
         <div className="absolute left-0">
           <Button onClick={() => setOpen(true)}>
             <FaBarsStaggered

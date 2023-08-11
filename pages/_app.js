@@ -14,6 +14,7 @@ import ScrollToTop from "react-scroll-to-top";
 import Head from "next/head"
 import ScrollButton from "../components/ScrollButton"
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
+import { UserAuthContextProvider } from '../context/UserAuthContext'
 
 
 
@@ -23,6 +24,7 @@ export default function App({ Component,
   const [user, setUser] = useState({ value: null })
   const [key, setKey] = useState()
   const [progress, setProgress] = useState(0)
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     router.events.on("routeChangeComplete", () => {
@@ -31,6 +33,10 @@ export default function App({ Component,
     router.events.on("routeChangeStart", () => {
       setProgress(40)
     })
+    const exempted = ['admin']
+    if (exempted.includes(router.pathname.split('/')[1])) {
+      setVisible(false)
+    }
     try {
       if (localStorage.getItem('cart')) {
         setCart(JSON.parse(localStorage.getItem('cart')))
@@ -45,7 +51,7 @@ export default function App({ Component,
       setUser({ value: myuser.token, email: myuser.email });
     }
     setKey(Math.random())
-  }, [router.query, router.events])
+  }, [router.query, router.events, router.pathname])
 
   const [cart, setCart] = useState({})
   const [subTotal, setSubTotal] = useState(0)
@@ -159,32 +165,34 @@ export default function App({ Component,
 
 
   return <>
-    <Fragment>
-      <SessionProvider session={session}>
-        <Head>
-          <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
-          <title>Black Worn</title>
-        </Head>
-        <main className="font-Inter h-screen overflow-auto">
-          <style jsx global>
-            {`
+    <UserAuthContextProvider>
+      <Fragment>
+        <SessionProvider session={session}>
+          <Head>
+            <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+            <title>Black Worn</title>
+          </Head>
+          <main className="font-Inter h-screen overflow-auto">
+            <style jsx global>
+              {`
           html {
             font-family: ${roboto.style.fontFamily};
           }
           `}
-          </style>
-          <LoadingBar
-            color='#f11946'
-            progress={progress}
-            waitingTime={400}
-            onLoaderFinished={() => setProgress(0)}
-          />
-          {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
-          <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-          <Footer />
-        </main >
-      </SessionProvider>
-      {/* <ScrollButton /> */}
-    </Fragment>
+            </style>
+            <LoadingBar
+              color='#f11946'
+              progress={progress}
+              waitingTime={400}
+              onLoaderFinished={() => setProgress(0)}
+            />
+            {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
+            <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+            <Footer />
+          </main >
+        </SessionProvider>
+        {/* <ScrollButton /> */}
+      </Fragment>
+    </UserAuthContextProvider>
   </>
 }
