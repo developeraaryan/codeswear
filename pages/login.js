@@ -10,12 +10,12 @@ import toast, { Toaster } from 'react-hot-toast';
 
 const Login = () => {
   const { user } = useUserAuth()
+  const router = useRouter()
   React.useEffect(() => {
     if (user) {
       router.push('/welcome')
     }
-  }, [user])
-  const router = useRouter()
+  }, [user, router])
   const [error, setError] = useState("");
   const { setUpRecaptha } = useUserAuth();
   const [number, setNumber] = useState("")

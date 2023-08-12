@@ -49,7 +49,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       setDisabled(true)
       console.log(disabled);
     }
-  }, [address, disabled, email, name, phone, pincode])
+  }, [address, disabled, email, name, phone, pincode,subTotal])
 
 
   const handleChange = async (e) => {

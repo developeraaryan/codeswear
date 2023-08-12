@@ -19,7 +19,7 @@ const MyOrder = ({ order, clearCart }) => {
     if (router.query.clearcart == 1) {
       clearCart()
     }
-  }, [])
+  }, [clearCart, router.query.clearcart, order.createdAt])
   return (
     <section className="text-gray-600 body-font overflow-hidden min-h-screen">
       <div className="container px-5 py-24 mx-auto">

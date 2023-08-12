@@ -8,10 +8,11 @@ import theme from '../../src/theme/theme'
 import FullLayout from '../../src/layouts/FullLayout'
 import { Grid, ThemeProvider } from '@mui/material'
 import Image from 'next/image'
-
+import { useUserAuth } from "../../context/UserAuthContext";
 
 
 const style = {
+
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -57,16 +58,43 @@ function ChildModal({ order }) {
 }
 
 const MyOrder = ({ order, clearCart }) => {
+    const { user } = useUserAuth()
+    const router = useRouter()
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const products = order.products
-    const router = useRouter()
     const [date, setDate] = useState()
     const [tracker, setTracker] = useState(false)
     const handleTracker = () => {
         setTracker(!tracker)
     }
+    useEffect(() => {
+        if (!user) {
+            router.push('/login')
+        }
+
+        const getUserRole = async () => {
+            const userData = user?.phoneNumber
+            let response = await fetch(`api/getrole`, {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+            let res = await response.json()
+            if (res.role === "admin") {
+                role = "admin"
+            }
+            else {
+                role = "user"
+            }
+
+        }
+        getUserRole()
+    }, [router, user])
+
     useEffect(() => {
         const d = new Date(order.createdAt)
         setDate(d)

@@ -26,7 +26,7 @@ const Orders = () => {
             console.log("user");
         }
         fetchOrders()
-    }, [error,session])
+    }, [error, session, fetchOrders])
 
     return (
         <div className='min-h-screen container my-14 mx-auto text-black '>

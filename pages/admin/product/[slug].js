@@ -7,9 +7,36 @@ import BaseCard from '../../../src/components/baseCard/BaseCard'
 import { Button } from 'flowbite-react'
 import { useRouter } from 'next/router'
 import { ToastContainer, toast } from 'react-toastify'
+import { useUserAuth } from '../../../context/UserAuthContext'
 
 const UpdateProduct = () => {
+    const { user } = useUserAuth()
     const router = useRouter()
+    useEffect(() => {
+        if (!user) {
+            router.push('/login')
+        }
+
+        const getUserRole = async () => {
+            const userData = user?.phoneNumber
+            let response = await fetch(`api/getrole`, {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+            let res = await response.json()
+            if (res.role === "admin") {
+                role = "admin"
+            }
+            else {
+                role = "user"
+            }
+
+        }
+        getUserRole()
+    }, [router, user])
     const id = router.query.slug
     const [title, setTitle] = React.useState('');
     const [slug, setSlug] = React.useState('');

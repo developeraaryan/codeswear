@@ -1,37 +1,35 @@
 import { Grid, ThemeProvider } from "@mui/material";
-import BlogCard from "../../src/components/dashboard/BlogCard";
 import SalesOverview from "../../src/components/dashboard/SalesOverview";
-import DailyActivity from "../../src/components/dashboard/DailyActivity";
-import ProductPerfomance from "../../src/components/dashboard/AllProducts";
 import theme from "../../src/theme/theme"
 import FullLayout from "../../src/layouts/FullLayout"
 import mongoose from 'mongoose'
 import Product from '../../Models/Product'
-import { getSession, useSession } from "next-auth/react"
+import { useSession } from "next-auth/react"
 import { useEffect } from "react";
-import { red } from "@mui/material/colors";
 import { useRouter } from "next/router";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 let role = "user";
 
-export default function Index({ Products }) {
+export default function Index() {
+    const { user } = useUserAuth()
     const router = useRouter()
-    const { data: session } = useSession()
-    console.log(session?.user?.email);
 
     useEffect(() => {
+        if (!user) {
+            router.push('/login')
+        }
+
         const getUserRole = async () => {
-            const userEmail = session?.user?.email
-            console.log(userEmail);
+            const userData = user?.phoneNumber
             let response = await fetch(`api/getrole`, {
                 method: "POST",
                 headers: {
                     "content-Type": "application/json"
                 },
-                body: JSON.stringify(userEmail)
+                body: JSON.stringify(userData)
             })
             let res = await response.json()
-            console.log(res);
             if (res.role === "admin") {
                 role = "admin"
             }
@@ -41,7 +39,7 @@ export default function Index({ Products }) {
 
         }
         getUserRole()
-    }, [])
+    }, [router, user])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>
@@ -75,24 +73,13 @@ export default function Index({ Products }) {
 }
 
 
-export async function getServerSideProps({ req }) {
-    const session = await getSession({ req })
-    if (!session && role === "user") {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        }
-    }
-
-
-    else if (!mongoose.connections[0].readyState) {
+export async function getServerSideProps() {
+    if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
     }
     let Products = await Product.find()
     return {
-        props: { session, Products: JSON.parse(JSON.stringify(Products)) },
+        props: { Products: JSON.parse(JSON.stringify(Products)) },
     };
 }
 

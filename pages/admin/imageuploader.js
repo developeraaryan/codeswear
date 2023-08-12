@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FullLayoyt from '../../src/layouts/FullLayout'
 import theme from '../../src/theme/theme'
 import { Grid, ImageList, ImageListItem, ThemeProvider } from '@mui/material'
 import BaseCard from '../../src/components/baseCard/BaseCard'
 import Image from 'next/image'
-
+import { useUserAuth } from "../../context/UserAuthContext";
+import { useRouter } from 'next/router'
 
 const srcset = (image, size, rows = 1, cols = 1) => {
+
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,
     srcSet: `${image}?w=${size * cols}&h=${size * rows
@@ -92,7 +94,34 @@ const itemData = [
 
 
 const Imageuploader = () => {
+  const { user } = useUserAuth()
+  const router = useRouter()
 
+  useEffect(() => {
+    if (!user) {
+      router.push('/login')
+    }
+
+    const getUserRole = async () => {
+      const userData = user?.phoneNumber
+      let response = await fetch(`api/getrole`, {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json"
+        },
+        body: JSON.stringify(userData)
+      })
+      let res = await response.json()
+      if (res.role === "admin") {
+        role = "admin"
+      }
+      else {
+        role = "user"
+      }
+
+    }
+    getUserRole()
+  }, [router, user])
   return (
     <ThemeProvider theme={theme}>
       <style jsx global>

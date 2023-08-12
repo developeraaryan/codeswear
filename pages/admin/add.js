@@ -8,9 +8,38 @@ import 'react-toastify/dist/ReactToastify.css';
 import BaseCard from "../../src/components/baseCard/BaseCard";
 import theme from '../../src/theme/theme'
 import FullLayout from '../../src/layouts/FullLayout'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 const Add = () => {
+    const router = useRouter()
+    const { user } = useUserAuth()
+    useEffect(() => {
+        if (!user) {
+            router.push('/login')
+        }
+
+        const getUserRole = async () => {
+            const userData = user?.phoneNumber
+            let response = await fetch(`api/getrole`, {
+                method: "POST",
+                headers: {
+                    "content-Type": "application/json"
+                },
+                body: JSON.stringify(userData)
+            })
+            let res = await response.json()
+            if (res.role === "admin") {
+                role = "admin"
+            }
+            else {
+                role = "user"
+            }
+
+        }
+        getUserRole()
+    }, [router, user])
 
     const [form, setForm] = useState({
         title: "",

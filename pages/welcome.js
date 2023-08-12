@@ -53,7 +53,7 @@ const Welcome = () => {
             email,
             phone: user?.phoneNumber
         }
-        if (!userData.firstName || !userData.lastName || !userData.email || !userData.phone) return alert('Please fill all the fields')
+        if (!userData.fName || !userData.lName || !userData.email || !userData.phone) return alert('Please fill all the fields')
         const res = await fetch('/api/signup', {
             method: 'POST',
             headers: {
