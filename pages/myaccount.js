@@ -2,220 +2,153 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useUserAuth } from '../context/UserAuthContext';
 
 const Myaccount = ({ }) => {
+    const { user } = useUserAuth()
     const router = useRouter()
-    const [name, setName] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
-    const [address, setAddress] = useState("")
-    const [state, setState] = useState("")
-    const [pincode, setPincode] = useState("")
-    const [city, setCity] = useState("")
-    const [user, setUser] = useState({ value: null })
-    const [password, setPassword] = useState("")
-    const [cpassword, setCpassword] = useState("")
-    const [npassword, setNpassword] = useState("")
+
 
 
     useEffect(() => {
-    }, [router, router.query])
-
-    const fetchData = async (token) => {
-        const data = { token: token }
-        let res = await fetch(`api/getuser`, {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        const userData = await res.json()
-        setName(userData.name)
-        setAddress(userData.address)
-        setPhone(userData.phone)
-        setPincode(userData.pincode)
-    }
-
-
-    const handleUserSubmit = async () => {
-        const data = { token: user.token, name, phone, address, pincode }
-        let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updateuser`, {
-            method: "POST",
-            headers: {
-                "Content-Type": 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        const userData = await res.json()
-        toast.success(`Successfully updated details!`, {
-            position: "top-center",
-            autoClose: 2000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            theme: "dark",
-        });
-    }
-
-    const handlePasswordSubmit = async () => {
-        let userData;
-        if (npassword == cpassword) {
-            const data = { token: user.token, password, npassword, cpassword }
-            let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/updatepassword`, {
-                method: "POST",
+        if (!user) {
+            router.push('/login')
+        }
+        const userInfo = async () => {
+            const res = await fetch('/api/getuser', {
+                method: 'POST',
                 headers: {
-                    "Content-Type": 'application/json'
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({ phone: user?.phoneNumber })
             })
-            userData = await res.json()
+            const data = await res.json()
+            console.log("data", data);
+            setFirstName(data?.user?.firstName)
+            setLastName(data?.user?.lastName)
+            setEmail(data?.user?.email)
+            setPhone(data?.user?.phone)
         }
-        else {
-            userData = { success: false }
-        }
-        if (userData.success) {
-            toast.success('Successfully updated password!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "dark",
-            });
-        } else {
-            toast.error('Error updating password!', {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-                theme: "dark",
-            });
-        }
-        setPassword("")
-        setNpassword("")
-        setCpassword("")
-    }
+        userInfo()
+    }, [user, router])
+
 
     const handleChange = async (e) => {
 
-        if (e.target.name == "name") {
-            setName(e.target.value)
+        if (e.target.name == "fname") {
+            setFirstName(e.target.value)
+        }
+        if (e.target.name == "lname") {
+            setLastName(e.target.value)
         }
         else if (e.target.name == "phone") {
             setPhone(e.target.value)
         }
-        else if (e.target.name == "address") {
-            setAddress(e.target.value)
+        else if (e.target.name == "email") {
+            setEmail(e.target.value)
         }
-        else if (e.target.name == "password") {
-            setPassword(e.target.value)
-        }
-        else if (e.target.name == "cpassword") {
-            setCpassword(e.target.value)
-        }
-        else if (e.target.name == "npassword") {
-            setNpassword(e.target.value)
-        }
-        else if (e.target.name == "pincode") {
-            setPincode(e.target.value)
-        }
-
     }
 
     return (
-        <div className='container mx-auto my-9'>
-            <ToastContainer
-                position="top-center"
-                autoClose={2000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable={false}
-                pauseOnHover
-                theme="dark"
-            />
-            <h1 className='text-3xl text-center font-bold'>Upadate your Account</h1>
+        <>
+            <main className='container mx-auto'>
+                <div className="flex flex-col justify-center px-6 py-12 lg:px-8">
+                    <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+                        <h2 className="mt-6 text-3xl font-extrabold text-center text-gray-900">My Account</h2>
+                        <p className="mt-2 text-sm text-center text-gray-600 max-w">
+                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                {user ? user?.phoneNumber : ""}
+                            </a>
+                        </p>
+                    </div>
+                    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                            <div className="space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                        FIRST NAME
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
 
-            <h2 className="font-semibold text-xl my-4">1. Delivery details</h2>
-            <div className="mx-auto flex">
-                <div className="px-2 w-1/2" >
-                    <div className="mb-4">
-                        <label htmlFor="name" className="leading-7 text-sm text-gray-600">Name</label>
-                        <input onChange={handleChange} value={name} type="text" id="name" name="name" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required />
+                                            type="text"
+                                            name="fname"
+                                            id="name"
+                                            value={firstName}
+                                            onChange={handleChange}
+                                            autoComplete="name"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                                        LAST NAME
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+                                            type="text"
+                                            name="lname"
+                                            id="name"
+                                            value={lastName}
+                                            onChange={handleChange}
+                                            autoComplete="name"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black  sm:text-sm"
+                                            readOnly />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                        Email address
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+                                            type="text"
+                                            name="email"
+                                            id="email"
+                                            value={email}
+                                            onChange={handleChange}
+                                            autoComplete="email"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                                        Phone Number
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+
+                                            type="text"
+                                            name="phone"
+                                            id="phone"
+
+                                            value={phone}
+                                            onChange={handleChange}
+                                            autoComplete="phone"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="px-2 w-1/2" >
-                    <div className="mb-4">
-                        <label htmlFor="email" className="leading-7 text-sm text-gray-600">Email(<span className='text-red-700'>can&apos;t update</span>)</label>
-                        {user && user.token ? <input value={user.email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly /> : <input onChange={handleChange} value={email} type="email" id="email" name="email" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required />}
-
-                    </div>
-                </div>
-            </div>
-            <div className="px-2 w-full" >
-                <div className="mb-4">
-                    <label htmlFor="address" className="leading-7 text-sm text-gray-600">Address</label>
-                    <textarea value={address} onChange={handleChange} cols="30" rows="2" id="address" name="address" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required></textarea>
-                </div>
-
-            </div>
-            <div className="mx-auto flex">
-                <div className="px-2 w-1/2" >
-                    <div className="mb-4">
-                        <label htmlFor="phone" className="leading-7 text-sm text-gray-600">Phone</label>
-                        <input onChange={handleChange} value={phone} type="phone" id="phone" name="phone" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" maxLength={10} required />
-                    </div>
-                </div>
-                <div className="px-2 w-1/2" >
-                    <div className="mb-4">
-                        <label htmlFor="pincode" className="leading-7 text-sm text-gray-600">PINCODE</label>
-                        <input onChange={handleChange} value={pincode} type="number" id="pincode" name="pincode" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required />
-                    </div>
-                </div>
-
-
-
-            </div>
-            <button onClick={handleUserSubmit} className="disabled:bg-pink-300 flex mr-2 m-2 mb-5 text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm">Update details</button>
-
-
-            <h2 className="font-semibold text-xl my-4 ">2.Change your password</h2>
-                <div className="px-2 w-4/5" >
-                    <div className="mb-4 ml">
-                        <label htmlFor="password" className="leading-7 text-sm text-gray-600">Current Password</label>
-                        <input onChange={handleChange} value={password} type="password" id="password" name="password" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required />
-                    </div>
-                </div>
-            <div className="mx-auto flex">
-                <div className="px-2 w-1/2" >
-                    <div className="mb-4">
-                        <label htmlFor="npassword" className="leading-7 text-sm text-gray-600">New Password</label>
-                        <input onChange={handleChange} value={npassword} type="password" id="npassword" name="npassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required />
-                    </div>
-                </div>
-                <div className="px-2 w-1/2" >
-                    <div className="mb-4">
-                        <label htmlFor="cpassword" className="leading-7 text-sm text-gray-600">Confirm New Password</label>
-                        <input onChange={handleChange} value={cpassword} type="password" id="cpassword" name="cpassword" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" required />
-                    </div>
-                </div>
-
-
-
-            </div>
-
-            <button onClick={handlePasswordSubmit} className="disabled:bg-pink-300 flex mr-2 m-2 text-white bg-pink-500 border-0 py-2 px-2 focus:outline-none hover:bg-pink-600 rounded text-sm">Change password</button>
-        </div>
+            </main>
+        </>
     )
 }
 

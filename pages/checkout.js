@@ -7,8 +7,10 @@ import Script from 'next/script'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSession } from 'next-auth/react'
+import { useUserAuth } from '../context/UserAuthContext'
 
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
+  const { user } = useUserAuth()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
@@ -17,31 +19,14 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const [pincode, setPincode] = useState("")
   const [city, setCity] = useState("")
   const [disabled, setDisabled] = useState(true)
-  const [user, setUser] = useState({ value: null })
 
-  const fetchData = async (token) => {
-    const data = { token: token }
-    const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-    const json = await response.json()
-    setName(json.name)
-    setAddress(json.address)
-    setPincode(json.pincode)
-    setPhone(json.phone)
-    getPinCode(json.pincode)
-  }
 
   const getPinCode = async (pin) => {
-    let pins = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/pincode`)
+    let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
     let pinsjson = await pins.json()
-    if (Object.keys(pinsjson).includes(pin)) {
-      setCity(pinsjson[pin][0])
-      setState(pinsjson[pin][1])
+    if (pinsjson[0].Status == "Success") {
+      setCity(pinsjson[0].PostOffice[0].District)
+      setState(pinsjson[0].PostOffice[0].State)
     }
     else {
       setState("")
@@ -49,13 +34,8 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
     }
   }
   useEffect(() => {
-    const myuser = JSON.parse(localStorage.getItem("myuser"))
-    if (myuser && myuser.token) {
-      setUser(myuser)
-      setEmail(myuser.email)
-      fetchData(myuser.token)
-    }
-  }, [fetchData, subTotal])
+
+  }, [subTotal])
 
   useEffect(() => {
     if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3) {
@@ -250,14 +230,14 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="state" className="leading-7 text-sm text-gray-600">State</label>
-            <input type="text" value={state} onChange={handleChange} id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
+            <input type="text" value={state} onChange={handleChange} id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly/>
           </div>
         </div>
 
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="city" className="leading-7 text-sm text-gray-600">District</label>
-            <input type="text" value={city} onChange={handleChange} id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" />
+            <input type="text" value={city} onChange={handleChange} id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly/>
           </div>
         </div>
       </div>
@@ -284,7 +264,26 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         </ol>
         <div className="font-bold">SubTotal : ₹{subTotal} </div>
       </div>
-      <div className="mx-4">
+      <div className="my-4 payment-method">
+        <h2 className="font-semibold text-xl my-4">3. Payment Method</h2>
+        <div className="flex items-center justify-center">
+          <div className="flex  items-center justify-center w-1/3 font-semibold text-lg">
+            <input className='disabled:cursor-not-allowed' type="radio" id="paytm" name="payment" value="paytm" disabled />
+            <label htmlFor="paytm" className="ml-2 cursor-not-allowed">Paytm</label>
+          </div>
+          <div className=" flex items-center justify-center w-1/3 font-semibold text-lg">
+            <input className='disabled:cursor-not-allowed' type="radio" id="razorpay" name="payment" value="razorpay" disabled />
+            <label htmlFor="razorpay" className="ml-2 cursor-not-allowed disabled:text-red-500">Razorpay</label>
+          </div>
+          <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
+            <input type="radio" id="cod" name="payment" value="cod" />
+            <label htmlFor="cod" className="ml-2 cursor-pointer">COD</label>
+          </div>
+        </div>
+
+
+      </div>
+      <div className="mx-4 my-4">
         <Link href={'/checkout'} className='cursor-default'><button disabled={disabled} onClick={makePayment} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
       </div>
     </div>
@@ -292,21 +291,3 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 }
 
 export default Checkout
-
-
-
-export async function getServerSideProps({ req }) {
-  const session = await getSession({ req })
-
-  if (!session) {
-    return {
-      redirect: {
-        destination: '/login',
-        permanent: false
-      }
-    }
-  }
-  return {
-    props: { session }
-  }
-}

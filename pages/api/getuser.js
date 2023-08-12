@@ -5,11 +5,9 @@ const Jwt = require('jsonwebtoken');
 
 const handler = async (req, res) => {
     if (req.method == "POST") {
-        let token = req.body.token
-        let user = Jwt.verify(token, process.env.JWT_SECRET)
-        let dbUser = await User.findOne({ email: user.email })
-        const { name, email, address, pincode,phone } = dbUser
-        res.status(200).json({ name, email, address, pincode, phone })
+        const {phone} = req.body
+        const user = await User.findOne({ phone: phone })
+        res.status(200).json({ user: user })
     } else {
 
         res.status(400).json({ error: "Some error occure" })

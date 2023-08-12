@@ -12,7 +12,7 @@ const Login = () => {
   const { user } = useUserAuth()
   React.useEffect(() => {
     if (user) {
-      router.push('/')
+      router.push('/welcome')
     }
   }, [user])
   const router = useRouter()
