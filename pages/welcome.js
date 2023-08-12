@@ -24,16 +24,13 @@ const Welcome = () => {
                 body: JSON.stringify({ phone: user?.phoneNumber })
             })
             const data = await res.json()
-            console.log(data, 'data');
             if (data.exist) {
                 router.push('/')
             }
         }
         userExists()
-        console.log(user?.phoneNumber, 'user');
     }, [user])
     const handleChange = (e) => {
-        console.log(e.target.value);
         if (e.target.name === 'fname') {
             setFName(e.target.value)
         }
@@ -49,14 +46,14 @@ const Welcome = () => {
     }
 
     const handleSubmit = async (e) => {
+        e.preventDefault()
         const userData = {
             fName,
             lName,
             email,
             phone: user?.phoneNumber
         }
-        e.preventDefault()
-        console.log(userData, 'userData');
+        if (!userData.fName || !userData.lName || !userData.email || !userData.phone) return alert('Please fill all the fields')
         const res = await fetch('/api/signup', {
             method: 'POST',
             headers: {
@@ -65,7 +62,6 @@ const Welcome = () => {
             body: JSON.stringify(userData)
         })
         const data = await res.json()
-        console.log(data, 'data');
         if (data.success) {
             router.push('/')
         }
