@@ -5,8 +5,8 @@ const WishlistSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
     },
-    email: {
-        type: String,
+    phone: {
+        type: Number,
         required: true
     }
 });

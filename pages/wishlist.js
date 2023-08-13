@@ -3,20 +3,19 @@ import React, { useEffect } from 'react'
 import emptyImg from '../public/assets/empty.png'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import Link from 'next/link'
 import { Card, Grid, Row, Text, Button } from "@nextui-org/react";
 import CrossIcon from "../components/CrossIcon";
 import mongoose from 'mongoose'
 import Wishlist from '../Models/Wishlist'
 import Product from '../Models/Product'
 import { Toaster, toast } from 'react-hot-toast'
-import { getSession, useSession } from "next-auth/react"
-
-
+import { useUserAuth } from '../context/UserAuthContext'
+let phone;
 
 
 const WishlistComponent = ({ wishes, context }) => {
-    const { data: session, status } = useSession()
+    const { user } = useUserAuth()
+    phone = user?.phoneNumber
     // const [wishes, setWishes] = React.useState()
     const router = useRouter()
     const [isEmpty, setIsEmpty] = React.useState(true)
@@ -145,53 +144,36 @@ const emptyWishlist = (router) => {
     )
 }
 
-export default WishlistComponent
 
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
+    if (!mongoose.connections[0].readyState) {
+        await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
+    }
 
-    const session = await getSession(context)
-    console.log(session, 'email');
-
-
-    if (!session?.user) {
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false,
-            },
+    const wishes = await Wishlist.find({ phone })
+    let result = [];
+    if (wishes.length > 0) {
+        for (let i = 0; i < wishes.length; i++) {
+            result[i] = wishes[i]?.product.toString()
         }
     }
-    else {
 
-
-
-
-        if (!mongoose.connections[0].readyState) {
-            await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
-        }
-
-        const wishes = await Wishlist.find({ email: session?.user?.email })
-        let result = [];
-        if (wishes.length > 0) {
-            for (let i = 0; i < wishes.length; i++) {
-                result[i] = wishes[i]?.product.toString()
-            }
-        }
-
-        let data = [];
-        if (result.length > 0) {
-            for (let i = 0; i < result.length; i++) {
-                data[i] = await Product.findById(result[i])
-            }
-        }
-
-
-
-        return {
-            props: {
-                wishes: JSON.parse(JSON.stringify(data)),
-            },
+    let data = [];
+    if (result.length > 0) {
+        for (let i = 0; i < result.length; i++) {
+            data[i] = await Product.findById(result[i])
         }
     }
+
+
+
+    return {
+        props: {
+            wishes: JSON.parse(JSON.stringify(data)),
+        },
+    }
+
 }
+
+export default WishlistComponent
