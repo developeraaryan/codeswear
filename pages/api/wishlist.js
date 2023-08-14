@@ -5,9 +5,9 @@ const handler = async (req, res) => {
     if (req.method === "POST") {
 
 
-        const { product, email } = req.body;
+        const { product, phone } = req.body;
 
-        const wishlistExist = await Wishlist.findOne({ product, email });
+        const wishlistExist = await Wishlist.findOne({ product, phone: phone });
         console.log(wishlistExist);
 
         if (wishlistExist) {
@@ -16,7 +16,7 @@ const handler = async (req, res) => {
         else {
             const newWish = Wishlist.create({
                 product,
-                email
+                phone
             });
 
 

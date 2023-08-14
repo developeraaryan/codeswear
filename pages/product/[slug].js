@@ -13,8 +13,10 @@ import { Image } from '@nextui-org/react';
 import SlideShow from '../../components/Slideshow'
 import { FacebookShareButton, FacebookIcon, TwitterShareButton, TwitterIcon, WhatsappShareButton, WhatsappIcon, TelegramIcon, TelegramShareButton, LinkedinShareButton, LinkedinIcon, RedditShareButton, RedditIcon, EmailShareButton, EmailIcon } from 'next-share';
 import toast, { Toaster } from 'react-hot-toast';
-const { useSession } = require('next-auth/react')
+import { useUserAuth } from '../../context/UserAuthContext';
+
 const Slug = ({ addToCart, buyNow, error }) => {
+    const { user } = useUserAuth()
     const [visible, setVisible] = React.useState(false);
     const handler = () => setVisible(true);
     const closeHandler = () => {
@@ -26,7 +28,6 @@ const Slug = ({ addToCart, buyNow, error }) => {
         setSVisible(false);
         console.log("closed");
     };
-    const { data: session } = useSession()
     const router = useRouter()
     const [color, setColor] = useState()
     const [size, setSize] = useState("M")
@@ -98,7 +99,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
 
     const handleWish = async (e) => {
         e.preventDefault()
-        if (session) {
+        if (user) {
             let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/wishlist`, {
                 method: 'POST',
                 headers: {
@@ -106,7 +107,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                 },
                 body: JSON.stringify({
                     product: product?._id,
-                    email: session?.user?.email
+                    phone: user?.phoneNumber
                 })
 
             })

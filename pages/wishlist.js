@@ -10,17 +10,18 @@ import Wishlist from '../Models/Wishlist'
 import Product from '../Models/Product'
 import { Toaster, toast } from 'react-hot-toast'
 import { useUserAuth } from '../context/UserAuthContext'
-let phone;
 
 
-const WishlistComponent = ({ wishes, context }) => {
+const WishlistComponent = ({ wishes }) => {
     const { user } = useUserAuth()
-    phone = user?.phoneNumber
-    // const [wishes, setWishes] = React.useState()
     const router = useRouter()
     const [isEmpty, setIsEmpty] = React.useState(true)
     useEffect(() => {
-
+        let phone = (user?.phoneNumber)
+        router.push({
+            pathname: '/wishlist',
+            query: { phone: phone },
+        })
         if (wishes.length > 0) {
             setIsEmpty(false)
         }
@@ -51,7 +52,7 @@ const wishlistItem = (wishes, router) => {
         const data = await res.json()
         if (data.success) {
             toast.success(data.message)
-            // router.push('/wishlist')
+            router.push("/wishlist")
         }
 
         return data
@@ -146,12 +147,14 @@ const emptyWishlist = (router) => {
 
 
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }) {
+    let phone = query.phone
+    phone = phone.slice(1)
     if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
     }
 
-    const wishes = await Wishlist.find({ phone })
+    const wishes = await Wishlist.find({ phone: phone })
     let result = [];
     if (wishes.length > 0) {
         for (let i = 0; i < wishes.length; i++) {
