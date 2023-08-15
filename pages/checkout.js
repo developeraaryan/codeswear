@@ -350,11 +350,18 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
       </div>
       <div className="mx-4 my-4">
-        <Link href={'/checkout'} className='cursor-default'>
-          <button disabled={disabled} onClick={!selectedOption === 'cod' ? makePayment : codPay} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
-            Pay ₹{subTotal}
-          </button>
-        </Link>
+        {selectedOption === "cod" ?
+          <Link href={'/orders'} className='cursor-default'>
+            <button disabled={disabled} onClick={codPay} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
+              Pay ₹{subTotal} Using COD
+            </button>
+          </Link>
+          :
+          <Link href={'/checkout'} className='cursor-default'>
+            <button disabled={disabled} onClick={makePayment} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
+              Pay ₹{subTotal}
+            </button>
+          </Link>}
       </div>
     </div>
   )

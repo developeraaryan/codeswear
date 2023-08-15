@@ -137,9 +137,9 @@ export default function App({ Component,
       theme: "dark",
     });
   }
-  const buyNow = (itemCode, qty, price, name, size, color, img) => {
+  const buyNow = (itemCode, qty, price, name, size, img) => {
     let newCart = {}
-    newCart[itemCode] = { qty: 1, name, size, price, color, img }
+    newCart[itemCode] = { qty: 1, name, size, price, img }
     setCart(newCart)
     saveCart(newCart)
     router.push('/checkout')

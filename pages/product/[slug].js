@@ -269,7 +269,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                     router.push('/login')
                                 }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-rose-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
                                 <button onClick={() => {
-                                    user ? buyNow(slug, 1, product?.price, product?.title, size, color) : toast.error('Login Please!')
+                                    user ? buyNow(slug, 1, product?.price, product?.title, size) : toast.error('Login Please!')
                                     router.push('/login')
                                 }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 

@@ -61,6 +61,9 @@ export default async function handler(req, res) {
                 status: "COD",
             })
             await order.save()
+            res.status(200).json({ success: true, "message": "Order Placed Successfully", clearCart: true })
+            res.redirect(`/postcod?oId=${req.body.oId}`, 200)
+
         } catch (err) {
             res.status(400).json(err);
         }

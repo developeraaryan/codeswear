@@ -117,7 +117,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           className="hover:text-[#0000ff]"
         />
       ),
-      href: 'https://www.facebook.com/',
+      href: 'https://www.facebook.com/profile.php?id=100093670233461&mibextid=ZbWKwL',
     },
     {
       name: 'Instagram',
@@ -127,7 +127,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           className="hover:text-[#ff0000]"
         />
       ),
-      href: 'https://www.instagram.com/',
+      href: 'https://instagram.com/blackwornfashion?igshid=MzRlODBiNWFlZA==',
     },
     {
       name: 'Twitter',
@@ -137,7 +137,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           size={25}
         />
       ),
-      href: 'https://twitter.com/',
+      href: 'https://twitter.com/BlackWornIN?t=BC5t8PVrz56oi6mQNO-WyA&s=08',
     },
   ];
 
