@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { ToastContainer, } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import Error from 'next/error';
 import { AiOutlineDoubleRight } from 'react-icons/ai'
 import { FaCopy, FaShare } from 'react-icons/fa'
@@ -144,18 +142,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                     position="top-center"
                     reverseOrder={false}
                 />
-                <ToastContainer
-                    position="top-center"
-                    autoClose={3000}
-                    hideProgressBar={false}
-                    newestOnTop
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="dark"
-                />
+                
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
                         <SlideShow images={product?.img} />

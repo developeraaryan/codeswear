@@ -3,10 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { AiFillMinusCircle, AiFillPlusCircle } from 'react-icons/ai'
 import { BsFillBagCheckFill } from 'react-icons/bs'
 import Head from 'next/head'
-import Script from 'next/script'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import { useUserAuth } from '../context/UserAuthContext'
+import toast, { Toaster } from 'react-hot-toast';
 
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const { user } = useUserAuth()
@@ -199,17 +197,9 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
   return (
     <div className='container px-2 sm:m-auto'>
-      <ToastContainer
+      <Toaster
         position="top-center"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
+        reverseOrder={false}
       />
       <Head>
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
