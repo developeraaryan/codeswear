@@ -15,7 +15,6 @@ const MyOrder = ({ order, clearCart }) => {
     setTracker(!tracker)
   }
   useEffect(() => {
-    console.log(Object.entries(products)[0][1].img, 'products');
     const d = new Date(order.createdAt)
     setDate(d)
     if (router.query.clearcart == 1) {

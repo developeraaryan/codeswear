@@ -27,7 +27,6 @@ const Myaccount = ({ }) => {
                 body: JSON.stringify({ phone: user?.phoneNumber })
             })
             const data = await res.json()
-            console.log("data", data);
             setFirstName(data?.user?.firstName)
             setLastName(data?.user?.lastName)
             setEmail(data?.user?.email)

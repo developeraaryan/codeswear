@@ -68,7 +68,6 @@ function BpRadio(props) {
 export default function CustomizedRadios({ order, handleCloseParent }) {
     const [value, setValue] = React.useState(order.deliverStatus || 'unshipped');
     const handleUpdate = async () => {
-        console.log("handleUpdate", order.oId, value);
         const res = await fetch('/api/updateorder', {
             method: 'POST',
             headers: {
@@ -77,7 +76,6 @@ export default function CustomizedRadios({ order, handleCloseParent }) {
             body: JSON.stringify({ oId: order.oId, deliverStatus: value }),
         })
         const data = await res.json()
-        console.log("data", data);
         if (data.success) {
             toast.success(`Status updated successfully!`, {
                 position: "top-center",

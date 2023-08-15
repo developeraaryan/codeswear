@@ -64,7 +64,6 @@ const UpdateProduct = () => {
                 body: JSON.stringify({ id: id }),
             })
             const data = await res.json()
-            console.log(data)
             setTitle(data?.product?.title)
             setSlug(data?.product?.slug)
             setPrice(data?.product?.price)
@@ -116,7 +115,6 @@ const UpdateProduct = () => {
             }),
         })
         const data = await res.json()
-        console.log(data)
         if (data.success) {
             toast.success('Product Updated Successfully'), {
                 position: "top-right",

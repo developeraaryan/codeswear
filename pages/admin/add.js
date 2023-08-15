@@ -66,7 +66,6 @@ const Add = () => {
     }
     const submitForm = async (e) => {
         e.preventDefault()
-        console.log(form, "form");
         if (form.title.length > 0 && form.slug.length > 0 && form.desc.length > 0 && form.category.length > 0 && form.size.length > 0 && form.price.length > 0 && form.availableqty.length > 0 && form.img1_public_id.length > 0 && form.img1.length > 0 && form.img2_public_id.length > 0 && form.img2.length > 0 && form.img3_public_id.length > 0 && form.img3.length > 0 && form.img4_public_id.length > 0 && form.img4.length > 0) {
             const product = {
                 title: form.title,

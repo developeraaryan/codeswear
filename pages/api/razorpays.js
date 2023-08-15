@@ -11,7 +11,6 @@ export default async function handler(req, res) {
         // let product, sumTotal = 0;
         // let cart = req.body.cart;
         // for (let item in cart) {
-        //     console.log(cart);
         //     sumTotal += cart[item].price * cart[item].qty
         //     product = await Product.findOne({ slug: item })
         //     // check if cart items are out of stock
@@ -69,7 +68,6 @@ export default async function handler(req, res) {
                 amount: response.amount,
             });
         } catch (err) {
-            console.log(err);
             res.status(400).json(err);
         }
     }

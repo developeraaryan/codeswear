@@ -8,8 +8,6 @@ const handler = async (req, res) => {
         const { product, phone } = req.body;
 
         const wishlistExist = await Wishlist.findOne({ product, phone: phone });
-        console.log(wishlistExist);
-
         if (wishlistExist) {
             return res.status(400).json({ success: false, message: "Product already in wishlist" });
         }

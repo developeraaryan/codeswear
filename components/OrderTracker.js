@@ -1,7 +1,5 @@
 import React from 'react'
 const OrderTracker = ({ status }) => {
-  console.log(status);
-
   return (
     <>
       {/* <!-- component --> */}

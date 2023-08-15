@@ -10,13 +10,11 @@ const handler = async (req, res) => {
             const user = await User.findOne({ phone });
 
             if (user) { // Check if user exists before accessing properties
-                console.log("This user's role is", user.role);
                 res.status(200).json({ success: true, role: user.role }); // Changed success value to true
             } else {
                 res.status(404).json({ success: false, message: "User not found" });
             }
         } catch (error) {
-            console.error("Error:", error);
             res.status(500).json({ success: false, message: "An error occurred" });
         }
     } else {

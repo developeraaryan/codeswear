@@ -10,7 +10,6 @@ const CartItem = ({ cart, removeFromCart, addToCart, toggleCartModal }) => {
 
             {
                 Object.keys(cart).map((item, index) => {
-                    console.log(cart[item], "cart item");
                     return (
                         <article key={index} className=" border border-gray-200 overflow-hidden bg-white shadow-lg rounded mb-5">
                             <div className="flex flex-col md:flex-row">

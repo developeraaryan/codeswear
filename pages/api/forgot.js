@@ -39,8 +39,6 @@ const handler = async (req, res) => {
                     };
 
                     await sgMail.send(msg);
-                    console.log('Email sent');
-
                     return res.status(200).json({ success: true, mailSent: true, msg: "Mail sent successfully" });
                 }
             } else {
@@ -51,14 +49,11 @@ const handler = async (req, res) => {
                     const encryptedPassword = CryptoJS.AES.encrypt(req.body.password, process.env.AES_SECRET).toString();
                     const dbUser = await User.findOneAndUpdate({ email: req.body.email }, { password: encryptedPassword });
 
-                    console.log("Password updated:", dbUser);
                     return res.status(200).json({ success: true });
                 } else {
-                    console.log("Invalid link", forgot.token, req.body.token);
                 }
             }
         } catch (error) {
-            console.error("Error:", error);
             return res.status(500).json({ success: false, error: "Failed to process request" });
         }
     } else {

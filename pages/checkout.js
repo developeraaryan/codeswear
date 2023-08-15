@@ -18,7 +18,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const [disabled, setDisabled] = useState(true)
   const [selectedOption, setSelectedOption] = useState('');
 
-  console.log(selectedOption, "selectedOption");
   const getPinCode = async (pin) => {
     let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
     let pinsjson = await pins.json()
@@ -38,14 +37,12 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   useEffect(() => {
     if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3 && !selectedOption == "") {
       setDisabled(false)
-      console.log(disabled);
     }
     else if (subTotal == 0) {
       setDisabled(true)
     }
     else {
       setDisabled(true)
-      console.log(disabled);
     }
   }, [address, disabled, email, name, phone, pincode, subTotal, selectedOption])
 
@@ -97,7 +94,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       });
     }
 
-    console.log("here...");
     const res = await initializeRazorpay();
 
     if (!res) {
@@ -121,7 +117,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
     if (data.clearCart) {
       clearCart()
     }
-    console.log("this is data :", data);
     toast.error(data.error, {
       position: "top-center",
       autoClose: 3000,
@@ -132,8 +127,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       progress: undefined,
       theme: "dark",
     });
-    console.log(subTotal);
-
     var options = {
       key: process.env.RAZORPAY_KEY, // Enter the Key ID generated from the Dashboard
       name: "BLACK WORN",
@@ -145,7 +138,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       handler: function (response) {
         // Validate payment at server - using webhooks is a better idea.
         alert(response.razorpay_payment_id);
-        console.log(response);
         alert(response.razorpay_order_id);
         alert(response.razorpay_signature);
       },
@@ -167,7 +159,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   };
 
   const codPay = () => {
-    console.log("cod pay");
     let oId = Math.floor(Math.random() * Date.now());
     const info = { cart, subTotal, email: email, name, address, phone, pincode, city, state, oId }
     const apiRes = fetch(`/api/cod`,
@@ -178,7 +169,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         },
         body: JSON.stringify(info)
       })
-    console.log(apiRes);
     clearCart()
     toast.success('Order Placed Successfully!', {
       position: "top-center",

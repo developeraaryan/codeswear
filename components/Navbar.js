@@ -50,8 +50,6 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
     };
 
     getWishlist();
-    console.log(wishlist, 'wishlist');
-
     if (Object.keys(cart).length !== 0) {
       setSidebar(true);
     }
@@ -297,7 +295,6 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
       await logOut();
       router.push("/");
     } catch (error) {
-      console.log(error.message);
     }
   };
 

@@ -11,12 +11,10 @@ export default function ECommerceCard({ addToCart }) {
         const getProducts = async () => {
             let response = await fetch(`api/allproducts`)
             let res = await response.json()
-            // console.log(res.products);
             setProducts(res.products)
         }
         getProducts()
     }, [])
-    console.log(products);
     return (
         <>
 

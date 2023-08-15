@@ -7,7 +7,6 @@ const handler = async (req, res) => {
             let p = await Product.findByIdAndDelete(req.body[i]._id)
         }
         res.status(200).json({ success: "success" })
-        console.log(p);
     }
     else {
         res.status(400).json({ error: "This method is not allowed" })

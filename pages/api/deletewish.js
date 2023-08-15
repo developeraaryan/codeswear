@@ -5,7 +5,6 @@ const handler = async (req, res) => {
     if (req.method === "POST") {
         const { id } = req.body;
         const wishlistExist = await Wishlist.findOneAndDelete({ product: id });
-        console.log(wishlistExist);
         if (wishlistExist) {
             res.status(200).json({ success: true, message: "Product removed from wishlist" });
         }

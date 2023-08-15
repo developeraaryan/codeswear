@@ -25,7 +25,6 @@ const Login = () => {
 
   const getOtp = async (e) => {
     e.preventDefault();
-    console.log("number", number);
     setError("");
     if (number === "" || number === undefined) {
       return toast.error('Please enter phone number')
@@ -33,7 +32,6 @@ const Login = () => {
     }
     try {
       const response = await setUpRecaptha(number);
-      console.log("response", response);
       setConfirmObj(response)
       setFlag(true)
       toast.success('OTP sent successfully')
@@ -44,7 +42,6 @@ const Login = () => {
 
   const verifyOtp = async (e) => {
     e.preventDefault();
-    console.log("otp", otp);
     setError("");
     if (otp === "" || otp === undefined) {
       return setError("Please enter otp")

@@ -5,7 +5,6 @@ const shortid = require("shortid");
 import pincodes from "../../pincodes.json"
 
 export default async function handler(req, res) {
-    console.log("subtotal :", (req.body.subTotal));
     if (req.method === "POST") {
         //  check if cart is tampered
 
@@ -18,7 +17,6 @@ export default async function handler(req, res) {
         }
 
         for (let item in cart) {
-            console.log(cart);
             sumTotal += cart[item].price * cart[item].qty
             product = await Product.findOne({ slug: item })
             // check if cart items are out of stock
@@ -89,9 +87,7 @@ export default async function handler(req, res) {
                 products: req.body.cart
             })
             await order.save()
-            console.log("this is res id", response.id);
         } catch (err) {
-            console.log(err);
             res.status(400).json(err);
         }
     } else {

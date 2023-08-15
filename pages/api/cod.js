@@ -14,7 +14,6 @@ export default async function handler(req, res) {
         }
 
         for (let item in cart) {
-            console.log(cart);
             sumTotal += cart[item].price * cart[item].qty
             product = await Product.findOne({ slug: item })
             // check if cart items are out of stock

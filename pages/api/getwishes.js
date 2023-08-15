@@ -22,7 +22,6 @@ const handler = async (req, res) => {
         }
     }
 
-    console.log(data, 'result');
     res.status(200).json({ success: true, data: data });
 
 };

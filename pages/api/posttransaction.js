@@ -64,14 +64,11 @@ const handler = async (req, res) => {
 
             // Check the status of the payment
             if (paymentDetails.status === 'pending') {
-                console.log('pending');
                 return true;
             } else {
-                console.log('not pending');
                 return false;
             }
         } catch (error) {
-            console.error('Error:', error);
             return false;
         }
     }

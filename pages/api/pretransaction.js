@@ -10,7 +10,6 @@ const handler = async (req, res) => {
         let product, sumTotal = 0;
         let cart = req.body.cart;
         for (let item in cart) {
-            console.log(cart);
             sumTotal += cart[item].price * cart[item].qty
             product = await Product.findOne({ slug: item })
             // check if cart items are out of stock
@@ -92,7 +91,6 @@ const handler = async (req, res) => {
                         });
 
                         post_res.on('end', function () {
-                            // console.log('Response: ', response);
                             let ress = JSON.parse(response).body
                             ress.success = true
                             resolve(ress)
