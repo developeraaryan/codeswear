@@ -18,6 +18,9 @@ import { Modal, useModal, Text } from '@nextui-org/react';
 import emptyImg from '../public/assets/empty-cart-png.png';
 import CartItem from './CartItem';
 import { useUserAuth } from '../context/UserAuthContext';
+import localFont from 'next/font/local';
+
+const gotham = localFont({ src: '../assets/fonts/Gotham/GothamMedium.ttf' });
 
 const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
   const router = useRouter()
@@ -140,7 +143,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
 
   const getList = () => (
     <div
-      className="bg-white overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+      className={`bg-white overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none ${gotham.className}}`}
       style={{
         top: 10,
         width: 250,
@@ -169,13 +172,13 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </ListItem>
       </Link>
       <ListItem
-        className={`relative top-3 h-8`}
+        className={`relative top-3 h-8 ${gotham.className}`}
       >
         <Link href="/login" className="flex">
           <ListItemIcon>
-            <BiUser className="text-3xl p-1 mt-2 bg-gray-400 rounded-full text-black" />
+            <BiUser className="text-3xl p-1 mt-3 bg-gray-400 rounded-full text-black" />
           </ListItemIcon>
-          <ListItemText className="pt-2 -ml-3" primary="LOGIN" />
+          <div className={`text-center pt-3 ml-6 text-xl !${gotham.className}`}>LOGIN</div>
         </Link>
       </ListItem>
       <ListItemIcon>
@@ -196,10 +199,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         className={`relative top-3 mb-3 bg-gray-300`}
       >
         <Link href="/allcollection" className="flex">
-          <ListItemText
+          <span
             className="mx-4 !font-bold"
-            primary="COLLECTIONS"
-          />
+          >
+            COLLECTIONS
+          </span>
         </Link>
       </ListItem>
       {CollectionData.map((item, index) => (
@@ -213,7 +217,9 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
               key={index}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <span className={`text-sm w-full ${gotham.className}`}>
+                {item.name}
+              </span>
             </ListItem>
           </Link>
         </div>
@@ -222,10 +228,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         className={`relative top-3 -mt-3 mb-3 bg-gray-300`}
       >
         <Link href="/privacy" className="flex">
-          <ListItemText
+          <span
             className="mx-4 !font-bold"
-            primary="CUSTOMER SERVICE"
-          />
+          >
+            CUSTOMER SERVICE
+          </span>
         </Link>
       </ListItem>
       {CustomerData.map((item, index) => (
@@ -240,7 +247,9 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
               key={index}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <span className={gotham.className}>
+                {item.name}
+              </span>
             </ListItem>
           </Link>
         </div>
@@ -249,10 +258,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         className={`relative top-3 -mt-3 mb-3 bg-gray-300`}
       >
         <Link href="/login" className="flex">
-          <ListItemText
+          <span
             className="mx-4 !font-bold"
-            primary="CONNECT WITH US"
-          />
+          >
+            FOLLOW US
+          </span>
         </Link>
       </ListItem>
       <ListItem

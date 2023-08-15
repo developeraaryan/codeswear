@@ -189,7 +189,14 @@ export default function Home() {
             </h4>
           </div>
         </div>
-      <HomepageCard />
+        <HomepageCard />
+        <Image
+        src={'/assets/premium-design.png'}
+        alt='premium designs'
+        width={400}
+        height={400}
+        className='mx-auto'
+        />
       </div>
     </>
   )

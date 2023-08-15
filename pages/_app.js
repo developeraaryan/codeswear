@@ -15,9 +15,11 @@ import Head from "next/head"
 import ScrollButton from "../components/ScrollButton"
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 import { UserAuthContextProvider } from '../context/UserAuthContext'
+import localFont from "next/font/local"
 
 
 
+const gotham = localFont({ src: "../assets/fonts/Gotham/GothamMedium.ttf" })
 export default function App({ Component,
   pageProps: { session, ...pageProps } }) {
   const router = useRouter()
@@ -172,14 +174,7 @@ export default function App({ Component,
             <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
             <title>Black Worn</title>
           </Head>
-          <main className="font-Inter h-screen overflow-auto">
-            <style jsx global>
-              {`
-          html {
-            font-family: ${roboto.style.fontFamily};
-          }
-          `}
-            </style>
+          <main className={`h-screen overflow-auto ${gotham.className}`}>
             <LoadingBar
               color='#f11946'
               progress={progress}
