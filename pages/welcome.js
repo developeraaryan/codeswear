@@ -72,11 +72,88 @@ const Welcome = () => {
             <h2 className='text-center text-2xl md:text-3xl font-black'>Welcome to Black Worn</h2>
             <div className='flex justify-center items-center'>
                 <form className='flex flex-col' onSubmit={handleSubmit}>
-                    <input onChange={handleChange} value={firstName} name='fname' type="text" placeholder='Enter your First name' className='border-2 border-gray-300 m-4 rounded-md' />
-                    <input onChange={handleChange} value={lastName} name='lname' type="text" placeholder='Enter your Last name' className='border-2 border-gray-300 m-4 rounded-md' />
-                    <input onChange={handleChange} value={email} name='email' type="text" placeholder='Enter your email' className='border-2 border-gray-300 m-4 rounded-md' />
-                    <input value={user?.phoneNumber} name='phone' type="text" placeholder='Enter your phone number' className='border-2 border-gray-300 m-4 rounded-md' readOnly />
-                    <button className='!bg-black text-white rounded-md p-2 m-4' type='submit'>Submit</button>
+                    <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                            <div className="space-y-6">
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-bold text-gray-700">
+                                        FIRST NAME
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+                                            type="text"
+                                            name="fname"
+                                            id="name"
+                                            value={firstName}
+                                            onChange={handleChange}
+                                            autoComplete="name"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="name" className="block text-sm font-bold text-gray-700">
+                                        LAST NAME
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+                                            type="text"
+                                            name="lname"
+                                            id="name"
+                                            value={lastName}
+                                            onChange={handleChange}
+                                            autoComplete="name"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black  sm:text-sm"
+                                            readOnly />
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-sm font-bold text-gray-700">
+                                        Email address
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+                                            type="text"
+                                            name="email"
+                                            id="email"
+                                            value={email}
+                                            onChange={handleChange}
+                                            autoComplete="email"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+
+                                    <label htmlFor="phone" className="block text-sm font-bold text-gray-700">
+                                        Phone Number
+                                    </label>
+                                    <div className="mt-1">
+                                        <input
+
+
+                                            type="text"
+                                            name="phone"
+                                            id="phone"
+
+                                            value={user?.phoneNumber}
+                                            onChange={handleChange}
+                                            autoComplete="phone"
+                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
+                                            readOnly
+                                        />
+                                    </div>
+                                </div>
+                                    <button className='!bg-black text-white rounded-md p-2 m-4 w-full mx-auto' type='submit'>Submit</button>
+
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </main>

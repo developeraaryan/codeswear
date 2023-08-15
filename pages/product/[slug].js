@@ -159,7 +159,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
                         <SlideShow images={product?.img} />
-                        <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-20 -right-52 md:-right-[45rem] justify-center text-gray-500 ml-4">
+                        <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-28 -right-60 md:-right-[45rem] justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                 <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
                             </svg>
@@ -282,7 +282,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                 </div>
                 <div className="size flex flex-col justify-center">
                     <div className="text flex justify-center font-semibold space-x-[4.5rem] relative left-7 md:space-x-[30rem] z-0">
-                        <h5>SELECT SIZE</h5>
+                        <h5 className='text-sm mt-3'>SELECT SIZE</h5>
                         <Button
                             light
                             onPress={handler}
@@ -375,7 +375,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                     className='-mt-3 mr-1'
                                     alt='tracking'
                                 />
-                                <h5 className='relative right-0 md:right-[37rem] top-1'>CHECK AVAILABILITY</h5>
+                                <h5 className='relative right-0 md:right-[37rem] text-sm top-3'>CHECK AVAILABILITY</h5>
                             </div>
                         </div>
 
@@ -432,13 +432,18 @@ const Slug = ({ addToCart, buyNow, error }) => {
                     </div>
 
 
-                    <div className="flex flex-col justify-start container">
-                        <h4 className='text-black font-black text-xl mx-8'>PRODUCT DESCRIPTION :</h4>
-                        <p className='mx-10 md:mx-20 my-4'>
-                            {product?.desc}
-                        </p>
+                    <div className="flex flex-col justify-start container my-4">
+                        <h4 className='text-black font-black text-lg mx-7'>PRODUCT DESCRIPTION :</h4>
+                        <ul className='list-disc mx-10 md:mx-20 my-4 container'>
+                            <li>
+                                {product?.desc}
+                            </li>
+                            <li>100% premium cotton with bio washed</li>
+                            <li>High Quality Graphics Print</li>
+                            <li>Comfort and Durability</li>
+                        </ul>
                         <h4 className='text-black font-black text-xl mx-8'>WASH CARE :</h4>
-                        <ul className='list-disc  mx-auto md:mx-20 my-4'>
+                        <ul className='list-disc  mx-12 md:mx-20 my-4'>
                             <li>Machine Wash</li>
                             <li>Wash in cold water</li>
                             <li>Use Mild Detergent</li>
@@ -451,6 +456,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             <li>Do Not Dry Clean</li>
                             <li>Do Not Tumble Dry</li>
                             <li>Wash With Like Colors</li>
+                            <li>Actual Color of the product may very slightly due to photographic lighting sources or your device</li>
 
                         </ul>
                     </div>
