@@ -19,7 +19,7 @@ const handler = async (req, res) => {
 
         const product = new Product({
             title,
-            slug,
+            slug: slug + Math.floor(Math.random() * Date.now()),
             desc,
             img,
             category,

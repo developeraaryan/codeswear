@@ -68,24 +68,24 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
       href: '/',
     },
     {
-      name: 'All Collection',
-      href: '/allcollection',
+      name: 'All Collections',
+      href: '/allcollections',
     },
     {
       name: 'Oversized T-Shirts',
-      href: '/tshirts',
+      href: '/oversized',
     },
     {
       name: 'Basic T-Shirts',
-      href: '/tshirts',
+      href: '/basic',
     },
     {
       name: 'Save upto 70%',
-      href: '/tshirts',
+      href: '/sale',
     },
     {
       name: 'Anime Collection',
-      href: '/tshirts',
+      href: '/anime',
     },
   ];
 
