@@ -26,7 +26,7 @@ const Orders = () => {
 
             fetchOrders()
         }
-    }, [user])
+    }, [user,router])
 
     return (
         <div className='min-h-screen container my-14 mx-auto text-black '>

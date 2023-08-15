@@ -47,44 +47,6 @@ export default function Home() {
   }, [])
 
 
-  const getUserRole = async () => {
-    const data = {
-      email: session?.user?.email
-    }
-    let response = await fetch(`api/getrole`, {
-      method: "POST",
-      headers: {
-        "content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    })
-    let res = await response.json()
-  }
-  useEffect(() => {
-    const getgoogle = async () => {
-      const data = {
-        name: session?.user?.name,
-        email: session?.user?.email,
-        image: session?.user?.image
-
-      }
-      let response = await fetch(`api/getgoogle`, {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      })
-      let res = await response.json()
-
-    }
-    if (session) {
-      getgoogle()
-      getUserRole()
-    }
-
-  }, [session, getUserRole, session?.id])
-  // ]
   return (
     <>
       <div className='overflow-x-hidden'>

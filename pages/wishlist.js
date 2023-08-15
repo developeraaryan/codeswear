@@ -25,7 +25,7 @@ const WishlistComponent = ({ wishes }) => {
         if (wishes.length > 0) {
             setIsEmpty(false)
         }
-    }, [])
+    }, [router, user, wishes])
 
     return (
         <div className='container mx-auto min-h-screen overflow-x-hidden'>

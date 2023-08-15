@@ -29,7 +29,7 @@ const Welcome = () => {
             }
         }
         userExists()
-    }, [user])
+    }, [user,router])
     const handleChange = (e) => {
         if (e.target.name === 'fname') {
             setFirstName(e.target.value)

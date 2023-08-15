@@ -43,7 +43,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
             setProduct(data.products[0])
         }
         slugDetails()
-    }, [])
+    }, [slug])
     const checkServiceability = async () => {
         let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
         let pinData = await pins.json()

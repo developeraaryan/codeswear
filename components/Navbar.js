@@ -61,7 +61,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
     if (exempted.includes(router.pathname)) {
       setSidebar(false);
     }
-  }, [cart, router.pathname]);
+  }, [cart, router.pathname,wishlist]);
 
   const [open, setOpen] = useState(false);
 
@@ -194,6 +194,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         width={200}
         height={200}
         className="mx-0 w-fit -mb-3 hover:scale-110 duration-500 transform overflow-hidden"
+        alt='free shipping'
       />
       <ListItem
         className={`relative top-3 mb-3 bg-gray-300`}
@@ -207,7 +208,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       {CollectionData.map((item, index) => (
-        <div className="hover:!bg-blue-400">
+        <div key={index} className="hover:!bg-blue-400">
           <Link
             className="flex hover:translate-x-6 transition-all duration-500  bg-transparent"
             href={item.href}
@@ -236,7 +237,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       {CustomerData.map((item, index) => (
-        <div className='hover:!bg-blue-400'>
+        <div key={index} className='hover:!bg-blue-400'>
 
           <Link
             className="flex hover:translate-x-10  transition-all duration-500"
@@ -286,6 +287,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         width={400}
         height={400}
         className="mx-0 h-fit w-full scale-y-90 hover:scale-x-110 -mt-4 duration-500 transform overflow-hidden"
+        alt='thank you'
       />
     </div>
   );
