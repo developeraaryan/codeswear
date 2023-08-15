@@ -1,5 +1,5 @@
 import connectDb from "../../middleware/mongoose";
-import User from "../../models/User"; // Make sure the path is correct and case-sensitive
+import User from "../../Models/User"; // Make sure the path is correct and case-sensitive
 
 const handler = async (req, res) => {
     if (req.method === "POST") { // Use strict equality (===) for comparison
