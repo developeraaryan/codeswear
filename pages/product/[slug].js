@@ -1,13 +1,10 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import Product from "../../Models/Product"
 import { ToastContainer, } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Error from 'next/error';
 import { AiOutlineDoubleRight } from 'react-icons/ai'
 import { FaCopy, FaShare } from 'react-icons/fa'
-import { SendButton } from '../../components/SendButton';
-import { SendIcon } from '../../components/SendIcon';
 import { Button, Input, Modal, Text } from '@nextui-org/react';
 import { Image } from '@nextui-org/react';
 import SlideShow from '../../components/Slideshow'
@@ -21,15 +18,12 @@ const Slug = ({ addToCart, buyNow, error }) => {
     const handler = () => setVisible(true);
     const closeHandler = () => {
         setVisible(false);
-        console.log("closed");
     };
     const sHandler = () => setSVisible(true);
     const sCloseHandler = () => {
         setSVisible(false);
-        console.log("closed");
     };
     const router = useRouter()
-    const [color, setColor] = useState()
     const [size, setSize] = useState("M")
     const { slug } = router.query
     const [pin, setPin] = useState()
@@ -48,16 +42,13 @@ const Slug = ({ addToCart, buyNow, error }) => {
                 })
             })
             let data = await res.json()
-            console.log(data, 'data');
             setProduct(data.products[0])
         }
         slugDetails()
     }, [])
-    console.log(product, 'product');
     const checkServiceability = async () => {
         let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
         let pinData = await pins.json()
-        console.log(pinData, 'pinData');
         if (pinData[0].Status == 'Success') {
             setService(true)
         }
@@ -167,12 +158,6 @@ const Slug = ({ addToCart, buyNow, error }) => {
                 />
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
-                        {/* <Image
-                            width={500}
-                            height={500}
-                            alt="ecommerce"
-                            // className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-top rounded"
-                            src={product?.img} /> */}
                         <SlideShow images={product?.img} />
                         <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-20 -right-52 md:-right-[45rem] justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
@@ -180,13 +165,6 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             </svg>
                         </button>
                         <div className="relative left-[55rem] top-20">
-                            {/* <FacebookShareButton
-                                url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
-                                quote={product?.title}
-                                hashtag="#fashion"
-                                className="Demo__some-network__share-button">
-                                <FacebookIcon size={32} round />
-                            </FacebookShareButton> */}
                         </div>
                         <Button
                             icon={<FaShare />}
@@ -281,58 +259,19 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title} ({size})</h1>
                             <h3 className='font-bold'>₹{product?.price}</h3>
-                            <div className="flex mb-4">
-                                {/* <span className="flex items-center">
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="currentColor" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 text-blue-500" viewBox="0 0 24 24">
-                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-                                    </svg>
-                                    <span className="text-gray-600 ml-3">4 Reviews</span>
-                                </span> */}
-                                {/* <span className="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
-                                    <a className="text-gray-500">
-                                        <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
-                                        </svg>
-                                    </a>
-                                    <a className="text-gray-500">
-                                        <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
-                                        </svg>
-                                    </a>
-                                    <a className="text-gray-500">
-                                        <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
-                                            <path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"></path>
-                                        </svg>
-                                    </a>
-                                </span> */}
-                            </div>
                             <p className="leading-relaxed">{product?.category.toUpperCase()}</p>
 
                             <div className="flex fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
-                                {/* <div className='flex flex-col'>
-                                    {!product?.availableqty <= 0 && <span className="title-font font-medium text-2xl text-gray-900">₹{product?.price}</span>}
-                                    {product?.availableqty <= 0 && <span className="title-font font-medium text-2xl text-red-800">Out of stock</span>}
-                                    {!product?.availableqty <= 0 && product?.availableqty <= 5 && <span className="title-font font-medium text-xs text-red-800">Hurry up! only {product?.availableqty} left</span>}
-                                </div> */}
 
                                 <button onClick={() => {
-                                    session ? addToCart(slug, 1, product?.price, product?.title, size, color, product?.img) :
+                                    user ? addToCart(slug, 1, product?.price, product?.title, size, product?.img) :
                                         toast.error('Login Please!')
                                     router.push('/login')
                                 }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-rose-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
-                                <button onClick={() => { buyNow(slug, 1, product?.price, product?.title, size, color) }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
+                                <button onClick={() => {
+                                    user ? buyNow(slug, 1, product?.price, product?.title, size, color) : toast.error('Login Please!')
+                                    router.push('/login')
+                                }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 
                                 {/* Wishlist */}
 

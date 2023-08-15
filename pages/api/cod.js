@@ -1,11 +1,7 @@
 import Order from "../../Models/Order";
 import Product from "../../Models/Product";
-const Razorpay = require("razorpay");
-const shortid = require("shortid");
-import pincodes from "../../pincodes.json"
 
 export default async function handler(req, res) {
-    console.log("subtotal :", (req.body.subTotal));
     if (req.method === "POST") {
         //  check if cart is tampered
 
@@ -44,54 +40,28 @@ export default async function handler(req, res) {
         }
 
 
-        // Initialize razorpay object
-        const razorpay = new Razorpay({
-            key_id: process.env.RAZORPAY_KEY,
-            key_secret: process.env.RAZORPAY_SECRET,
-        });
-
         // Create an order -> generate the OrderID -> Send it to the Front-end
         // Also, check the amount and currency on the backend (Security measure)
-        const payment_capture = 1;
-        const amount = req.body.subTotal;
-        const currency = "INR";
-        const options = {
-            amount: (amount * 100).toString(),
-            currency,
-            receipt: req.body.oId,
-            payment_capture,
-        };
 
+
+        // initiate an order correspoding to this orderID
         try {
-            const response = await razorpay.orders.create(options);
-            res.status(200).json({
-                success: true,
-                clearCart: false,
-                id: response.id,
-                currency: response.currency,
-                amount: response.amount,
-                message: req.body
-
-            });
-            // initiate an order correspoding to this orderID
-
             let order = new Order({
                 name: req.body.name,
                 email: req.body.email,
                 phone: req.body.phone,
-                orderId: response.id,
+                orderId: "COD",
                 oId: req.body.oId,
                 address: req.body.address,
                 city: req.body.city,
                 state: req.body.state,
                 pincode: req.body.pincode,
                 amount: req.body.subTotal,
-                products: req.body.cart
+                products: req.body.cart,
+                status: "COD",
             })
             await order.save()
-            console.log("this is res id", response.id);
         } catch (err) {
-            console.log(err);
             res.status(400).json(err);
         }
     } else {

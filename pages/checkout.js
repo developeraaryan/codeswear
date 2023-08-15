@@ -6,7 +6,6 @@ import Head from 'next/head'
 import Script from 'next/script'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getSession } from 'next-auth/react'
 import { useUserAuth } from '../context/UserAuthContext'
 
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
@@ -19,8 +18,9 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const [pincode, setPincode] = useState("")
   const [city, setCity] = useState("")
   const [disabled, setDisabled] = useState(true)
+  const [selectedOption, setSelectedOption] = useState('');
 
-
+  console.log(selectedOption, "selectedOption");
   const getPinCode = async (pin) => {
     let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
     let pinsjson = await pins.json()
@@ -38,7 +38,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   }, [subTotal])
 
   useEffect(() => {
-    if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3) {
+    if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3 && !selectedOption == "") {
       setDisabled(false)
       console.log(disabled);
     }
@@ -49,7 +49,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       setDisabled(true)
       console.log(disabled);
     }
-  }, [address, disabled, email, name, phone, pincode,subTotal])
+  }, [address, disabled, email, name, phone, pincode, subTotal, selectedOption])
 
 
   const handleChange = async (e) => {
@@ -162,9 +162,40 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
     const paymentObject = new window.Razorpay(options);
     paymentObject.open();
-
-
   }
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const codPay = () => {
+    console.log("cod pay");
+    let oId = Math.floor(Math.random() * Date.now());
+    const info = { cart, subTotal, email: email, name, address, phone, pincode, city, state, oId }
+    const apiRes = fetch(`/api/cod`,
+      {
+        method: "POST",
+        headers: {
+          "content-Type": "application/json",
+        },
+        body: JSON.stringify(info)
+      })
+    console.log(apiRes);
+    clearCart()
+    toast.success('Order Placed Successfully!', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
+
+
+
 
   return (
     <div className='container px-2 sm:m-auto'>
@@ -230,14 +261,14 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="state" className="leading-7 text-sm text-gray-600">State</label>
-            <input type="text" value={state} onChange={handleChange} id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly/>
+            <input type="text" value={state} onChange={handleChange} id="State" name="state" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly />
           </div>
         </div>
 
         <div className="px-2 w-1/2" >
           <div className="mb-4">
             <label htmlFor="city" className="leading-7 text-sm text-gray-600">District</label>
-            <input type="text" value={city} onChange={handleChange} id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly/>
+            <input type="text" value={city} onChange={handleChange} id="city" name="city" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out/" readOnly />
           </div>
         </div>
       </div>
@@ -266,25 +297,64 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       </div>
       <div className="my-4 payment-method">
         <h2 className="font-semibold text-xl my-4">3. Payment Method</h2>
-        <div className="flex items-center justify-center">
-          <div className="flex  items-center justify-center w-1/3 font-semibold text-lg">
-            <input className='disabled:cursor-not-allowed' type="radio" id="paytm" name="payment" value="paytm" disabled />
-            <label htmlFor="paytm" className="ml-2 cursor-not-allowed">Paytm</label>
+        <div>
+          <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
+              <input
+                type="radio"
+                id="paytm"
+                name="payment"
+                value="paytm"
+                disabled
+                checked={selectedOption === 'paytm'}
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="paytm" className="ml-2 cursor-not-allowed">
+                Paytm
+              </label>
+            </div>
+            <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
+              <input
+                type="radio"
+                id="razorpay"
+                name="payment"
+                value="razorpay"
+                disabled
+                checked={selectedOption === 'razorpay'}
+                onChange={handleRadioChange}
+              />
+              <label
+                htmlFor="razorpay"
+                className="ml-2 cursor-not-allowed disabled:text-red-500"
+              >
+                Razorpay
+              </label>
+            </div>
+            <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
+              <input
+                type="radio"
+                id="cod"
+                name="payment"
+                value="cod"
+                checked={selectedOption === 'cod'}
+                onChange={handleRadioChange}
+              />
+              <label htmlFor="cod" className="ml-2 cursor-pointer">
+                COD
+              </label>
+            </div>
           </div>
-          <div className=" flex items-center justify-center w-1/3 font-semibold text-lg">
-            <input className='disabled:cursor-not-allowed' type="radio" id="razorpay" name="payment" value="razorpay" disabled />
-            <label htmlFor="razorpay" className="ml-2 cursor-not-allowed disabled:text-red-500">Razorpay</label>
-          </div>
-          <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
-            <input type="radio" id="cod" name="payment" value="cod" />
-            <label htmlFor="cod" className="ml-2 cursor-pointer">COD</label>
-          </div>
+          <p>Selected option: {selectedOption}</p>
         </div>
 
 
       </div>
       <div className="mx-4 my-4">
-        <Link href={'/checkout'} className='cursor-default'><button disabled={disabled} onClick={makePayment} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' /> Pay ₹{subTotal}</button></Link>
+        <Link href={'/checkout'} className='cursor-default'>
+          <button disabled={disabled} onClick={!selectedOption === 'cod' ? makePayment : codPay} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
+            Pay ₹{subTotal}
+          </button>
+        </Link>
       </div>
     </div>
   )

@@ -66,7 +66,7 @@ export default function App({ Component,
     }
     setSubTotal(sbt)
   }
-  const addToCart = (itemCode, qty, price, name, size, color, img) => {
+  const addToCart = (itemCode, qty, price, name, size, img) => {
     if (Object.keys(cart).length == 0) {
       setKey(Math.random())
     }
@@ -86,7 +86,7 @@ export default function App({ Component,
 
     }
     else {
-      newCart[itemCode] = { qty: 1, name, size, price, color, img }
+      newCart[itemCode] = { qty: 1, name, size, price, img: img[0].url }
       toast.success('Item added to the cart!', {
         position: "top-center",
         autoClose: 1000,
