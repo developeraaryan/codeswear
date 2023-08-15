@@ -68,39 +68,40 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
       href: '/',
     },
     {
-      name: 'T-Shirts',
+      name: 'All Collection',
+      href: '/allcollection',
+    },
+    {
+      name: 'Oversized T-Shirts',
       href: '/tshirts',
     },
     {
-      name: 'Hoodies',
-      href: '/hoodies',
+      name: 'Basic T-Shirts',
+      href: '/tshirts',
     },
     {
-      name: 'Mugs',
-      href: '/mugs',
+      name: 'Save upto 70%',
+      href: '/tshirts',
     },
     {
-      name: 'Stickers',
-      href: '/stickers',
+      name: 'Anime Collection',
+      href: '/tshirts',
     },
   ];
 
   const CustomerData = [
     {
       name: 'Track Order',
-      href: '/',
+      href: '/orders',
     },
     {
       name: 'Wishlist',
-      href: '/tshirts',
+      href: '/wishlist',
     },
-    {
-      name: 'My Cart',
-      href: '/hoodies',
-    },
+
     {
       name: 'Contact Us',
-      href: '/mugs',
+      href: '/contact',
     },
   ];
 
@@ -139,7 +140,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
 
   const getList = () => (
     <div
-      className="bg-white"
+      className="bg-white overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
       style={{
         top: 10,
         width: 250,
@@ -148,17 +149,25 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
       }}
       onClick={() => setOpen(false)}
     >
-      <ListItem
-        className={`relative top-0 h-14  bg-black text-white`}
-      >
-        <Link href="/login" className="flex">
+      <Link href="/login" className="flex hover:scale-110 duration-500 transform">
+        <ListItem
+          className={`relative top-0 h-14  bg-black text-white`}
+        >
+          <ListItemIcon>
+            <Image
+              src="/assets/BW LOGO White.png"
+              width={40}
+              height={40}
+              alt='logo'
+            />
+          </ListItemIcon>
           <ListItemText
-            className="pt-2 mx-14"
+            className="!font-bold"
             primaryTypographyProps={{ fontSize: '18px' }}
             primary="BLACK WORN"
           />
-        </Link>
-      </ListItem>
+        </ListItem>
+      </Link>
       <ListItem
         className={`relative top-3 h-8`}
       >
@@ -166,14 +175,14 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           <ListItemIcon>
             <BiUser className="text-3xl p-1 mt-2 bg-gray-400 rounded-full text-black" />
           </ListItemIcon>
-          <ListItemText className="pt-2 -ml-3" primary="LOGIN/SIGNUP" />
+          <ListItemText className="pt-2 -ml-3" primary="LOGIN" />
         </Link>
       </ListItem>
       <ListItemIcon>
         <Button>
           <RxCross2
             onClick={() => setOpen(true)}
-            className="text-xl -right-48 relative -top-8 bg-white rounded-full text-black font-bold"
+            className="text-3xl -right-[11.5rem] relative -top-[5.75rem] bg-transparent text-red-600 rounded-full font-bold"
           />
         </Button>
       </ListItemIcon>
@@ -181,12 +190,12 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         src="/assets/free-shipping.png"
         width={200}
         height={200}
-        className="mx-0 w-fit -mb-3"
+        className="mx-0 w-fit -mb-3 hover:scale-110 duration-500 transform overflow-hidden"
       />
       <ListItem
         className={`relative top-3 mb-3 bg-gray-300`}
       >
-        <Link href="/login" className="flex">
+        <Link href="/allcollection" className="flex">
           <ListItemText
             className="mx-4 !font-bold"
             primary="COLLECTIONS"
@@ -194,23 +203,25 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       {CollectionData.map((item, index) => (
-        <ListItem
-          className={`hover:!bg-blue-400 h-10`}
-          key={index}
-        >
+        <div className="hover:!bg-blue-400">
           <Link
-            className="flex hover:translate-x-10 transition-all duration-500"
+            className="flex hover:translate-x-6 transition-all duration-500  bg-transparent"
             href={item.href}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.name} />
+            <ListItem
+              className={` h-10`}
+              key={index}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name} />
+            </ListItem>
           </Link>
-        </ListItem>
+        </div>
       ))}
       <ListItem
         className={`relative top-3 -mt-3 mb-3 bg-gray-300`}
       >
-        <Link href="/login" className="flex">
+        <Link href="/privacy" className="flex">
           <ListItemText
             className="mx-4 !font-bold"
             primary="CUSTOMER SERVICE"
@@ -218,18 +229,21 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       {CustomerData.map((item, index) => (
-        <ListItem
-          className={`hover:!bg-blue-400 h-10`}
-          key={index}
-        >
+        <div className='hover:!bg-blue-400'>
+
           <Link
-            className="flex hover:translate-x-10 transition-all duration-500"
+            className="flex hover:translate-x-10  transition-all duration-500"
             href={item.href}
           >
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.name} />
+            <ListItem
+              className={` h-10`}
+              key={index}
+            >
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.name} />
+            </ListItem>
           </Link>
-        </ListItem>
+        </div>
       ))}
       <ListItem
         className={`relative top-3 -mt-3 mb-3 bg-gray-300`}
@@ -242,7 +256,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       <ListItem
-        className={`relative top-0 mb-3 bg-gray-200`}
+        className={`relative top-0 mb-3 bg-gray-50`}
       >
         {socailData.map((item) => (
           <Link
@@ -261,7 +275,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         src="/assets/thank-you.png"
         width={400}
         height={400}
-        className="mx-0 w-full -mt-4"
+        className="mx-0 h-fit w-full scale-y-90 hover:scale-x-110 -mt-4 duration-500 transform overflow-hidden"
       />
     </div>
   );
@@ -373,15 +387,11 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
             <SearchDD />
           </span>
 
-          <Badge className="z-0 mx-2" badgeContent={wishlist.length} color="primary">
-            <HeartIcon className="rounded-full fill-black hover:fill-green-700 text-3xl md:text-2xl" />
-          </Badge>
+          <HeartIcon className="rounded-full fill-black hover:fill-green-700 text-3xl md:text-2xl" />
 
-          <Badge className="z-0" badgeContent={Object.keys(cart).length} color="primary">
-            <button onClick={toggleCartModal}>
-              <BsHandbag className="text-3xl md:text-2xl" />
-            </button>
-          </Badge>
+          <button onClick={toggleCartModal}>
+            <BsHandbag className="text-3xl md:text-2xl" />
+          </button>
           <span
             onMouseOver={() => {
               setDropdown(true);
