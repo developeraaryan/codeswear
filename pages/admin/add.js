@@ -55,8 +55,8 @@ const Add = () => {
         img2: "",
         img3_public_id: "",
         img3: "",
-        img4_public_id: "",
-        img4: "",
+        // img4_public_id: "",
+        // img4: "",
     })
     const onChange = (e) => {
         setForm({
@@ -89,10 +89,10 @@ const Add = () => {
                         public_id: form.img3_public_id,
                         url: form.img3,
                     },
-                    {
-                        public_id: form.img4_public_id,
-                        url: form.img4,
-                    },
+                    // {
+                    //     public_id: form.img4_public_id,
+                    //     url: form.img4,
+                    // },
                 ]
             };
             //API request to add a product
@@ -155,8 +155,8 @@ const Add = () => {
             img2: "",
             img3_public_id: "",
             img3: "",
-            img4_public_id: "",
-            img4: "",
+            // img4_public_id: "",
+            // img4: "",
         });
     }
 
@@ -224,14 +224,14 @@ const Add = () => {
                                         <input onChange={onChange} name="img3" value={form.img3} type="text" id="img3" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                         <label htmlFor="img3" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 3 URL</label>
                                     </div>
-                                    <div className="relative my-4">
+                                    {/* <div className="relative my-4">
                                         <input onChange={onChange} name="img4_public_id" value={form.img4_public_id} type="text" id="img4_public_id" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                         <label htmlFor="img4_public_id" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 4 Public ID</label>
-                                    </div>
-                                    <div className="relative my-4">
+                                    </div> */}
+                                    {/* <div className="relative my-4">
                                         <input onChange={onChange} name="img4" value={form.img4} type="text" id="img4" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                         <label htmlFor="img4" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 4 URL</label>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <br />
                                 <Button className="!bg-cyan-400 hover:!bg-cyan-600" onClick={submitForm} variant="contained" mt={2}>

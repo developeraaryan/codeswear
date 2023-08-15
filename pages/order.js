@@ -4,6 +4,7 @@ import Order from '../Models/Order'
 import mongoose from 'mongoose'
 import { Badge } from '@mui/material'
 import OrderTracker from '../components/OrderTracker'
+import Image from 'next/image'
 
 const MyOrder = ({ order, clearCart }) => {
   const products = order.products
@@ -14,6 +15,7 @@ const MyOrder = ({ order, clearCart }) => {
     setTracker(!tracker)
   }
   useEffect(() => {
+    console.log(Object.entries(products)[0][1].img, 'products');
     const d = new Date(order.createdAt)
     setDate(d)
     if (router.query.clearcart == 1) {
@@ -42,7 +44,7 @@ const MyOrder = ({ order, clearCart }) => {
             {Object.keys(products).map((key) => {
 
               return <div key={key} className="flex border-t border-gray-200 py-2 text-">
-                <span className="text-gray-500 break-all">{products[key].name}({products[key].size}/{products[key].color})</span>
+                <span className="text-gray-500 break-all">{products[key].name}({products[key].size})</span>
                 <span className="ml-auto text-gray-900 relative right-4">{products[key].qty}</span>
                 <span className="ml-auto text-gray-900">₹{products[key].price}</span>
                 <span className="ml-auto text-gray-900">₹{products[key].price * products[key].qty}</span>
@@ -54,15 +56,13 @@ const MyOrder = ({ order, clearCart }) => {
             <div className="flex flex-col my-10">
               <span className="title-font font-medium text-2xl text-gray-900">subTotal: ₹{order.amount}</span>
               <div className="my-6">
-                <Badge badgeContent={4} color="primary">
-                  <button onClick={handleTracker} className="flex mx-0 text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Track Order</button>
-                </Badge>
+                <button onClick={handleTracker} className="flex mx-0 text-white bg-pink-500 border-0 py-2 px-6 focus:outline-none hover:bg-pink-600 rounded">Track Order</button>
 
               </div>
             </div>
 
           </div>
-          <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
+          <Image width={400} height={400} alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={Object.entries(products)[0][1]?.img} />
         </div>
         {tracker && <div >
           <OrderTracker status={order.deliverStatus} />

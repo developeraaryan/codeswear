@@ -1,36 +1,36 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, React, useState } from 'react';
-import { getSession, useSession } from 'next-auth/react';
-
+import { useUserAuth } from '../context/UserAuthContext'
 const Orders = () => {
-    const { data: session } = useSession()
+    const { user } = useUserAuth()
     const router = useRouter();
     const [orders, setOrders] = useState([])
-    const fetchOrders = async () => {
-        let a = await fetch(`api/myorder`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(session?.user)
-        })
-        let res = await a.json()
-        setOrders(res.orders)
-    }
+
     useEffect(() => {
-        if (!localStorage.getItem("myuser")) {
-            // router.push('/')
-            console.log("no user");
-        } else {
-            console.log("user");
+        const fetchOrders = async () => {
+            let a = await fetch(`api/myorder`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ phone: user?.phoneNumber })
+            })
+            let res = await a.json()
+            setOrders(res.orders)
         }
-        fetchOrders()
-    }, [error, session, fetchOrders])
+        if (!user) {
+            router.push('/login')
+        }
+        else {
+
+            fetchOrders()
+        }
+    }, [user])
 
     return (
         <div className='min-h-screen container my-14 mx-auto text-black '>
-            <h1 className='font-bold text-center text-4xl mb-8'>My Orders</h1>
+            <h1 className='font-bold text-center text-4xl mb-8'>My Orders({orders?.length})</h1>
 
             {!orders && <h1 className="text-xl font-semibold mt-48 flex justify-center"> No orders</h1>}
             {orders && <div className="relative overflow-x-auto flex justify-center flex-wrap">
@@ -88,19 +88,3 @@ const Orders = () => {
 
 
 export default Orders
-
-export async function getServerSideProps(context) {
-    const session = await getSession(context)
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/',
-                permanent: false,
-            },
-        }
-    } else {
-        return {
-            props: { session }
-        }
-    }
-}

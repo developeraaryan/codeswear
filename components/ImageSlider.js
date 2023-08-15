@@ -23,12 +23,12 @@ function CarouselExample() {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setImageSrc1('/assets/home-poster-mobile.jpg')
-        setImageSrc2('/assets/home-poster-mobile.jpg')
+        setImageSrc2('/assets/wear-what-you-want-slider.jpg')
         setImageSrc3('/assets/home-poster-mobile.jpg')
       }
       else {
         setImageSrc1('/assets/web-home-screen-1st.jpg')
-        setImageSrc2('/assets/web-home-screen-1st.jpg')
+        setImageSrc2('/assets/wear-what-you-want-slider.jpg')
         setImageSrc3('/assets/web-home-screen-1st.jpg')
       }
     }
