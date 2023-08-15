@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
-
+import { MdDeveloperMode } from 'react-icons/md'
+import { BsGithub } from 'react-icons/bs'
 const Footer = () => {
   return (
     <div>
@@ -13,27 +14,30 @@ const Footer = () => {
                 <Image src="/assets/footer bw.png" alt="wear the code" className='max-w-xs' width={1000} height={1000} />
               </a>
             </Link>
-            <p className="mt-2 text-sm text-center text-gray-500 px-2">Premium,T-shirts,Hoodies and Jeans</p>
+            <p className="mt-2 text-sm text-center text-gray-500 px-2">Wear What You Want!</p>
           </div>
           <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div className="lg:w-1/2 md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">Shop</h2>
               <nav className="list-none mb-10">
                 <li>
-                  <Link href={'/tshirts'} className="text-gray-600 hover:text-gray-800">T-shirts</Link>
+                  <Link href={'/tshirts'} className="text-gray-600 hover:text-gray-800">All Collections</Link>
                 </li>
                 <li>
-                  <Link href={'/hoodies'} className="text-gray-600 hover:text-gray-800">Hoodies</Link>
+                  <Link href={'/hoodies'} className="text-gray-600 hover:text-gray-800">Oversized T-shirts</Link>
                 </li>
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Sweatshirts</Link>
+                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Basic T-shirts</Link>
                 </li>
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Jeans</Link>
+                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Save upto 70%</Link>
+                </li>
+                <li>
+                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Anime Collection</Link>
                 </li>
               </nav>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
+            <div className="lg:w-1/2 md:w-1/2 w-full px-4">
               <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CONTACT</h2>
               <nav className="list-none mb-10">
                 <li>
@@ -43,47 +47,17 @@ const Footer = () => {
                   <Link href={'/about'} className="text-gray-600 hover:text-gray-800">About Us</Link>
                 </li>
                 <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Customer Services</Link>
-                </li>
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Career</Link>
-                </li>
-              </nav>
-            </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">POLICY</h2>
-              <nav className="list-none mb-10">
-                <li>
                   <Link href={'/privacy'} className="text-gray-600 hover:text-gray-800">Privacy Policy</Link>
+                </li>
+                <li>
+                  <Link href={'/refund'} className="text-gray-600 hover:text-gray-800">Refund Policy</Link>
                 </li>
                 <li>
                   <Link href={'/terms'} className="text-gray-600 hover:text-gray-800">Terms & Conditions</Link>
                 </li>
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Return Policy</Link>
-                </li>
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Terms of Use</Link>
-                </li>
               </nav>
             </div>
-            <div className="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">SOCAIL</h2>
-              <nav className="list-none mb-10">
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Facebook</Link>
-                </li>
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Instagram</Link>
-                </li>
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">LinkedIn</Link>
-                </li>
-                <li>
-                  <Link href={'/'} className="text-gray-600 hover:text-gray-800">Twitter</Link>
-                </li>
-              </nav>
-            </div>
+
           </div>
         </div>
         <div className="bg-gray-100">
@@ -116,8 +90,24 @@ const Footer = () => {
             </span>
           </div>
         </div>
-      </footer>
-    </div>
+        <div className="bg-black text-white">
+          <div className="container mx-auto py-4 md:justify-center px-5 flex flex-wrap flex-col sm:flex-row">
+            <p className="text-white flex md:space-x-[40rem] text-sm text-center justify-center sm:text-left">
+              <Link href={`https://api.whatsapp.com/send?phone=9430498019&text=I want to you to build a website for me!`} className="text-white hover:scale-105 transform duration-500"
+              target='_blank'
+              >
+                <MdDeveloperMode className=' text-2xl my-auto' />
+              </Link>
+              <span className="mx-8 md:mx-0 text-center"> Designed & Developed by <a href="https://www.linkedin.com/in/aryan-ji/" className="text-white ml-1 font-bold " rel="noopener noreferrer" target="_blank"><br />Aryan Kumar</a></span>
+              <Link href={'https://www.github.com/aryan-ji'} className="text-white  hover:scale-105 transform duration-500">
+                <BsGithub className="text-2xl my-auto" href='www.github.com/aryan-ji' />
+              </Link>
+
+            </p>
+          </div>
+        </div>
+      </footer >
+    </div >
   )
 }
 
