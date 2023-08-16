@@ -77,7 +77,7 @@ const MyOrder = ({ order, clearCart }) => {
         const getUserRole = async () => {
             const userData = user?.phoneNumber.split('+')[1]
             console.log(userData, "usedata")
-            let response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getrole`, {
+            let response = await fetch(`/api/getrole`, {
                 method: "POST",
                 headers: {
                     "content-Type": "application/json"
