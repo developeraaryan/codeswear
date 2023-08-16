@@ -29,14 +29,15 @@ const UpdateProduct = () => {
             })
             let res = await response.json()
             console.log(res, "res");
-            if (res.role === "admin") {
-                role = "admin"
+            if (!res?.role === "admin") {
+                await router.push("/logins")
+                role = "user"
 
             } else {
-                role = "user"
+                role = "admin"
             }
             if (role === "user") {
-                router.push('/login')
+                await router.push('/logins')
             }
 
         }

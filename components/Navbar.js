@@ -31,25 +31,12 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
   const { data: session } = useSession();
   const [sidebar, setSidebar] = useState(false);
   const [dropdown, setDropdown] = useState(false);
-  const [wishlist, setWishlist] = useState([]);
 
   const toggleCartModal = () => {
     setVisible(true);
   };
 
   useEffect(() => {
-    const getWishlist = async () => {
-      const res = await fetch(`/api/getwishes`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await res.json();
-      setWishlist(data?.data);
-    };
-
-    getWishlist();
     if (Object.keys(cart).length !== 0) {
       setSidebar(true);
     }
@@ -59,7 +46,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
     if (exempted.includes(router.pathname)) {
       setSidebar(false);
     }
-  }, [cart, router.pathname,wishlist]);
+  }, [cart, router.pathname]);
 
   const [open, setOpen] = useState(false);
 
