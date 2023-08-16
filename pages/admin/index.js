@@ -21,7 +21,7 @@ export default function Index() {
         }
 
         const getUserRole = async () => {
-            const userData = await user?.phoneNumber
+            const userData = user?.phoneNumber
             let response = await fetch(`/api/getrole`, {
                 method: "POST",
                 headers: {
