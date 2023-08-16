@@ -92,7 +92,7 @@ const Login = () => {
               placeholder='Enter phone number'
               value={number}
               onChange={setNumber}
-              enableSearch
+              enablesearch={'true'}
             />
           </form>
           <div id="recaptcha-container" className='mx-1 md:mx-10' />

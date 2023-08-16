@@ -1,71 +1,69 @@
-import React, { useState, useEffect } from 'react'
-import { useUserAuth } from '../context/UserAuthContext'
-import { useRouter } from 'next/router'
-
+import React, { useState, useEffect } from 'react';
+import { useUserAuth } from '../context/UserAuthContext';
+import { useRouter } from 'next/router';
 
 const Welcome = () => {
-    const { user } = useUserAuth()
-
-    const router = useRouter()
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
+    const { user } = useUserAuth();
+    const router = useRouter();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
 
     useEffect(() => {
         if (!user) {
-            router.push('/login')
+            router.push('/login');
+        } else {
+            const userExists = async () => {
+                const res = await fetch('/api/userexists', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ phone: user?.phoneNumber }),
+                });
+                const data = await res.json();
+                if (data.exist) {
+                    router.push('/');
+                }
+            };
+            userExists();
         }
-        const userExists = async () => {
-            const res = await fetch('/api/userexists', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ phone: user?.phoneNumber })
-            })
-            const data = await res.json()
-            if (data.exist) {
-                router.push('/')
-            }
-        }
-        userExists()
-    }, [user,router])
-    const handleChange = (e) => {
-        if (e.target.name === 'fname') {
-            setFirstName(e.target.value)
-        }
-        if (e.target.name === 'lname') {
-            setLastName(e.target.value)
-        }
-        if (e.target.name === 'email') {
-            setEmail(e.target.value)
-        }
-        // if (e.target.name === 'phone') {
-        //     setPhone(e.target.value)
-        // }
-    }
+    }, [user, router]);
 
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        if (name === 'fname') {
+            setFirstName(value);
+        } else if (name === 'lname') {
+            setLastName(value);
+        } else if (name === 'email') {
+            setEmail(value);
+        }
+    }
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const userData = {
             firstName,
             lastName,
             email,
-            phone: user?.phoneNumber
+            phone: user?.phoneNumber,
+        };
+        if (!userData.firstName || !userData.lastName || !userData.email || !userData.phone) {
+            alert('Please fill all the fields');
+            return;
         }
-        if (!userData.fName || !userData.lName || !userData.email || !userData.phone) return alert('Please fill all the fields')
         const res = await fetch('/api/signup', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(userData)
-        })
-        const data = await res.json()
+            body: JSON.stringify(userData),
+        });
+        const data = await res.json();
         if (data.success) {
-            router.push('/')
+            router.push('/');
         }
-    }
+    };
 
     return (
         <main className='container mx-auto min-h-screen my-10'>
@@ -89,7 +87,7 @@ const Welcome = () => {
                                             onChange={handleChange}
                                             autoComplete="name"
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
-                                            readOnly
+                                            
                                         />
                                     </div>
                                 </div>
@@ -107,7 +105,7 @@ const Welcome = () => {
                                             onChange={handleChange}
                                             autoComplete="name"
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black  sm:text-sm"
-                                            readOnly />
+                                             />
                                     </div>
                                 </div>
                                 <div>
@@ -124,32 +122,13 @@ const Welcome = () => {
                                             onChange={handleChange}
                                             autoComplete="email"
                                             className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
-                                            readOnly
+                                            
                                         />
                                     </div>
                                 </div>
-                                <div>
-
-                                    <label htmlFor="phone" className="block text-sm font-bold text-gray-700">
-                                        Phone Number
-                                    </label>
-                                    <div className="mt-1">
-                                        <input
-
-
-                                            type="text"
-                                            name="phone"
-                                            id="phone"
-
-                                            value={user?.phoneNumber}
-                                            onChange={handleChange}
-                                            autoComplete="phone"
-                                            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
-                                            readOnly
-                                        />
-                                    </div>
-                                </div>
-                                    <button className='!bg-black text-white rounded-md p-2 m-4 w-full mx-auto' type='submit'>Submit</button>
+                                <button className='!bg-black text-white rounded-md p-2 m-4 w-full mx-auto'
+                                    type='submit'>Submit
+                                </button>
 
                             </div>
                         </div>
