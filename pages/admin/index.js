@@ -27,7 +27,7 @@ export default function Index() {
                 headers: {
                     "content-Type": "application/json"
                 },
-                body: JSON.stringify(userData)
+                body: JSON.stringify({phone: userData})
             })
             let res = await response.json()
             if (res.role === "admin") {
