@@ -50,9 +50,13 @@ export default function Home() {
     <>
       <div className='overflow-x-hidden'>
         <Head>
-          <title>blackworn.com - wear the style</title>
-          <meta name="description" content="blackworn.com - Wear What You Want" key='title' />
+          <title>blackworn.com - Wear What You Want</title>
           <meta name="description" content="Online Shopping Site For Men And Women Clothing In India. Buy Premium Quality T-shirt And More Trendiest Design & Styles Available At blackworn.com." key='description' />
+          <meta name="keywords" content="blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in , blackworn.in, blackworn, blackworn.com, blackworn.in,clothing , blackworn.in" key='keywords' />
+          <meta name="author" content="blackworn.com" key='author' />
+          <meta name="robots" content="index, follow" key='robots' />
+          <meta name="googlebot" content="index, follow" key='googlebot' />
+          <meta name="google-site-verification" content="index, follow" key='google-site-verification' />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/assets/favicon.ico" />
         </Head>
