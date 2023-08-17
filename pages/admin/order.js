@@ -89,7 +89,7 @@ const MyOrder = ({ order, clearCart }) => {
             }
         }
         getRole()
-    }, [user])
+    }, [user,router])
 
     useEffect(() => {
         const d = new Date(order.createdAt)

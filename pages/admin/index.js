@@ -32,7 +32,7 @@ export default function Index() {
             }
         }
         getRole()
-    }, [user])
+    }, [user,router])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>

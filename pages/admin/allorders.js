@@ -31,7 +31,7 @@ const Allorders = ({ Orders }) => {
             }
         }
         getRole()
-    }, [user])
+    }, [user,router])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>

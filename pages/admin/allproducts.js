@@ -33,7 +33,7 @@ const Allproducts = ({ Products }) => {
             }
         }
         getRole()
-    }, [user])
+    }, [user,router])
     return (
         <ThemeProvider theme={theme}>
             <FullLayoyt>

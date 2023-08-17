@@ -35,7 +35,7 @@ const Add = () => {
             }
         }
         getRole()
-    }, [user])
+    }, [user,router])
 
     const [form, setForm] = useState({
         title: "",
