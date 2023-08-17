@@ -98,35 +98,26 @@ const Imageuploader = () => {
   const router = useRouter()
 
   useEffect(() => {
+    const phone = localStorage.getItem('phone')
     if (!user) {
-      router.push('/login')
-    }
-
-    const getUserRole = async () => {
-      const userData = user?.phoneNumber.split('+')[1]
-      console.log(userData, "usedata")
-      let response = await fetch(`/api/getrole`, {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json"
-        },
-        body: JSON.stringify({ phone: userData })
-      })
-      let res = await response.json()
-      console.log(res, "res");
-      if (res.role === "admin") {
-        role = "admin"
-
-      } else {
-        role = "user"
-      }
-      if (role === "user") {
         router.push('/login')
-      }
-
     }
-    getUserRole()
-  }, [router, user])
+    const getRole = async () => {
+        const res = await fetch(`/api/getrole`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ phone })
+
+        })
+        const data = await res.json()
+        if (data.role !== 'admin') {
+            router.push('/login')
+        }
+    }
+    getRole()
+}, [user])
   return (
     <ThemeProvider theme={theme}>
       <style jsx global>

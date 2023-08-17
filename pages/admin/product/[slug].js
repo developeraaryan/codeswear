@@ -13,36 +13,26 @@ const UpdateProduct = () => {
     const { user } = useUserAuth()
     const router = useRouter()
     useEffect(() => {
+        const phone = localStorage.getItem('phone')
         if (!user) {
             router.push('/login')
         }
-
-        const getUserRole = async () => {
-            const userData = user?.phoneNumber.split('+')[1]
-            console.log(userData, "usedata")
-            let response = await fetch(`/api/getrole`, {
-                method: "POST",
+        const getRole = async () => {
+            const res = await fetch(`/api/getrole`, {
+                method: 'POST',
                 headers: {
-                    "content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ phone: userData })
+                body: JSON.stringify({ phone })
+
             })
-            let res = await response.json()
-            console.log(res, "res");
-            if (!res?.role === "admin") {
-                await router.push("/logins")
-                role = "user"
-
-            } else {
-                role = "admin"
+            const data = await res.json()
+            if (data.role !== 'admin') {
+                router.push('/login')
             }
-            if (role === "user") {
-                await router.push('/logins')
-            }
-
         }
-        getUserRole()
-    }, [router, user])
+        getRole()
+    }, [user])
     const id = router.query.slug
     const [title, setTitle] = React.useState('');
     const [slug, setSlug] = React.useState('');

@@ -2,7 +2,6 @@
 import Head from 'next/head'
 // import Slider from '@madzadev/image-slider'
 // import "@madzadev/image-slider/dist/index.css";
-import { useSession } from 'next-auth/react'
 // import MuiImageSlider from 'mui-image-slider';
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -10,8 +9,7 @@ import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import HomepageCard from '../components/HomepageCard'
 import localFont from "next/font/local"
-import ScrollToTop from 'react-scroll-to-top'
-
+import { useUserAuth } from '../context/UserAuthContext'
 
 const neutro = localFont({ src: "../assets/fonts/neutro/Neutro-ExtraBold.otf" })
 
@@ -22,9 +20,10 @@ const DynamicCarousel = dynamic(async () => await import('../components/ImageSli
 
 
 export default function Home() {
-  const { data: session } = useSession()
+  const { user } = useUserAuth()
   const [comingSrc, setComingSrc] = useState('')
   useEffect(() => {
+    localStorage.setItem("phone", user?.phoneNumber?.split('+')[1])
     window.scrollTo(0, 0)
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -44,7 +43,7 @@ export default function Home() {
       };
     }
 
-  }, [])
+  }, [user])
 
 
   return (
@@ -52,9 +51,10 @@ export default function Home() {
       <div className='overflow-x-hidden'>
         <Head>
           <title>blackworn.com - wear the style</title>
-          <meta name="description" content="blackworn.com - wear the style" />
+          <meta name="description" content="blackworn.com - Wear What You Want" key='title' />
+          <meta name="description" content="Online Shopping Site For Men And Women Clothing In India. Buy Premium Quality T-shirt And More Trendiest Design & Styles Available At blackworn.com." key='description' />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/assets/favicon.ico" />
         </Head>
 
 
@@ -153,11 +153,11 @@ export default function Home() {
         </div>
         <HomepageCard />
         <Image
-        src={'/assets/premium-design.png'}
-        alt='premium designs'
-        width={400}
-        height={400}
-        className='mx-auto'
+          src={'/assets/premium-design.png'}
+          alt='premium designs'
+          width={400}
+          height={400}
+          className='mx-auto'
         />
       </div>
     </>

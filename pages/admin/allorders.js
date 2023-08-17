@@ -12,35 +12,26 @@ const Allorders = ({ Orders }) => {
     const { user } = useUserAuth()
     const router = useRouter()
     useEffect(() => {
+        const phone = localStorage.getItem('phone')
         if (!user) {
             router.push('/login')
         }
-
-        const getUserRole = async () => {
-            const userData = user?.phoneNumber.split('+')[1]
-            console.log(userData, "usedata")
-            let response = await fetch(`/api/getrole`, {
-                method: "POST",
+        const getRole = async () => {
+            const res = await fetch(`/api/getrole`, {
+                method: 'POST',
                 headers: {
-                    "content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ phone: userData })
-            })
-            let res = await response.json()
-            console.log(res, "res");
-            if (res.role === "admin") {
-                role = "admin"
+                body: JSON.stringify({ phone })
 
-            } else {
-                role = "user"
-            }
-            if (role === "user") {
+            })
+            const data = await res.json()
+            if (data.role !== 'admin') {
                 router.push('/login')
             }
-
         }
-        getUserRole()
-    }, [router, user])
+        getRole()
+    }, [user])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>
