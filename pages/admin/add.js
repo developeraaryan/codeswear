@@ -11,7 +11,6 @@ import FullLayout from '../../src/layouts/FullLayout'
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useUserAuth } from "../../context/UserAuthContext";
-let role = "user";
 const Add = () => {
     const router = useRouter()
     const { user } = useUserAuth()

@@ -6,7 +6,6 @@ import BaseCard from '../../src/components/baseCard/BaseCard'
 import Image from 'next/image'
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useRouter } from 'next/router'
-let role = "user"
 const srcset = (image, size, rows = 1, cols = 1) => {
 
   return {

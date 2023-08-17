@@ -4,7 +4,6 @@ import theme from '../../src/theme/theme'
 import { ThemeProvider } from '@mui/material'
 import { useUserAuth } from '../../context/UserAuthContext'
 import { useRouter } from 'next/router'
-let role = "user"
 function Login() {
     const { user } = useUserAuth()
     const router = useRouter()

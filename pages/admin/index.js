@@ -2,8 +2,6 @@ import { Grid, ThemeProvider } from "@mui/material";
 import SalesOverview from "../../src/components/dashboard/SalesOverview";
 import theme from "../../src/theme/theme"
 import FullLayout from "../../src/layouts/FullLayout"
-import mongoose from 'mongoose'
-import Product from '../../Models/Product'
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useUserAuth } from "../../context/UserAuthContext";

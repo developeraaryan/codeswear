@@ -6,10 +6,9 @@ import { Box, Button, Modal, Typography } from '@mui/material'
 import UpdateOrder from '../../src/components/dashboard/UpdateOrder'
 import theme from '../../src/theme/theme'
 import FullLayout from '../../src/layouts/FullLayout'
-import { Grid, ThemeProvider } from '@mui/material'
+import {  ThemeProvider } from '@mui/material'
 import Image from 'next/image'
 import { useUserAuth } from "../../context/UserAuthContext";
-let role = "user"
 
 const style = {
 
@@ -66,9 +65,6 @@ const MyOrder = ({ order, clearCart }) => {
     const products = order.products
     const [date, setDate] = useState()
     const [tracker, setTracker] = useState(false)
-    const handleTracker = () => {
-        setTracker(!tracker)
-    }
     useEffect(() => {
         const phone = localStorage.getItem('phone')
         if (!user) {

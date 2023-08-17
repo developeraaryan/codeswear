@@ -7,7 +7,6 @@ import mongoose from 'mongoose'
 import Order from '../../Models/Order'
 import { useUserAuth } from '../../context/UserAuthContext';
 import { useRouter } from 'next/router'
-let role = "user"
 const Allorders = ({ Orders }) => {
     const { user } = useUserAuth()
     const router = useRouter()
@@ -55,7 +54,7 @@ const Allorders = ({ Orders }) => {
 }
 
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps() {
     if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
     }
