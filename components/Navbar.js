@@ -193,7 +193,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       {CollectionData.map((item, index) => (
-        <div key={index} className="hover:!bg-blue-400">
+        <div key={index} className="hover:!bg-red-500 hover:!text-white">
           <Link
             className="flex hover:translate-x-6 transition-all duration-500  bg-transparent"
             href={item.href}
@@ -222,7 +222,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </Link>
       </ListItem>
       {CustomerData.map((item, index) => (
-        <div key={index} className='hover:!bg-blue-400'>
+        <div key={index} className='hover:!bg-red-500 hover:!text-white'>
 
           <Link
             className="flex hover:translate-x-10  transition-all duration-500"
@@ -367,7 +367,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           </Drawer>
         </div>
 
-        <div className="logo left-[3.75rem] md:left-[45rem] absolute hover:font-black  dark:invert-0 my-auto">
+        <div className="logo left-[3.75rem] md:left-[45rem] absolute hover:font-black my-auto">
           <Link href={'/'}>
             <Image
               src="/assets/BW LOGO White.png"
@@ -378,7 +378,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           </Link>
         </div>
 
-        <div className="flex cart absolute right-0 mx-5 md:top-2 cursor-pointer items-center">
+        <div className="flex cart absolute right-0 mx-5 md:top-2 cursor-pointer items-center invert dark:invert-0">
           <span className="">
             <SearchDD />
           </span>
@@ -386,7 +386,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           <HeartIcon className="rounded-full fill-black hover:fill-green-700 text-3xl md:text-2xl" />
 
           <button onClick={toggleCartModal}>
-            <BsHandbag className="text-3xl md:text-2xl" />
+            <BsHandbag className="text-xl md:text-2xl" />
           </button>
           <span
             onMouseOver={() => {
@@ -398,7 +398,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
             className="dropdown"
           >
             <label tabIndex={0} className="cursor-pointer">
-              <AiOutlineUser className="text-3xl md:text-2xl mx-2" />
+              <AiOutlineUser className="text-2xl md:text-2xl mx-2" />
             </label>
           </span>
         </div>

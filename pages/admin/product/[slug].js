@@ -32,7 +32,7 @@ const UpdateProduct = () => {
             }
         }
         getRole()
-    }, [user])
+    }, [user, router])
     const id = router.query.slug
     const [title, setTitle] = React.useState('');
     const [slug, setSlug] = React.useState('');
