@@ -48,9 +48,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
         let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
         let pinData = await pins.json()
         if (pinData[0].Status == 'Success') {
-            setService(true)
-        }
-        if (service) {
+            // setService(true)
             toast.success('Service Available!', {
                 position: "top-center",
                 autoClose: 1000,
@@ -74,6 +72,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                 theme: "dark",
             });
         }
+
     }
     const onChangePin = (e) => {
         let currentPin = e.target.value
@@ -127,12 +126,21 @@ const Slug = ({ addToCart, buyNow, error }) => {
             }
         }
         else {
-            router.push('/login')
+            toast.error('Login Please!', {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+            });
         }
     }
 
     const copyHandler = () => {
-        navigator.clipboard.writeText(window.location.href)
+        navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}`)
         toast.success('Link Copied!')
     }
     return (
@@ -142,11 +150,11 @@ const Slug = ({ addToCart, buyNow, error }) => {
                     position="top-center"
                     reverseOrder={false}
                 />
-                
+
                 <div className="container px-5 py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
                         <SlideShow images={product?.img} />
-                        <button onClick={handleWish} className="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-28 -right-60 md:-right-[45rem] justify-center text-gray-500 ml-4">
+                        <button onClick={handleWish} className="z-50 rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-28 -right-60 md:-right-[45rem] justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                 <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
                             </svg>
@@ -158,7 +166,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             auto
                             light
                             ripple={false}
-                            className='hover:text-slate-700 relative left-64 md:left-[55rem] top-20'
+                            className='hover:text-slate-700 relative left-[17rem] md:left-[55rem] -top-14'
                             onPress={sHandler}
                         />
 
@@ -177,7 +185,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                 <div className='flex flex-row'>
                                     <Input
                                         readOnly
-                                        value={`${process.env.NEXT_PUBLIC_HOST} /product/${product?.slug}`}
+                                        value={`${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}`}
                                         width='90%'
                                     />
                                     <Button
@@ -190,38 +198,41 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                 </div>
                                 <div className="grid grid-cols-7 gap-8">
                                     <FacebookShareButton
-                                        url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                        url={`https://www.facebook.com/sharer/sharer.php?u=${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}`}
                                         quote={product?.title}
                                         hashtag="#fashion"
                                         className="Demo__some-network__share-button">
                                         <FacebookIcon size={32} round />
                                     </FacebookShareButton>
                                     <TwitterShareButton
-                                        url={`https://twitter.com/intent/tweet?text=${product?.title}&url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                        url={`https://twitter.com/intent/tweet?text=${product?.title}&url=${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}`}
                                         title={product?.title}
                                         className="Demo__some-network__share-button">
                                         <TwitterIcon size={32} round />
                                     </TwitterShareButton>
                                     <WhatsappShareButton
-                                        url={`${`https://localhost:3001`}/product/${product?.slug}`}
+                                        url={`${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}`}
                                         title={product?.title}
                                         separator=":: "
+                                        windowPosition='screenCenter'
+                                        windowHeight={1000}
+                                        windowWidth={1000}
                                         className="Demo__some-network__share-button">
                                         <WhatsappIcon size={32} round />
                                     </WhatsappShareButton>
                                     <TelegramShareButton
-                                        url={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}&text=${product?.title}`}
+                                        url={`https://telegram.me/share/url?url=${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}&text=${product?.title}`}
                                         title={product?.title}
                                         className="Demo__some-network__share-button">
                                         <TelegramIcon size={32} round />
                                     </TelegramShareButton>
                                     <LinkedinShareButton
-                                        url={`https://www.linkedin.com/shareArticle?mini=true&url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}&title=${product?.title}&summary=${product?.title}&source=${process.env.NEXT_PUBLIC_HOST}`}
+                                        url={`https://www.linkedin.com/shareArticle?mini=true&url=${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}&title=${product?.title}&summary=${product?.title}&source=${process.env.NEXT_PUBLIC_SHARE_DOMAIN}`}
                                         className="Demo__some-network__share-button">
                                         <LinkedinIcon size={32} round />
                                     </LinkedinShareButton>
                                     <RedditShareButton
-                                        url={`https://www.reddit.com/submit?url=${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}&title=${product?.title}`}
+                                        url={`https://www.reddit.com/submit?url=${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}&title=${product?.title}`}
                                         title={product?.title}
                                         windowWidth={660}
                                         windowHeight={460}
@@ -229,7 +240,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                         <RedditIcon size={32} round />
                                     </RedditShareButton>
                                     <EmailShareButton
-                                        url={`mailto:?subject=${product?.title}&body=${product?.title} ${process.env.NEXT_PUBLIC_HOST}/product/${product?.slug}`}
+                                        url={`mailto:?subject=${product?.title}&body=${product?.title} ${process.env.NEXT_PUBLIC_SHARE_DOMAIN}/product/${product?.slug}`}
                                         subject={product?.title}
                                         body={product?.title}
                                         className="Demo__some-network__share-button">
@@ -242,23 +253,27 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             </Modal.Body>
 
                         </Modal>
-                        <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+                        <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 -mt-32 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                             <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title} ({size})</h1>
                             <h3 className='font-bold'>₹{product?.price}</h3>
                             <p className="leading-relaxed">{product?.category.toUpperCase()}</p>
 
-                            <div className="flex fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
+                            <div className="grid grid-cols-2 gap-2 fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
 
                                 <button onClick={() => {
-                                    user ? addToCart(slug, 1, product?.price, product?.title, size, product?.img) :
+                                    if (user) {
+
+                                        addToCart(slug, 1, product?.price, product?.title, size, product?.img)
+                                        toast.success('Added to cart!')
+                                    }
+                                    else {
                                         toast.error('Login Please!')
-                                    router.push('/login')
-                                }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-8 text-white bg-rose-500 border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
+                                    }
+                                }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 p-2 text-white bg-rose-500 border-0  text-sm text-center w-full  focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
                                 <button onClick={() => {
                                     user ? buyNow(slug, 1, product?.price, product?.title, size) : toast.error('Login Please!')
-                                    router.push('/login')
-                                }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 flex ml-4 text-white bg-black border-0 py-2 px-2 text-sm md:px-6 focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
+                                }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 p-2 text-white bg-black border-0 text-sm  focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 
                                 {/* Wishlist */}
 
@@ -306,14 +321,8 @@ const Slug = ({ addToCart, buyNow, error }) => {
                         </Modal>
                     </div>
                     <div className="flex justify-center my-4">
-                        <button disabled={(!product?.size.includes("S"))}
-                            onClick={() => setSize('S')}
-                            className='disabled:cursor-not-allowed disabled:opacity-40 focus:text-white focus:bg-black flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
-                            <div className="">
-                                S
-                            </div>
 
-                        </button>
+
                         <button disabled={(!product?.size.includes("M"))}
                             onClick={() => setSize('M')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
@@ -330,19 +339,11 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             </div>
 
                         </button>
-                        <button disabled={(!product?.size.includes("M"))}
+                        <button disabled={(!product?.size.includes("XL"))}
                             onClick={() => setSize('XL')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 XL
-                            </div>
-
-                        </button>
-                        <button disabled={(!product?.size.includes("M"))}
-                            onClick={() => setSize('XXL')}
-                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
-                            <div className="">
-                                XXL
                             </div>
 
                         </button>
@@ -443,13 +444,11 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             <li>Do Not Dry Clean</li>
                             <li>Do Not Tumble Dry</li>
                             <li>Wash With Like Colors</li>
-                            <li>Actual Color of the product may very slightly due to photographic lighting sources or your device</li>
-
                         </ul>
                     </div>
 
                 </div>
-            </section>
+            </section >
         </>
     )
 }

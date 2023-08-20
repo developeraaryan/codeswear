@@ -36,7 +36,7 @@ const AllProducts = ({ Products }) => {
                 </Typography>
               </TableCell>
               <TableCell>
-                <Typography color="textSecondary" variant="h3">
+                <Typography sx={{ textAlign: "center" }} color="textSecondary" variant="h3">
                   Slug
                 </Typography>
               </TableCell>
@@ -52,7 +52,7 @@ const AllProducts = ({ Products }) => {
               </TableCell>
               <TableCell>
                 <Typography color="textSecondary" variant="h3">
-                  Size/Color
+                  Size
                 </Typography>
               </TableCell>
               <TableCell align="right">
@@ -118,18 +118,23 @@ const AllProducts = ({ Products }) => {
                 <TableCell>
                   <Chip
                     sx={{
-                      pl: "4px",
-                      pr: "4px",
+                      ml: "10px",
                       backgroundColor: "White",
                       color: "Black",
+                      textAlign: "center",
+                      fontWeight: "600",
+                      fontSize: "15px",
                     }}
-                    size="small"
-                    label={`(${product.size}`}
+                    size="medium"
+                    label={`${product.size}`}
                   ></Chip>
                 </TableCell>
                 <TableCell align="right">
                   <Typography sx={{
-                    color: product.availableqty == 0 ? "Red" : "Green"
+                    color: product.availableqty == 0 ? "Red" : "Green",
+                    fontWeight: "600",
+                    fontSize: "15px",
+                    textAlign: "center"
                   }} variant="h6">{product.availableqty == 0 ? "out of stock" : product.availableqty}</Typography>
                 </TableCell>
                 <TableCell align="right">

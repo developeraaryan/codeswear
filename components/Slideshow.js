@@ -26,7 +26,6 @@ const CarouselComponent = ({ images }) => {
                         width={400}
                         height={400}
                         alt={item.public_id}
-                        className='max-h-96 '
                         />
                 </div>
             ))}

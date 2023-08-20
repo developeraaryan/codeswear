@@ -41,7 +41,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
       setSidebar(true);
     }
 
-    const exempted = ['/checkout', '/order', '/orders', '/myaccount', '/login', '/signup'];
+    const exempted = ['/checkout', '/order', '/orders', '/myaccount', '/login', '/signup','/admin'];
 
     if (exempted.includes(router.pathname)) {
       setSidebar(false);
@@ -414,7 +414,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           {...bindings}
         >
           <Modal.Header>
-            <Text variant="h5" b id="modal-title" size={38}>
+            <Text variant="h5" b id="modal-title" size={28}>
               My Cart ({Object.keys(cart).length})
             </Text>
           </Modal.Header>
@@ -439,14 +439,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
           >
             {Object.keys(cart).length !== 0 && (
               <>
-                <div className=" fixed bottom-0 p-4 left-0 bg-slate-50 grid grid-rows-3 w-full font-bold text-3xl">
-                  <div className="shipping grid grid-cols-2 place-content-center gap-10 py-4">
-                    <div className='ml-5 md:ml-10'>
-                      Shippng Charge :
-                    </div>
-                    <div className='font-semibold text-end mr-10'>₹ 50</div>
-
-                  </div>
+                <div className=" fixed bottom-0 p-4 left-0 bg-slate-50 grid grid-rows-2 w-full font-bold text-xl">
                   <div className="subtotal grid grid-cols-2 place-content-center py-4 font-bold">
                     <div className='ml-5 md:ml-32'>
                       Subtotal :
@@ -459,7 +452,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
                 </div>
                 <div className="buttons fixed -bottom-2 -left-1 grid grid-cols-2 place-content-between py-4 bg-black text-white w-full font-black">
                   <div className='ml-5 md:ml-48 my-2 font-bold text-3xl'>
-                    ₹ {subTotal + 50}
+                    ₹ {subTotal}
                   </div>
                   <div className='font-semibold item-end mr-10 relative -right-10 md:-right-[20rem]'>
                     <Button

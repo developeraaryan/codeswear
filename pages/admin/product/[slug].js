@@ -45,11 +45,9 @@ const UpdateProduct = () => {
     const [img1, setImg1] = React.useState('');
     const [img2, setImg2] = React.useState('');
     const [img3, setImg3] = React.useState('');
-    const [img4, setImg4] = React.useState('');
     const [img1_public_id, setImg1_public_id] = React.useState('');
     const [img2_public_id, setImg2_public_id] = React.useState('');
     const [img3_public_id, setImg3_public_id] = React.useState('');
-    const [img4_public_id, setImg4_public_id] = React.useState('');
     useEffect(() => {
         const getDetails = async () => {
             const res = await fetch('/api/getproduct', {
@@ -71,11 +69,9 @@ const UpdateProduct = () => {
             setImg1(data?.product?.img[0].url)
             setImg2(data?.product?.img[1].url)
             setImg3(data?.product?.img[2].url)
-            setImg4(data?.product?.img[3].url)
             setImg1_public_id(data?.product?.img[0].public_id)
             setImg2_public_id(data?.product?.img[1].public_id)
             setImg3_public_id(data?.product?.img[2].public_id)
-            setImg4_public_id(data?.product?.img[3].public_id)
 
 
         }
@@ -103,10 +99,6 @@ const UpdateProduct = () => {
                         public_id: img3_public_id,
                         url: img3
                     },
-                    {
-                        public_id: img4_public_id,
-                        url: img4
-                    }
                 ]
             }),
         })
@@ -165,9 +157,6 @@ const UpdateProduct = () => {
         else if (e.target.name === 'img3') {
             setImg3(e.target.value)
         }
-        else if (e.target.name === 'img4') {
-            setImg4(e.target.value)
-        }
         else if (e.target.name === 'img1_public_id') {
             setImg1_public_id(e.target.value)
         }
@@ -176,9 +165,6 @@ const UpdateProduct = () => {
         }
         else if (e.target.name === 'img3_public_id') {
             setImg3_public_id(e.target.value)
-        }
-        else if (e.target.name === 'img4_public_id') {
-            setImg4_public_id(e.target.value)
         }
     }
     return (
@@ -273,14 +259,7 @@ const UpdateProduct = () => {
                                             <input onChange={handleChange} name="img3" value={img3} type="text" id="img3" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                             <label htmlFor="img3" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 3 URL</label>
                                         </div>
-                                        <div className="relative my-4">
-                                            <input onChange={handleChange} name="img4_public_id" value={img4_public_id} type="text" id="img4_public_id" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                            <label htmlFor="img4_public_id" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 4 Public ID</label>
-                                        </div>
-                                        <div className="relative my-4">
-                                            <input onChange={handleChange} name="img4" value={img4} type="text" id="img4" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                            <label htmlFor="img4" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 4 URL</label>
-                                        </div>
+                                     
                                     </div>
 
                                     <Button

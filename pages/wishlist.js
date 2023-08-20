@@ -13,19 +13,21 @@ import { useUserAuth } from '../context/UserAuthContext'
 
 
 const WishlistComponent = ({ wishes }) => {
+    console.log(wishes, 'wishes');
     const { user } = useUserAuth()
     const router = useRouter()
     const [isEmpty, setIsEmpty] = React.useState(true)
     useEffect(() => {
-        let phone = (user?.phoneNumber)
+        let phone = localStorage.getItem('phone')
         router.push({
             pathname: '/wishlist',
             query: { phone: phone },
+
         })
         if (wishes.length > 0) {
             setIsEmpty(false)
         }
-    }, [router, user, wishes])
+    }, [])
 
     return (
         <div className='container mx-auto min-h-screen overflow-x-hidden'>
@@ -52,7 +54,7 @@ const wishlistItem = (wishes, router) => {
         const data = await res.json()
         if (data.success) {
             toast.success(data.message)
-            router.push("/wishlist")
+            location.reload()
         }
 
         return data
@@ -65,7 +67,7 @@ const wishlistItem = (wishes, router) => {
                 />
                 {wishes && wishes.map((item, index) => (
                     <Grid xs={6} sm={3} key={index}>
-                        <Card isPressable isHoverable>
+                        <Card isPressable isHoverable onClick={() => router.push(`/product/${item?.slug}`)}>
                             <Card.Body className='shadow-lg rounded-md shadow-gray-300' css={{ p: 0 }}>
                                 <Card.Image
                                     src={item?.img[0].url}
@@ -149,32 +151,31 @@ const emptyWishlist = (router) => {
 
 export async function getServerSideProps({ query }) {
     let phone = query.phone
-    phone = phone.slice(1)
     if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
     }
 
-    const wishes = await Wishlist.find({ phone: phone })
-    let result = [];
-    if (wishes.length > 0) {
-        for (let i = 0; i < wishes.length; i++) {
-            result[i] = wishes[i]?.product.toString()
+    try {
+        const wishlistItems = await Wishlist.find({ phone: phone }).exec();
+
+        const productIds = wishlistItems.map(item => item?.product?.toString());
+
+        const productPromises = productIds.map(productId => Product.findById(productId).exec());
+
+        const products = await Promise.all(productPromises);
+
+        return {
+            props: {
+                wishes: JSON.parse(JSON.stringify(products)),
+            },
+
         }
-    }
-
-    let data = [];
-    if (result.length > 0) {
-        for (let i = 0; i < result.length; i++) {
-            data[i] = await Product.findById(result[i])
+    } catch (err) {
+        return {
+            props: {
+                wishes: [],
+            },
         }
-    }
-
-
-
-    return {
-        props: {
-            wishes: JSON.parse(JSON.stringify(data)),
-        },
     }
 
 }

@@ -27,6 +27,7 @@ const CartItem = ({ cart, removeFromCart, addToCart, toggleCartModal }) => {
                                             alt="product anme"
                                             height="240"
                                             width="240"
+                                            className="align-middle border-none  mx-6 max-w-full h-auto rounded-md"
                                         />
                                     </div>
                                 </div>
@@ -74,8 +75,8 @@ const CartItem = ({ cart, removeFromCart, addToCart, toggleCartModal }) => {
                                                     className="border-l px-2">+</button>
                                             </div>
                                         </div>
-                                        <p className="text-gray-500 mb-2">
-                                            {`This is the most professional product description with the latest technology having most efficient workflow this is our best sellings of the month about the technolgy and other stuffs `.substring(0, 150)}...
+                                        <p className="text-gray-500 mb-2 font-normal text-lg">
+                                            {`${cart[item].name}`}
                                         </p>
                                         <span className="text-xl font-semibold text-black">
                                             ₹{cart[item]?.price}

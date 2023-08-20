@@ -6,7 +6,7 @@ import { Box, Button, Modal, Typography } from '@mui/material'
 import UpdateOrder from '../../src/components/dashboard/UpdateOrder'
 import theme from '../../src/theme/theme'
 import FullLayout from '../../src/layouts/FullLayout'
-import {  ThemeProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material'
 import Image from 'next/image'
 import { useUserAuth } from "../../context/UserAuthContext";
 
@@ -64,7 +64,6 @@ const MyOrder = ({ order, clearCart }) => {
     const handleClose = () => setOpen(false);
     const products = order.products
     const [date, setDate] = useState()
-    const [tracker, setTracker] = useState(false)
     useEffect(() => {
         const phone = localStorage.getItem('phone')
         if (!user) {
@@ -85,15 +84,13 @@ const MyOrder = ({ order, clearCart }) => {
             }
         }
         getRole()
-    }, [user,router])
+    }, [user, router])
 
     useEffect(() => {
+        console.log(Object.values(Object.values(products)[0])[5], "products");
         const d = new Date(order.createdAt)
         setDate(d)
-        if (router.query.clearcart == 1) {
-            clearCart()
-        }
-    }, [clearCart, router.query.clearcart, order.createdAt])
+    }, [])
 
 
     return (
@@ -120,7 +117,7 @@ const MyOrder = ({ order, clearCart }) => {
                                 {Object.keys(products).map((key) => {
 
                                     return <div key={key} className="flex border-t border-gray-200 py-2 text-">
-                                        <span className="text-gray-500 break-all">{products[key].name}({products[key].size}/{products[key].color})</span>
+                                        <span className="text-gray-500 break-all">{products[key].name}({products[key].size})</span>
                                         <span className="ml-auto text-gray-900 relative right-4">{products[key].qty}</span>
                                         <span className="ml-auto text-gray-900">₹{products[key].price}</span>
                                         <span className="ml-auto text-gray-900">₹{products[key].price * products[key].qty}</span>
@@ -162,7 +159,7 @@ const MyOrder = ({ order, clearCart }) => {
                                 width={400}
                                 height={400}
                                 alt="ecommerce"
-                                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400" />
+                                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={`${Object.values(Object.values(products)[0])[5]}`} />
                         </div>
                     </div>
                 </section >

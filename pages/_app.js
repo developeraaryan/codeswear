@@ -22,6 +22,7 @@ import localFont from "next/font/local"
 const gotham = localFont({ src: "../assets/fonts/Gotham/GothamMedium.ttf" })
 export default function App({ Component,
   pageProps: { session, ...pageProps } }) {
+  const [showNav, setShowNav] = useState(true)
   const router = useRouter()
   const [user, setUser] = useState({ value: null })
   const [key, setKey] = useState()
@@ -85,7 +86,7 @@ export default function App({ Component,
 
     }
     else {
-      newCart[itemCode] = { qty: 1, name, size, price, img: img[0].url }
+      newCart[itemCode] = { itemCode, qty: 1, price, name, size, img: img[0]?.url }
       toast.success('Item added to the cart!', {
         position: "top-center",
         autoClose: 1000,
@@ -180,9 +181,9 @@ export default function App({ Component,
               waitingTime={400}
               onLoaderFinished={() => setProgress(0)}
             />
-            {key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
+            {visible && key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
             <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
-            <Footer />
+            {visible && <Footer />}
           </main >
         </SessionProvider>
         {/* <ScrollButton /> */}

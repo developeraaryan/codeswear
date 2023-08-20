@@ -15,7 +15,8 @@ const orderSchema = new mongoose.Schema({
     amount: { type: Number, required: true },
     transactionId: { type: String },
     status: { type: String, default: "Initiated", required: true },
-    deliverStatus: { type: String, default: "approved", required: true }
+    deliverStatus: { type: String, default: "approved", required: true },
+    img: { type: String, default: "" }
 }, { timestamps: true });
 
 export default mongoose.models.Order || mongoose.model("Order", orderSchema);

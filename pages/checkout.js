@@ -5,7 +5,8 @@ import { BsFillBagCheckFill } from 'react-icons/bs'
 import Head from 'next/head'
 import { useUserAuth } from '../context/UserAuthContext'
 import toast, { Toaster } from 'react-hot-toast';
-
+import { Router } from 'next/router'
+import { Tooltip } from '@nextui-org/react'
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const { user } = useUserAuth()
   const [name, setName] = useState("")
@@ -35,7 +36,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   }, [subTotal])
 
   useEffect(() => {
-    if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3 && !selectedOption == "") {
+    if (name.length > 3 && email.length > 3 && phone.length > 3 && address.length > 3 && pincode.length > 3 && !selectedOption == "" && subTotal > 0) {
       setDisabled(false)
     }
     else if (subTotal == 0) {
@@ -157,7 +158,6 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
   };
-
   const codPay = () => {
     let oId = Math.floor(Math.random() * Date.now());
     const info = { cart, subTotal, email: email, name, address, phone, pincode, city, state, oId }
@@ -183,10 +183,8 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   }
 
 
-
-
   return (
-    <div className='container px-2 sm:m-auto'>
+    <div className='container mx-auto px-2 sm:m-auto'>
       <Toaster
         position="top-center"
         reverseOrder={false}
@@ -331,17 +329,20 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       </div>
       <div className="mx-4 my-4">
         {selectedOption === "cod" ?
-          <Link href={'/orders'} className='cursor-default'>
-            <button disabled={disabled} onClick={codPay} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
+          <Tooltip color={'error'} content={`${disabled ? 'Either Details not Provided or cart is empty' : ""}`} placement="right">
+            <button disabled={disabled} onClick={codPay} className="disabled:bg-blue-300 disabled:cursor-not-allowed flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
               Pay ₹{subTotal} Using COD
             </button>
-          </Link>
+          </Tooltip>
           :
-          <Link href={'/checkout'} className='cursor-default'>
-            <button disabled={disabled} onClick={makePayment} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
-              Pay ₹{subTotal}
-            </button>
-          </Link>}
+          <Tooltip color={'error'} content={`${disabled ? 'Either Details not Provided or cart is empty' : ""}`} placement="right">
+            <Link href={'/checkout'} className='cursor-default'>
+              <button disabled={disabled} onClick={makePayment} className="disabled:bg-blue-300 flex mr-2  text-white bg-blue-500 border-0 py-2 px-2 focus:outline-none hover:bg-blue-600 rounded text-sm"><BsFillBagCheckFill className='m-1' />
+                Pay ₹{subTotal}
+              </button>
+            </Link>
+          </Tooltip>
+        }
       </div>
     </div>
   )

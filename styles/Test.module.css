@@ -1,6 +1,6 @@
 .deletedPrice {
     position: relative;
-    width: 4rem;
+    width: 3rem;
 }
 
 
@@ -10,12 +10,13 @@
     left: 0;
     top: 50%;
     right: 0;
-    border-top: 3px solid #dd0031 !important;
+    border-top: 2px solid #dd0031 !important;
     border-color: inherit;
+    width: 3.5rem;
 
-    -webkit-transform: rotate(-15deg);
-    -moz-transform: rotate(-15deg);
-    -ms-transform: rotate(-15deg);
-    -o-transform: rotate(-15deg);
-    transform: rotate(-15deg);
+    -webkit-transform: rotate(-20deg);
+    -moz-transform: rotate(-20deg);
+    -ms-transform: rotate(-20deg);
+    -o-transform: rotate(-20deg);
+    transform: rotate(-20deg);
 }
