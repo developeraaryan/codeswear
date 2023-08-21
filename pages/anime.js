@@ -36,21 +36,19 @@ const ListProducts = ({products}) => {
         <div className="container px-5 py-24 mx-auto">
           <div className="container mx-auto  flex-wrap justify-center grid grid-cols-2 md:grid-cols-4 gap-4">
             {Object.keys(products).map((item) => {
-              return <Link href={`/product/${products[item].slug}`} key={products[item]._id} legacyBehavior>
-                <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-                  <Image width={400} height={400} className="rounded-t-lg h-60" src={products[item].img[0].url} alt="" />
-                  <div className="m-2 text-left">
-                    <h3 className="text-gray-300 text-xs tracking-widest title-font mb-1">{products[item].category}</h3>
+              return <Link href={`/product/${products[item].slug}`} key={products[item]._id} >
+              <div className="max-w-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
+                  <Image width={400} height={400} className="rounded-t-lg h-" src={products[item].img[0].url} alt="" />
+                  <div className="mx-auto">
+                      <h5 className="mb-2 text-gray-900 dark:text-white">{products[item].title}</h5>
                   </div>
-                  <div className="px-5">
-                    <h5 className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">{products[item].title}</h5>
+                  <div className="px-2">
+                      <h5 className={`mb-2 text-lg  tracking-tight text-gray-900 dark:text-white ${styles.deletedPrice}`}>₹999</h5>
+                      <h5 className="mb-2 text-lg text-left  tracking-tight text-gray-900 dark:text-white">₹{products[item].price}</h5>
                   </div>
-                  <div className="px-5">
-                    <h5 className={`mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white ${styles.deletedPrice}`}>₹999</h5>
-                    <h5 className="mb-2 text-2xl text-left ml-1 font-bold tracking-tight text-gray-900 dark:text-white">₹{products[item].price}</h5>
-                  </div>
-                </div>
-              </Link>
+              </div>
+
+          </Link>
             })}
 
 

@@ -379,9 +379,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
         </div>
 
         <div className="flex cart absolute right-0 mx-5 md:top-2 cursor-pointer items-center invert dark:invert-0">
-          <span className="">
-            <SearchDD />
-          </span>
+            <SearchDD className='p-0'/>
 
           <HeartIcon className="rounded-full fill-black hover:fill-green-700 text-3xl md:text-2xl" />
 
@@ -398,7 +396,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
             className="dropdown"
           >
             <label tabIndex={0} className="cursor-pointer">
-              <AiOutlineUser className="text-2xl md:text-2xl mx-2" />
+              <AiOutlineUser className="text-2xl md:text-2xl mx-1" />
             </label>
           </span>
         </div>

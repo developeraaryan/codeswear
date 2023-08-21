@@ -37,6 +37,7 @@ const UpdateProduct = () => {
     const [title, setTitle] = React.useState('');
     const [slug, setSlug] = React.useState('');
     const [price, setPrice] = React.useState('');
+    const [lprice, setLprice] = React.useState('');
     const [desc, setDesc] = React.useState('');
     const [category, setCategory] = React.useState('');
     const [size, setSize] = React.useState('');
@@ -61,6 +62,7 @@ const UpdateProduct = () => {
             setTitle(data?.product?.title)
             setSlug(data?.product?.slug)
             setPrice(data?.product?.price)
+            setLprice(data?.product?.lprice)
             setDesc(data?.product?.desc)
             setCategory(data?.product?.category)
             setSize(data?.product?.size)
@@ -130,8 +132,11 @@ const UpdateProduct = () => {
         else if (e.target.name === 'slug') {
             setSlug(e.target.value)
         }
-        else if (e.target.name === 'price') {
+        else if (e.target.name === 'sprice') {
             setPrice(e.target.value)
+        }
+        else if (e.target.name === 'lprice') {
+            setLprice(e.target.value)
         }
         else if (e.target.name === 'desc') {
             setDesc(e.target.value)
@@ -220,10 +225,18 @@ const UpdateProduct = () => {
                                     <div class="relative my-4">
                                         <input
                                             onChange={handleChange}
-                                            value={price}
-                                            name='price'
+                                            value={lprice}
+                                            name='lprice'
                                             type="number" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
-                                        <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Price</label>
+                                        <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">List Price</label>
+                                    </div>
+                                    <div class="relative my-4">
+                                        <input
+                                            onChange={handleChange}
+                                            value={price}
+                                            name='sprice'
+                                            type="number" id="floating_outlined" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
+                                        <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Selling Price</label>
                                     </div>
                                     <div class="relative my-4">
                                         <input
@@ -259,7 +272,7 @@ const UpdateProduct = () => {
                                             <input onChange={handleChange} name="img3" value={img3} type="text" id="img3" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                             <label htmlFor="img3" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Image 3 URL</label>
                                         </div>
-                                     
+
                                     </div>
 
                                     <Button

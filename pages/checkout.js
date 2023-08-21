@@ -5,9 +5,10 @@ import { BsFillBagCheckFill } from 'react-icons/bs'
 import Head from 'next/head'
 import { useUserAuth } from '../context/UserAuthContext'
 import toast, { Toaster } from 'react-hot-toast';
-import { Router } from 'next/router'
+import { useRouter } from 'next/router'
 import { Tooltip } from '@nextui-org/react'
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
+  const router = useRouter()
   const { user } = useUserAuth()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
@@ -180,6 +181,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       progress: undefined,
       theme: "dark",
     });
+    router.push('/postorder')
   }
 
 

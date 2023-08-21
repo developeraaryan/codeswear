@@ -21,15 +21,15 @@ const handler = async (req, res) => {
             }
         } else {
             product[title] = {
-                _id: item._id,
-                slug: item.slug,
-                title: item.title,
-                category: item.category,
-                desc: item.desc,
+                _id: item?._id,
+                slug: item?.slug,
+                title: item?.title,
+                category: item?.category,
+                desc: item?.desc,
                 size: availableqty > 0 ? [size] : [],
-                price: item.price,
+                price: item?.price,
                 availableqty: availableqty,
-                img: item.img,
+                img: item?.img,
             };
         }
     }

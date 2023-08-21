@@ -44,7 +44,7 @@ function CarouselExample() {
 
   }, [])
   return (
-    <div className="h-96 md:h-[37rem]   rounded-b-lg">
+    <div className="h-[25rem] md:h-[37rem] -mt-4  rounded-b-lg">
       <Carousel leftControl=" "
         rightControl=" "
       >
@@ -55,21 +55,21 @@ function CarouselExample() {
           alt="wear the code"
           width={4000}
           height={10}
-          className="h-96 md:h-[37rem]"
+          className="h-[23.5rem] md:h-[37rem]"
         />
         <Image
           src={imageSrc2}
           alt="wear the code"
           width={4000}
           height={10}
-          className="h-96 md:h-[37rem]"
+          className="h-[23.5rem] md:h-[37rem]"
         />
         <Image
           src={imageSrc3}
           alt="wear the code"
           width={4000}
           height={10}
-          className="h-96 md:h-[37rem]"
+          className="h-[23.5rem] md:h-[37rem]"
         />
 
       </Carousel>

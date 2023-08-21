@@ -10,6 +10,7 @@ import dynamic from 'next/dynamic'
 import HomepageCard from '../components/HomepageCard'
 import localFont from "next/font/local"
 import { useUserAuth } from '../context/UserAuthContext'
+import Link from 'next/link'
 
 const neutro = localFont({ src: "../assets/fonts/neutro/Neutro-ExtraBold.otf" })
 
@@ -83,17 +84,19 @@ export default function Home() {
                 <div className="image space-x-2 md:space-x-0 md:justify-center flex relative -ml-5 mt-10 md:mt-20 text-center">
                   <div className="ml-0 md:ml-10  relative left-0 md:-left-10">
                     <span className='pr-7 text-base md:text-[2.25rem] relative left-4 font-bold'>OVERSIZED</span>
-                    <Image
-                      src="/assets/oversized(styles).jpg"
-                      alt="oversized"
-                      width={4000}
-                      height={10}
-                      unoptimized={false}
-                      placeholder='blur'
-                      blurDataURL='/assets/blur.png'
+                    <Link href='/allcollections'>
+                      <Image
+                        src="/assets/oversized(styles).jpg"
+                        alt="oversized"
+                        width={4000}
+                        height={10}
+                        unoptimized={false}
+                        placeholder='blur'
+                        blurDataURL='/assets/blur.png'
 
 
-                    />
+                      />
+                    </Link>
                   </div>
                   <div className="ml-0 md:ml-10 relative left-0 md:left-0">
                     <span className='pr-7 text-base md:text-[2.25rem] relative -right-4 text-red-600 font-bold'>BASIC<span className='text-black'>TEES</span></span>

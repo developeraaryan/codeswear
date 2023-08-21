@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import Styles from '../styles/Slides.module.css'
 
 const CarouselComponent = ({ images }) => {
 
@@ -15,9 +16,8 @@ const CarouselComponent = ({ images }) => {
             showStatus={false}
             // width={400}
             showArrows={false}
-            centerSlidePercentage={1}
             interval={3000} // Change this value to set the interval between slides (in milliseconds)
-            className='w-screen relative  right-10 md:right-10 -top-16'
+            className={`${Styles.carousel}`}
         >
             {images?.map((item) => (
                 <div key={item._id} className=''>
@@ -26,7 +26,8 @@ const CarouselComponent = ({ images }) => {
                         width={400}
                         height={400}
                         alt={item.public_id}
-                        />
+                        className={`object-cover ${Styles.images}`}
+                    />
                 </div>
             ))}
         </Carousel>

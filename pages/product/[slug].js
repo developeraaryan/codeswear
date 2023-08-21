@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Error from 'next/error';
-import { AiOutlineDoubleRight } from 'react-icons/ai'
+import { AiOutlineDoubleRight, AiOutlineShareAlt } from 'react-icons/ai'
 import { FaCopy, FaShare } from 'react-icons/fa'
 import { Button, Input, Modal, Text } from '@nextui-org/react';
 import { Image } from '@nextui-org/react';
@@ -146,14 +146,14 @@ const Slug = ({ addToCart, buyNow, error }) => {
     return (
         <>
             <section className="text-gray-600 body-font overflow-hidden min-h-full">
+                <SlideShow images={product?.img} />
                 <Toaster
                     position="top-center"
                     reverseOrder={false}
                 />
 
-                <div className="container px-5 py-16 mx-auto">
+                <div className="container py-16 mx-auto">
                     <div className="lg:w-4/5 mx-auto flex flex-wrap flex-col">
-                        <SlideShow images={product?.img} />
                         <button onClick={handleWish} className="z-50 rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center relative bottom-28 -right-60 md:-right-[45rem] justify-center text-gray-500 ml-4">
                             <svg fill="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-5 h-5" viewBox="0 0 24 24">
                                 <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
@@ -162,11 +162,11 @@ const Slug = ({ addToCart, buyNow, error }) => {
                         <div className="relative left-[55rem] top-20">
                         </div>
                         <Button
-                            icon={<FaShare />}
+                            icon={<AiOutlineShareAlt size={25} />}
                             auto
                             light
                             ripple={false}
-                            className='hover:text-slate-700 relative left-[17rem] md:left-[55rem] -top-14'
+                            className='hover:text-slate-700 relative left-[17rem] md:left-[55rem] -top-10'
                             onPress={sHandler}
                         />
 
@@ -253,12 +253,14 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             </Modal.Body>
 
                         </Modal>
-                        <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 -mt-32 lg:mt-0">
+                        <div className="lg:w-1/2 w-full -pl-10 lg:pl-10 lg:py-6 -mt-32 lg:mt-0">
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
-                            <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product?.title} ({size})</h1>
-                            <h3 className='font-bold'>₹{product?.price}</h3>
-                            <p className="leading-relaxed">{product?.category.toUpperCase()}</p>
-
+                            <h1 className="text-gray-900 text-xl title-font font-medium mb-1">{product?.title}</h1>
+                            <div className="flex space-x-4">
+                                <h2 className='font-bold text-xl'>₹{product?.price}</h2>
+                                <h3 className='font-bold line-through font-mono text-red-600'>₹{product?.price}</h3>
+                                <h4 className='bg-black text-white p-1 text-sm border-none rounded-full shadow-xl'>57% OFF</h4>
+                            </div>
                             <div className="grid grid-cols-2 gap-2 fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
 
                                 <button onClick={() => {
