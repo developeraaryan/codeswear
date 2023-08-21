@@ -42,7 +42,7 @@ const Add = () => {
         desc: "",
         category: "",
         size: "",
-        price: "",
+        sprice: "",
         lprice: "",
         availableqty: "",
         img1_public_id: "",
@@ -62,14 +62,14 @@ const Add = () => {
     }
     const submitForm = async (e) => {
         e.preventDefault()
-        if (form?.title?.length > 0 && form?.slug?.length > 0 && form?.desc?.length > 0 && form?.category?.length > 0 && form?.size?.length > 0 && form?.price?.length > 0 && form?.lprice?.length > 0 && form?.availableqty?.length > 0 && form?.img1_public_id?.length > 0 && form?.img1?.length > 0 && form?.img2_public_id?.length > 0 && form?.img2?.length > 0 && form?.img3_public_id?.length > 0 && form?.img3?.length > 0) {
+        if (form?.title?.length > 0 && form?.slug?.length > 0 && form?.desc?.length > 0 && form?.category?.length > 0 && form?.size?.length > 0 && form?.sprice?.length > 0 && form?.lprice?.length > 0 && form?.availableqty?.length > 0 && form?.img1_public_id?.length > 0 && form?.img1?.length > 0 && form?.img2_public_id?.length > 0 && form?.img2?.length > 0 && form?.img3_public_id?.length > 0 && form?.img3?.length > 0) {
             const product = {
                 title: form.title,
                 slug: form.slug,
                 desc: form.desc,
                 category: form.category,
                 size: form.size,
-                price: form.price,
+                price: form.sprice,
                 lprice: form.lprice,
                 availableqty: form.availableqty,
                 img: [
@@ -188,11 +188,11 @@ const Add = () => {
                                 </div>
 
                                 <div class="relative my-4">
-                                    <input onChange={onChange} name="sprice" value={form.price} type="number" id="sprice" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                    <input onChange={onChange} name="sprice" value={form.sprice} type="number" id="sprice" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                     <label for="sprice" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Selling Price</label>
                                 </div>
                                 <div class="relative my-4">
-                                    <input onChange={onChange} name="price" value={form.lprice} type="number" id="price" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                    <input onChange={onChange} name="lprice" value={form.lprice} type="number" id="price" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                     <label for="price" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-none px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">List Price</label>
                                 </div>
                                 <div class="relative my-4">
