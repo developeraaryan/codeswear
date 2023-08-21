@@ -24,7 +24,7 @@ try {
         ],
         category: { type: String, reuired: true },
         size: { type: String, },
-        price: { type: Number, required: true },
+        sprice: { type: Number, required: true },
         lprice: { type: Number, required: true },
         availableqty: { type: Number, required: true },
     }, { timestamps: true });

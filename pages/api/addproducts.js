@@ -13,7 +13,8 @@ const handler = async (req, res) => {
             img,
             category,
             size,
-            price,
+            sprice,
+            lprice,
             availableqty,
         } = req.body;
 
@@ -24,7 +25,8 @@ const handler = async (req, res) => {
             img,
             category,
             size,
-            price,
+            sprice,
+            lprice,
             availableqty,
         });
 

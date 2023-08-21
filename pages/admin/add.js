@@ -69,7 +69,7 @@ const Add = () => {
                 desc: form.desc,
                 category: form.category,
                 size: form.size,
-                price: form.sprice,
+                sprice: form.sprice,
                 lprice: form.lprice,
                 availableqty: form.availableqty,
                 img: [
@@ -92,15 +92,16 @@ const Add = () => {
                 ]
             };
             //API request to add a product
+            console.log(product, "prodcts");
             let res = await fetch(`/api/addproducts`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                mode: "cors",       
                 body: JSON.stringify(product)
             })
             const data = await res.json()
+            console.log(data, 'data');
             setForm("")
             if (data.success) {
                 toast.success(`Product added successfully`, {
@@ -144,7 +145,7 @@ const Add = () => {
             desc: "",
             category: "",
             size: "",
-            price: "",
+            sprice: "",
             lprice: "",
             availableqty: "",
             img1_public_id: "",
