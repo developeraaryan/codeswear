@@ -92,11 +92,12 @@ const Add = () => {
                 ]
             };
             //API request to add a product
-            let res = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/addproducts`, {
+            let res = await fetch(`/api/addproducts`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
+                mode: "cors",       
                 body: JSON.stringify(product)
             })
             const data = await res.json()
