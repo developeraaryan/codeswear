@@ -82,27 +82,29 @@ const UpdateProduct = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const info = {
+            _id: id, title: title, slug: slug, price: price, lprice: lprice, desc: desc, category: category, size: size, availableqty: availableqty, img: [
+                {
+                    public_id: img1_public_id,
+                    url: img1
+                },
+                {
+                    public_id: img2_public_id,
+                    url: img2
+                },
+                {
+                    public_id: img3_public_id,
+                    url: img3
+                },
+            ]
+        }
+        console.log(info, 'info');
         const res = await fetch('/api/updateproducts', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                _id: id, title: title, slug: slug, price: price, desc: desc, category: category, size: size, color: color, availableqty: availableqty, img: [
-                    {
-                        public_id: img1_public_id,
-                        url: img1
-                    },
-                    {
-                        public_id: img2_public_id,
-                        url: img2
-                    },
-                    {
-                        public_id: img3_public_id,
-                        url: img3
-                    },
-                ]
-            }),
+            body: JSON.stringify(info),
         })
         const data = await res.json()
         if (data.success) {
