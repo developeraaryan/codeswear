@@ -22,7 +22,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
         setSVisible(false);
     };
     const router = useRouter()
-    const [size, setSize] = useState("M")
+    const [size, setSize] = useState("")
     const { slug } = router.query
     const [pin, setPin] = useState()
     const [service, setService] = useState()
@@ -43,6 +43,8 @@ const Slug = ({ addToCart, buyNow, error }) => {
             setProduct(data.products[0])
         }
         slugDetails()
+
+
     }, [slug])
     const checkServiceability = async () => {
         let pins = await fetch(`https://api.postalpincode.in/pincode/${pin}`)
@@ -257,24 +259,34 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                             <h1 className="text-gray-900 text-xl title-font font-medium mb-1">{product?.title}</h1>
                             <div className="flex space-x-4">
-                                <h2 className='font-bold text-xl'>₹{product?.price}</h2>
-                                <h3 className='font-bold line-through font-mono text-red-600'>₹{product?.price}</h3>
+                                <h2 className='font-bold text-xl'>₹{product?.sprice}</h2>
+                                <h3 className='font-bold line-through font-mono text-red-600'>₹{product?.lprice}</h3>
                                 <h4 className='bg-black text-white p-1 text-sm border-none rounded-full shadow-xl'>57% OFF</h4>
                             </div>
                             <div className="grid grid-cols-2 gap-2 fixed bottom-0 justify-center items-center bg-slate-50 w-full left-0 p-4 z-50">
 
                                 <button onClick={() => {
                                     if (user) {
-
-                                        addToCart(slug, 1, product?.price, product?.title, size, product?.img)
-                                        toast.success('Added to cart!')
+                                        if (size == "") {
+                                            toast.error('Select Size!')
+                                        }
+                                        else {
+                                            addToCart(slug, 1, product?.price, product?.title, size, product?.img)
+                                            toast.success('Added to cart!')
+                                        }
                                     }
                                     else {
                                         toast.error('Login Please!')
                                     }
                                 }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 p-2 text-white bg-rose-500 border-0  text-sm text-center w-full  focus:outline-none hover:bg-rose-600 rounded">Add to cart</button>
                                 <button onClick={() => {
-                                    user ? buyNow(slug, 1, product?.price, product?.title, size) : toast.error('Login Please!')
+                                    if (size == "") {
+                                        toast.error('Select Size!')
+                                    }
+                                    else {
+
+                                        user ? buyNow(slug, 1, product?.price, product?.title, size) : toast.error('Login Please!')
+                                    }
                                 }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 p-2 text-white bg-black border-0 text-sm  focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 
                                 {/* Wishlist */}

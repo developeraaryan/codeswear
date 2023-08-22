@@ -27,7 +27,8 @@ const handler = async (req, res) => {
                 category: item?.category,
                 desc: item?.desc,
                 size: availableqty > 0 ? [size] : [],
-                price: item?.price,
+                sprice: item?.sprice,
+                lprice: item?.lprice,
                 availableqty: availableqty,
                 img: item?.img,
             };
