@@ -66,7 +66,7 @@ export default function App({ Component,
     }
     setSubTotal(sbt)
   }
-  const addToCart = (itemCode, qty, price, name, size, img) => {
+  const addToCart = (itemCode, qty, sprice, name, size, img) => {
     if (Object.keys(cart).length == 0) {
       setKey(Math.random())
     }
@@ -86,7 +86,7 @@ export default function App({ Component,
 
     }
     else {
-      newCart[itemCode] = { itemCode, qty: 1, price, name, size, img: img[0]?.url }
+      newCart[itemCode] = { itemCode, qty: 1, sprice, name, size, img: img[0]?.url }
       toast.success('Item added to the cart!', {
         position: "top-center",
         autoClose: 1000,
@@ -102,7 +102,7 @@ export default function App({ Component,
     setCart(newCart)
     saveCart(newCart)
   }
-  const removeFromCart = (itemCode, qty, price, name, size, color, img) => {
+  const removeFromCart = (itemCode, qty, sprice, name, size, color, img) => {
     let newCart = JSON.parse(JSON.stringify(cart));
     if (itemCode in cart) {
       newCart[itemCode].qty = cart[itemCode].qty - qty
@@ -137,9 +137,9 @@ export default function App({ Component,
       theme: "dark",
     });
   }
-  const buyNow = (itemCode, qty, price, name, size, img) => {
+  const buyNow = (itemCode, qty, sprice, name, size, img) => {
     let newCart = {}
-    newCart[itemCode] = { qty: 1, name, size, price, img }
+    newCart[itemCode] = { qty: 1, name, size, sprice, img }
     setCart(newCart)
     saveCart(newCart)
     router.push('/checkout')
