@@ -62,7 +62,7 @@ export default function App({ Component,
     let sbt = 0;
     let keys = Object.keys(myCart)
     for (let i = 0; i < keys.length; i++) {
-      sbt += myCart[keys[i]].price * myCart[keys[i]].qty
+      sbt += myCart[keys[i]].sprice * myCart[keys[i]].qty
     }
     setSubTotal(sbt)
   }
