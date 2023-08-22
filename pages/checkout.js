@@ -340,7 +340,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         </div>
         <div className="flex justify-between">
           <div className="font-thin">Shipping Charges</div>
-          <div className="font-sans">₹{0}</div>
+          <div className="font-sans text-green-600">FREE</div>
         </div>
         <div className="flex justify-between font-bold">
           <div className="font-bold"> Order Total</div>
