@@ -84,22 +84,7 @@ const Footer = () => {
             </span>
           </div>
         </div>
-        <div className="bg-black text-white">
-          <div className="container mx-auto py-4 md:justify-center px-5 flex flex-wrap flex-col sm:flex-row">
-            <p className="text-white flex md:space-x-[40rem] text-sm text-center justify-center sm:text-left">
-              <Link href={`https://api.whatsapp.com/send?phone=9430498019&text=I want to you to build a website for me!`} className="text-white hover:scale-105 transform duration-500"
-                target='_blank'
-              >
-                <MdDeveloperMode className=' text-2xl my-auto' />
-              </Link>
-              <span className="mx-8 md:mx-0 text-center"> Designed & Developed by <a href="https://www.linkedin.com/in/aryan-ji/" className="text-white ml-1 font-bold " rel="noopener noreferrer" target="_blank"><br />Aryan Kumar</a></span>
-              <Link href={'https://www.github.com/aryan-ji'} className="text-white  hover:scale-105 transform duration-500">
-                <BsGithub className="text-2xl my-auto" href='www.github.com/aryan-ji' />
-              </Link>
-
-            </p>
-          </div>
-        </div>
+     
       </footer >
     </div >
   )

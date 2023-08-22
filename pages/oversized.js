@@ -6,45 +6,29 @@ import Image from 'next/image'
 import styles from '../styles/Test.module.css'
 
 
-const Oversized = ({ products }) => {
-  if (Object.keys(products).length === 0) {
-    return emptyList()
-  }
-  return ListProducts(products)
-}
+const AllCollections = ({ products }) => {
+  React.useEffect(() => {
+    console.log(products, "products");
 
-const emptyList = () => {
-  return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center relative px-4">
-      <div className="absolute top-0 left-0 w-full h-full bg-cover bg-center opacity-30"
-        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1604093882750-3ed498f3178b')" }}>
-      </div>
-      <h1 className="text-5xl md:text-7xl text-white font-bold mb-8 z-10">Coming Soon</h1>
-      <p className="text-white text-xl md:text-2xl">
-        We&apos;re working hard to bring you something amazing. Stay tuned!
-      </p>
-    </div>
+  }, [])
 
-  )
-}
-
-const ListProducts = ({ products }) => {
   return (
     <div>
+
       <section className="text-gray-600 body-font overflow-x-hidden">
         <Image className='w-full h-full' src='/assets/product-layout-poster.jpg' alt='offer banner' width={400} height={10} />
-        <div className="container px-5 py-24 mx-auto">
-          <div className="container mx-auto  flex-wrap justify-center grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="py-24">
+          <div className=" mx-1  flex-wrap justify-center grid grid-cols-2 md:grid-cols-4 gap-2">
             {Object.keys(products).map((item) => {
               return <Link href={`/product/${products[item].slug}`} key={products[item]._id} >
-                <div className="max-w-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-                  <Image width={400} height={400} className="rounded-t-lg h-" src={products[item].img[0].url} alt="" />
+                <div className="max-w-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-200 text-black ">
+                  <Image width={400} height={400} className="rounded-t-lg h-72 w-80" src={products[item].img[0].url} alt="" />
                   <div className="mx-auto">
-                    <h5 className="mb-2 text-gray-900 dark:text-white">{products[item].title}</h5>
+                    <h5 className="mb-2 ml-1 text-sm text-black dark:text-black">{products[item].title.substring(0, 40)}</h5>
                   </div>
                   <div className="px-2">
-                    <h5 className={`mb-2 text-lg  tracking-tight text-gray-900 dark:text-white ${styles.deletedPrice}`}>₹999</h5>
-                    <h5 className="mb-2 text-lg text-left  tracking-tight text-gray-900 dark:text-white">₹{products[item].price}</h5>
+                    <h5 className="mb-2 text-base text-left  tracking-tight text-gray-900 dark:text-black">₹{products[item].sprice}</h5>
+                    <h5 className={`mb-2 text-base  tracking-tight text-gray-900 dark:text-black ${styles.deletedPrice}`}>₹{products[item].lprice}</h5>
                   </div>
                 </div>
 
@@ -64,7 +48,7 @@ export async function getServerSideProps(context) {
   if (!mongoose.connections[0].readyState) {
     await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
   }
-  let products = await Product.find({ category: 'Oversized' })
+  let products = await Product.find({ category: "Oversized" })
   let tshirts = {}
   for (let items of products) {
     if (items.title in tshirts) {
@@ -92,4 +76,4 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default Oversized
+export default AllCollections

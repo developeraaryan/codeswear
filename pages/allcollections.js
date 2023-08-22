@@ -12,18 +12,18 @@ const AllCollections = ({ products }) => {
 
             <section className="text-gray-600 body-font overflow-x-hidden">
                 <Image className='w-full h-full' src='/assets/product-layout-poster.jpg' alt='offer banner' width={400} height={10} />
-                <div className="container px-5 py-24 mx-auto">
-                    <div className="container mx-auto  flex-wrap justify-center grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="py-24">
+                    <div className=" mx-1  flex-wrap justify-center grid grid-cols-2 md:grid-cols-4 gap-2">
                         {Object.keys(products).map((item) => {
                             return <Link href={`/product/${products[item].slug}`} key={products[item]._id} >
-                                <div className="max-w-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 ">
-                                    <Image width={400} height={400} className="rounded-t-lg h-" src={products[item].img[0].url} alt="" />
+                                <div className="max-w-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-200 text-black ">
+                                    <Image width={400} height={400} className="rounded-t-lg h-72 w-80" src={products[item].img[0].url} alt="" />
                                     <div className="mx-auto">
-                                        <h5 className="mb-2 text-gray-900 dark:text-white">{products[item].title}</h5>
+                                        <h5 className="mb-2 ml-1 text-sm text-black dark:text-black">{products[item].title.substring(0,40)}</h5>
                                     </div>
                                     <div className="px-2">
-                                        <h5 className={`mb-2 text-lg  tracking-tight text-gray-900 dark:text-white ${styles.deletedPrice}`}>₹999</h5>
-                                        <h5 className="mb-2 text-lg text-left  tracking-tight text-gray-900 dark:text-white">₹{products[item].price}</h5>
+                                        <h5 className="mb-2 text-base text-left  tracking-tight text-gray-900 dark:text-black">₹{products[item].sprice}</h5>
+                                        <h5 className={`mb-2 text-base  tracking-tight text-gray-900 dark:text-black ${styles.deletedPrice}`}>₹{products[item].lprice}</h5>
                                     </div>
                                 </div>
 
