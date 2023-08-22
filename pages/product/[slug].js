@@ -271,7 +271,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                             toast.error('Select Size!')
                                         }
                                         else {
-                                            addToCart(slug, 1, product?.price, product?.title, size, product?.img)
+                                            addToCart(slug, 1, product?.sprice, product?.title, size, product?.img)
                                             toast.success('Added to cart!')
                                         }
                                     }
@@ -285,7 +285,7 @@ const Slug = ({ addToCart, buyNow, error }) => {
                                     }
                                     else {
 
-                                        user ? buyNow(slug, 1, product?.price, product?.title, size) : toast.error('Login Please!')
+                                        user ? buyNow(slug, 1, product?.sprice, product?.title, size) : toast.error('Login Please!')
                                     }
                                 }} disabled={product?.availableqty <= 0} className="disabled:bg-blue-300 p-2 text-white bg-black border-0 text-sm  focus:outline-none hover:bg-[#4b5563] rounded">Buy Now</button>
 

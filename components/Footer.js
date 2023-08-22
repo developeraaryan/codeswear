@@ -27,13 +27,13 @@ const Footer = () => {
                   <Link href={'/oversized'} className="text-gray-600 hover:text-gray-800">Oversized T-shirts</Link>
                 </li>
                 <li>
-                  <Link href={'/basic'} className="text-gray-600 hover:text-gray-800">Basic T-shirts</Link>
+                  <Link href={'/allcollections'} className="text-gray-600 hover:text-gray-800">Basic T-shirts</Link>
                 </li>
                 <li>
-                  <Link href={'/sale'} className="text-gray-600 hover:text-gray-800">Save upto 70%</Link>
+                  <Link href={'/allcollections'} className="text-gray-600 hover:text-gray-800">Save upto 70%</Link>
                 </li>
                 <li>
-                  <Link href={'/anime'} className="text-gray-600 hover:text-gray-800">Anime Collection</Link>
+                  <Link href={'/allcollections'} className="text-gray-600 hover:text-gray-800">Anime Collection</Link>
                 </li>
               </nav>
             </div>
@@ -84,7 +84,7 @@ const Footer = () => {
             </span>
           </div>
         </div>
-     
+
       </footer >
     </div >
   )

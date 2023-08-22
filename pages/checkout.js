@@ -7,6 +7,7 @@ import { useUserAuth } from '../context/UserAuthContext'
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/router'
 import { Tooltip } from '@nextui-org/react'
+import Image from 'next/image'
 const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const router = useRouter()
   const { user } = useUserAuth()
@@ -261,13 +262,10 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
             return <li key={k}>
               <div className="item flex my-5">
                 <div className='font-semibold'>
-                  {cart[k].name}&nbsp;({cart[k].size}/{cart[k].color})
+                  {cart[k].name}&nbsp;({cart[k].size})
                 </div>
                 <div className='flex items-center justify-center w-1/3 font-semibold text-lg'>
-                  <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-blue-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-blue-500 cursor-pointer' />
-                </div>
-                <div className='font-semibold right-8 absolute'>
-                  {cart[k].img}
+                  <AiFillMinusCircle onClick={() => { removeFromCart(k, 1, cart[k].price, cart[k].name, cart[k].size) }} className='text-blue-500 cursor-pointer' /><span className='mx-2 text-sm'>{cart[k].qty}</span><AiFillPlusCircle onClick={() => { addToCart(k, 1, cart[k].price, cart[k].name, cart[k].size, cart[k].color) }} className='text-blue-500 cursor-pointer' />
                 </div>
               </div>
             </li>
@@ -329,6 +327,27 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
 
 
       </div>
+
+      <div className="payment-details">
+        <h2 className="font-semibold text-xl my-4">4. Price Details</h2>
+        <div className="flex justify-between">
+          <div className="font-thin">Cart Total</div>
+          <div className="font-sans">₹{subTotal}</div>
+        </div>
+        <div className="flex justify-between">
+          <div className="font-thin">Cart Discount</div>
+          <div className="font-sans">₹{0}</div>
+        </div>
+        <div className="flex justify-between">
+          <div className="font-thin">Shipping Charges</div>
+          <div className="font-sans">₹{0}</div>
+        </div>
+        <div className="flex justify-between font-bold">
+          <div className="font-bold"> Order Total</div>
+          <div className="font-bold">₹{subTotal}</div>
+        </div>
+      </div>
+
       <div className="mx-4 my-4">
         {selectedOption === "cod" ?
           <Tooltip color={'error'} content={`${disabled ? 'Either Details not Provided or cart is empty' : ""}`} placement="right">

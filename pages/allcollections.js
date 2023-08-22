@@ -17,14 +17,14 @@ const AllCollections = ({ products }) => {
                         {Object.keys(products).map((item) => {
                             return <Link href={`/product/${products[item].slug}`} key={products[item]._id} >
                             <div className="max-w-fit bg-white border border-gray-200 rounded-lg shadow dark:bg-white dark:border-gray-200 text-black ">
-                                <Image width={400} height={400} className="rounded-t-lg h-52 w-80" src={products[item].img[0].url} alt="" />
+                                <Image width={400} height={400} className="rounded-t-lg h-56 w-80" src={products[item].img[0].url} alt="" />
                                 <div className="mx-auto">
                                     <h3 className="mb-2 mt-2 ml-3 text-xs text-black dark:text-black">{products[item].title.substring(0, 40)}</h3>
                                 </div>
                                 <div className="px-2">
                                     <h4 className="mb-2 text-base text-left  tracking-tight text-gray-900 dark:text-black">₹{products[item].sprice}</h4>
                                     <h5 className={`mb-2 text-xs  tracking-tight text-gray-900 dark:text-black ${styles.deletedPrice}`}>₹{products[item].lprice}</h5>
-                                    <span className='ml-24 text-xs  text-red-700'>57% OFF</span>
+                                    <div className='ml-24 text-xs relative left-2  text-red-700'>57% OFF</div>
                                 </div>
                             </div>
     

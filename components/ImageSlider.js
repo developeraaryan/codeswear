@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Alert, Carousel } from "flowbite-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const ImageSlider = () => {
 
@@ -50,27 +51,33 @@ function CarouselExample() {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
 
-        <Image
-          src={imageSrc1}
-          alt="wear the code"
-          width={4000}
-          height={10}
-          className="h-[23.5rem] md:h-[37rem]"
-        />
-        <Image
-          src={imageSrc2}
-          alt="wear the code"
-          width={4000}
-          height={10}
-          className="h-[23.5rem] md:h-[37rem]"
-        />
-        <Image
-          src={imageSrc3}
-          alt="wear the code"
-          width={4000}
-          height={10}
-          className="h-[23.5rem] md:h-[37rem]"
-        />
+        <Link href={'/allcollections'}>
+          <Image
+            src={imageSrc1}
+            alt="wear the code"
+            width={4000}
+            height={10}
+            className="h-[23.5rem] md:h-[37rem]"
+          />
+        </Link>
+        <Link href={'/allcollections'}>
+          <Image
+            src={imageSrc2}
+            alt="wear the code"
+            width={4000}
+            height={10}
+            className="h-[23.5rem] md:h-[37rem]"
+          />
+        </Link>
+        <Link href={'/allcollections'}>
+          <Image
+            src={imageSrc3}
+            alt="wear the code"
+            width={4000}
+            height={10}
+            className="h-[23.5rem] md:h-[37rem]"
+          />
+        </Link>
 
       </Carousel>
     </div>

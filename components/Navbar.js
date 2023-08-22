@@ -65,15 +65,15 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
     },
     {
       name: 'Basic T-Shirts',
-      href: '/basic',
+      href: '/allcollections',
     },
     {
       name: 'Save upto 70%',
-      href: '/sale',
+      href: '/allcollections',
     },
     {
       name: 'Anime Collection',
-      href: '/anime',
+      href: '/allcollections',
     },
   ];
 
