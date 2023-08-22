@@ -160,31 +160,40 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
   const handleRadioChange = (event) => {
     setSelectedOption(event.target.value);
   };
-  const codPay = () => {
-    let oId = Math.floor(Math.random() * Date.now());
-    const info = { cart, subTotal, email: email, name, address, phone, pincode, city, state, oId }
-    const apiRes = fetch(`/api/cod`,
-      {
-        method: "POST",
-        headers: {
-          "content-Type": "application/json",
-        },
-        body: JSON.stringify(info)
-      })
-    clearCart()
-    toast.success('Order Placed Successfully!', {
-      position: "top-center",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
-    router.push('/postorder')
+  const codPay = async () => {
+    try {
+      let oId = Math.floor(Math.random() * Date.now());
+      const info = { cart, subTotal, email: email, name, address, phone, pincode, city, state, oId }
+      const apiRes = await fetch(`/api/cod`,
+        {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify(info)
+        })
+      clearCart()
+      const data = await apiRes.json()
+      console.log(data, "data");
+      if (data.success) {
+        toast.success('Order Placed Successfully!', {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        setTimeout(() => {
+          router.push('/postorder')
+        }, 1000);
+      }
+    } catch (error) {
+      console.log(error.message);
+    }
   }
-
 
   return (
     <div className='container mx-auto px-2 sm:m-auto'>

@@ -3,8 +3,13 @@ import connectDb from "../../middleware/mongoose";
 
 const handler = async (req, res) => {
     if (req.method !== "POST") {
-        return res.status(400).json({ message: "We only accept GET requests" });
+        return res.status(400).json({ message: "We only accept POST requests" });
     }
+
+    if (!req.body.slug) {
+        return res.status(400).json({ message: "Missing slug" });
+    }
+
     let products = await Product.find({ slug: req.body.slug });
     let product = {};
     if (!products) {

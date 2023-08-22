@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         }
 
         for (let item in cart) {
-            sumTotal += cart[item].price * cart[item].qty
+            sumTotal += cart[item].sprice * cart[item].qty
             product = await Product.findOne({ slug: item })
             // check if cart items are out of stock
             if (product.availableqty < cart[item].qty) {
@@ -68,6 +68,7 @@ export default async function handler(req, res) {
             res.status(400).json(err);
         }
     } else {
+        res.status(400).json({ success: false, "error": "Invalid Request" })
         // Handle any other HTTP method
     }
 }
