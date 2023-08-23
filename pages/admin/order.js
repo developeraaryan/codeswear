@@ -96,31 +96,32 @@ const MyOrder = ({ order, clearCart }) => {
     return (
         <ThemeProvider theme={theme}>
             <FullLayout>
-                <section className="text-gray-600 body-font overflow-hidden min-h-screen">
+                <section className="flex text-gray-600 align-middle justify-center container mx-auto body-font overflow-hidden min-h-screen">
                     <div className="container px-5 py-24 mx-auto">
-                        <div className="lg:w-4/5 mx-auto flex flex-wrap">
-                            <div className="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+                        <div className="container lg:w-full mx-auto flex flex-wrap">
+                            <div className="lg:w-full w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
                                 <h2 className="text-sm title-font text-gray-500 tracking-widest">BLACK WORN</h2>
                                 <h1 className="text-gray-900 text-xl md:text-3xl title-font font-medium mb-4">Order ID : #{order.oId}</h1>
                                 <p className="leading-relaxed ">This order has been successfully palced!</p>
                                 <p className="leading-relaxed ">Order palced on : {date && date.toLocaleDateString("en-IN", { weekday: "long", year: "numeric", month: "long", day: "numeric" }
                                 )}</p>
                                 <p className='mb-6'> The payment is <span className={`${order.status == "Pending" ? "text-red-700" : "text-green-700"} font-bold`}>{order.status}</span> </p>
-                                <div className="flex border-t border-gray-200 py-2 font-semibold">
-                                    <span className="text-gray-500">Item</span>
-                                    <span className="ml-auto text-gray-900 relative left-6">Quantity</span>
-                                    <span className="ml-auto text-gray-900 text-center -mr-[4.8rem] ">Cost</span>
-                                    <span className="ml-auto text-gray-900 ">Item Total</span>
+                                <div className="grid grid-cols-4 border-t border-gray-200 py-2 font-semibold">
+                                    <span className="ml-auto text-gray-900">Item</span>
+                                    <span className="ml-auto text-gray-900">Qty</span>
+                                    <span className="ml-auto text-gray-900">Price</span>
+                                    <span className="ml-auto text-gray-900">Total</span>
+                                   
                                 </div>
 
 
                                 {Object.keys(products).map((key) => {
 
-                                    return <div key={key} className="flex border-t border-gray-200 py-2 text-">
-                                        <span className="text-gray-500 break-all">{products[key].name}({products[key].size})</span>
+                                    return <div key={key} className="grid border-t border-gray-200 py-2 text- grid-cols-4">
+                                        <span className="text-gray-500 text-center text-xs w-full">{products[key].name}({products[key].size})</span>
                                         <span className="ml-auto text-gray-900 relative right-4">{products[key].qty}</span>
-                                        <span className="ml-auto text-gray-900">₹{products[key].price}</span>
-                                        <span className="ml-auto text-gray-900">₹{products[key].price * products[key].qty}</span>
+                                        <span className="ml-auto text-gray-900">₹{products[key].sprice}</span>
+                                        <span className="ml-auto text-gray-900">₹{products[key].sprice * products[key].qty}</span>
                                     </div>
 
                                 })}
@@ -155,11 +156,6 @@ const MyOrder = ({ order, clearCart }) => {
                                 </div>
 
                             </div>
-                            <Image
-                                width={400}
-                                height={400}
-                                alt="ecommerce"
-                                className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src={`${Object.values(Object.values(products)[0])[5]}`} />
                         </div>
                     </div>
                 </section >
