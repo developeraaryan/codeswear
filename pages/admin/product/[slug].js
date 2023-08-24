@@ -65,7 +65,6 @@ const UpdateProduct = () => {
             setDesc(data?.product?.desc)
             setCategory(data?.product?.category)
             setSize(data?.product?.size)
-            setColor(data?.product?.color)
             setAvailableqty(data?.product?.availableqty)
             setImg1(data?.product?.img[0].url)
             setImg2(data?.product?.img[1].url)
