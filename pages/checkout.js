@@ -286,7 +286,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
         <h2 className="font-semibold text-xl my-4">3. Payment Method</h2>
         <div>
           <div className="flex items-center justify-center">
-            <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
+            {/* <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
               <input
                 type="radio"
                 id="paytm"
@@ -316,7 +316,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
               >
                 Razorpay
               </label>
-            </div>
+            </div> */}
             <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
               <input
                 type="radio"
@@ -327,11 +327,11 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
                 onChange={handleRadioChange}
               />
               <label htmlFor="cod" className="ml-2 cursor-pointer">
-                COD
+                Cash on Delivery (CoD)
               </label>
             </div>
           </div>
-          <p>Selected option: {selectedOption}</p>
+          <p className='mx-8 my-4'>Selected option: <span className="font-bold">{selectedOption === "cod" ? "Cash on Delivery" : ""}</span></p>
         </div>
 
 

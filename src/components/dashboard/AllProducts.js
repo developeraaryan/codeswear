@@ -138,7 +138,7 @@ const AllProducts = ({ Products }) => {
                   }} variant="h6">{product.availableqty == 0 ? "out of stock" : product.availableqty}</Typography>
                 </TableCell>
                 <TableCell align="right">
-                  <Typography variant="h6">₹{product.price}.00</Typography>
+                  <Typography variant="h6">₹{product.sprice}.00</Typography>
                 </TableCell>
               </TableRow>
             ))}
