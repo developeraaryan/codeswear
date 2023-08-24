@@ -41,7 +41,6 @@ const UpdateProduct = () => {
     const [desc, setDesc] = React.useState('');
     const [category, setCategory] = React.useState('');
     const [size, setSize] = React.useState('');
-    const [color, setColor] = React.useState('');
     const [availableqty, setAvailableqty] = React.useState('');
     const [img1, setImg1] = React.useState('');
     const [img2, setImg2] = React.useState('');
@@ -61,7 +60,7 @@ const UpdateProduct = () => {
             const data = await res.json()
             setTitle(data?.product?.title)
             setSlug(data?.product?.slug)
-            setPrice(data?.product?.price)
+            setPrice(data?.product?.sprice)
             setLprice(data?.product?.lprice)
             setDesc(data?.product?.desc)
             setCategory(data?.product?.category)
@@ -83,7 +82,7 @@ const UpdateProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const info = {
-            _id: id, title: title, slug: slug, price: price, lprice: lprice, desc: desc, category: category, size: size, availableqty: availableqty, img: [
+            _id: id, title: title, slug: slug, sprice: price, lprice: lprice, desc: desc, category: category, size: size, availableqty: availableqty, img: [
                 {
                     public_id: img1_public_id,
                     url: img1
