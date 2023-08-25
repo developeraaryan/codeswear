@@ -111,7 +111,7 @@ const MyOrder = ({ order, clearCart }) => {
                                     <span className="ml-auto text-gray-900">Qty</span>
                                     <span className="ml-auto text-gray-900">Price</span>
                                     <span className="ml-auto text-gray-900">Total</span>
-                                   
+
                                 </div>
 
 
@@ -129,6 +129,21 @@ const MyOrder = ({ order, clearCart }) => {
 
                                 <div className="flex flex-col my-10">
                                     <span className="title-font font-medium text-2xl text-gray-900">subTotal: ₹{order.amount}</span>
+                                </div>
+                                <div className="flex flex-col my-10">
+                                    <h4>User Details</h4>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Name: </span>{order?.name}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Phone:</span> {order?.phone}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Email:</span> {order?.email}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Address:</span> {order?.address}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Pincode:</span> {order?.pincode}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>City: </span>{order?.city}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>State:</span> {order?.state}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Payment Method: </span>{order?.status === "COD" ? "Cash on Delivery" : ""}</div>
+                                    <div className="title-font font-medium text-2xl text-gray-900"><span className="font-mono">Delivey Status: </span>{(order?.deliverStatus?.charAt(0))?.toUpperCase() + order?.deliverStatus?.slice(1)}</div>
+
+                                </div>
+                                <div className="flex flex-col my-10">
                                     <div className="my-6">
                                         <Button className='!bg-[#1976d2] hover:!bg-[#1565c0]' onClick={handleOpen} variant='contained'>Update order status</Button>
                                         <Modal
