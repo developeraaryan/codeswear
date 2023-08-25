@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Order from '../Models/Order'
 import mongoose from 'mongoose'
-import { Badge, Box, Button, Modal, TextField, Typography } from '@mui/material'
+import { Box, Button, Modal, Typography } from '@mui/material'
 import OrderTracker from '../components/OrderTracker'
-import Image from 'next/image'
+import toast, { Toaster } from 'react-hot-toast';
 
 const style = {
 
@@ -36,20 +36,38 @@ const MyOrder = ({ order, clearCart }) => {
   const handleClose = () => setOpen(false);
   const cancelOrder = async (e) => {
     e.preventDefault()
-    const reason = e.target[0].value
-    const res = await fetch('/api/updateorder', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id: order._id, reason })
-    })
-    const data = await res.json()
-    if (data.success) {
-      router.push('/myorders')
+    if (reason === "") {
+      toast.error(`Error updating order\nPlease try after sometime!`)
     }
+    else {
+      const res = await fetch('/api/updateorder', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ oId: order.oId, reason, deliverStatus: 'canceled' })
+      })
+      const data = await res.json()
+      console.log(data, 'data');
+      if (data.success) {
+        toast.success('Order Canceled!')
+        setTimeout(() => {
+          router.push('/orders')
+        }, 2000);
+      }
+      else {
+        toast.error(`error updating order\nPlease try after sometime!`)
+      }
+    }
+    setOpen(false)
 
   }
+
+  const [reason, setReason] = useState('')
+  const handleChange = (e) => {
+    setReason(e.target.value)
+  }
+
   useEffect(() => {
     const d = new Date(order.createdAt)
     setDate(d)
@@ -59,6 +77,10 @@ const MyOrder = ({ order, clearCart }) => {
   }, [clearCart, router?.query?.clearcart, order?.createdAt, products])
   return (
     <section className="text-gray-600 body-font overflow-hidden min-h-screen">
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
       <div className="container px-5 py-24 mx-auto">
         <div className="lg:w-4/5 w-full mx-auto flex flex-wrap">
           <div className="lg:w-full w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
@@ -92,7 +114,7 @@ const MyOrder = ({ order, clearCart }) => {
               <span className="title-font font-medium text-2xl text-gray-900">subTotal: ₹{order.amount}</span>
               <div className="grid grid-cols-2 gap-4 my-6">
                 <button onClick={handleTracker} className=" w-full text-center text-white bg-blue-500 border-0 p-2 focus:outline-none hover:bg-blue-600 rounded">Track Order</button>
-                {order.deliverStatus === "shipped" && <button onClick={handleCancel} className=" w-full text-center text-white bg-red-500 border-0 p-2 focus:outline-none hover:bg-red-600 rounded">Cancel Order</button>}
+                {order.deliverStatus === "approved" && <button onClick={handleCancel} className=" w-full text-center text-white bg-red-500 border-0 p-2 focus:outline-none hover:bg-red-600 rounded">Cancel Order</button>}
                 <Modal
                   open={open}
                   onClose={handleClose}
@@ -107,15 +129,16 @@ const MyOrder = ({ order, clearCart }) => {
                       Please Provide a valid reason for cancellation
                     </Typography>
                     <form className="flex flex-col mt-4" onSubmit={handleClose}>
-                      <TextField
-
-                        id="outlined-multiline-static"
-                        label="Reason"
-                        multiline
-                        rows={4}
-                        defaultValue=""
-                        variant="outlined"
-                      />
+                      <div className="relative my-4">
+                        <textarea
+                          onChange={handleChange}
+                          value={reason}
+                          name='reason'
+                          rows={6}
+                          cols={50}
+                          type="text" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
+                        <label for="floating_outlined" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Description</label>
+                      </div>
                       <Button type='submit' onClick={cancelOrder} className="mt-4 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Cancel Order</Button>
                     </form>
                   </Box>
