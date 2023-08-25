@@ -30,7 +30,7 @@ const Allorders = ({ Orders }) => {
             }
         }
         getRole()
-    }, [user,router])
+    }, [user, router])
     return (
         <ThemeProvider theme={theme}>
             <style jsx global>
@@ -58,7 +58,7 @@ export async function getServerSideProps() {
     if (!mongoose.connections[0].readyState) {
         await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URI)
     }
-    let Orders = await Order.find()
+    let Orders = await Order.find().sort({ createdAt: -1 }).lean().exec()
     return {
         props: { Orders: JSON.parse(JSON.stringify(Orders)) },
     };
