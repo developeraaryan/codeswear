@@ -21,6 +21,11 @@ const Menuitems = [
     href: "/admin/allorders",
   },
   {
+    title: "Cancel Orders",  
+    icon: "x-circle",
+    href: "/admin/cancelled",
+  },
+  {
     title: "Users",
     icon: "users",
     href: "/admin/users",

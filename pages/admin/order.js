@@ -141,6 +141,7 @@ const MyOrder = ({ order, clearCart }) => {
                                     <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>State:</span> {order?.state}</div>
                                     <div className="title-font font-medium text-2xl text-gray-900"><span className='font-mono'>Payment Method: </span>{order?.status === "COD" ? "Cash on Delivery" : ""}</div>
                                     <div className="title-font font-medium text-2xl text-gray-900"><span className="font-mono">Delivey Status: </span>{(order?.deliverStatus?.charAt(0))?.toUpperCase() + order?.deliverStatus?.slice(1)}</div>
+                                    {order?.reason !== "" && <div className="title-font font-medium text-2xl text-gray-900"><span className="font-mono">Cancellation Reason: </span>{((order?.reason)?.charAt(0))?.toUpperCase() + order?.reason?.slice(1)}</div>}
 
                                 </div>
                                 <div className="flex flex-col my-10">

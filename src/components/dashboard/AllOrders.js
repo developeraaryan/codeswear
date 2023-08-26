@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import BaseCard from "../baseCard/BaseCard";
 import { IconTypography } from "@tabler/icons-react";
+import { useRouter } from "next/router";
 
 
 
@@ -20,8 +21,14 @@ import { IconTypography } from "@tabler/icons-react";
 
 
 const AllProducts = ({ orders }) => {
+  const router = useRouter()
+  React.useEffect(() => {
+    const link = (router.asPath)?.split('/')[2] === "allorders";
+    console.log(link, 'link');
+  },
+    [])
   return (
-    <BaseCard title="Orders">
+    <BaseCard title={`${(router.asPath)?.split('/')[2] === "allorders" ? "Orders" : "Cancelled Orders"}`}>
       <TableContainer>
         <Table
           aria-label="simple table"
