@@ -25,7 +25,7 @@ const AllCollections = ({ products }) => {
                   <div className="px-2">
                       <h4 className="mb-2 text-base text-left  tracking-tight text-gray-900 dark:text-black">₹{products[item].sprice}</h4>
                       <h5 className={`mb-2 text-xs  tracking-tight text-gray-900 dark:text-black ${styles.deletedPrice}`}>₹{products[item].lprice}</h5>
-                      <div className='ml-24 text-xs relative left-2  text-red-700'>57% OFF</div>
+                      <div className='ml-24 text-xs relative left-2  text-red-700'>{Math.floor((products[item]?.sprice / products[item]?.lprice) * 100)}% OFF</div>
                   </div>
               </div>
 

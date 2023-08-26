@@ -28,7 +28,6 @@ const Navbar = ({ cart, addToCart, removeFromCart, subTotal }) => {
   const { user, logOut } = useUserAuth()
   // const [visible, setVisible] = useState(false);
   const [isCartModalOpen, setCartModalOpen] = useState(false);
-  const { data: session } = useSession();
   const [sidebar, setSidebar] = useState(false);
   const [dropdown, setDropdown] = useState(false);
 

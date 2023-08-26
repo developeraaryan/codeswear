@@ -2,6 +2,9 @@ import React from "react";
 import FeatherIcon from "feather-icons-react";
 import Image from "next/image";
 import userimg from "../../../assets/images/users/user2.jpg";
+import mongoose from "mongoose";
+import User from "../../../Models/User";
+import { useUserAuth } from "../../../context/UserAuthContext";
 import {
   Box,
   Menu,
@@ -13,9 +16,30 @@ import {
   Button,
   Divider,
 } from "@mui/material";
-import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 const ProfileDD = () => {
-  const { data: session } = useSession()
+  const router = useRouter();
+  const { user, logOut } = useUserAuth();
+  const [UserData, setUserData] = React.useState(null);
+  React.useEffect(() => {
+    const phone = localStorage.getItem("phone");
+    const getUser = async () => {
+      const res = await fetch(`/api/getuser`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ phone }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setUserData(data.user);
+      }
+
+    };
+    getUser();
+  }, []);
+
   const [anchorEl4, setAnchorEl4] = React.useState(null);
 
   const handleClick4 = (event) => {
@@ -25,6 +49,18 @@ const ProfileDD = () => {
   const handleClose4 = () => {
     setAnchorEl4(null);
   };
+
+  const handleLogOut = async () => {
+    try {
+      await logOut()
+      router.push('/login')
+    }
+
+    catch (error) {
+      console.log(error.message);
+    }
+  }
+
   return (
     <>
       <Button
@@ -36,7 +72,7 @@ const ProfileDD = () => {
       >
         <Box display="flex" alignItems="center">
           <Image
-            src={session?.user?.image || userimg}
+            src={userimg}
             alt={userimg}
             width="30"
             height="30"
@@ -66,7 +102,7 @@ const ProfileDD = () => {
                 ml: 1,
               }}
             >
-              {session?.user?.name}
+              {UserData?.firstName + " " + UserData?.lastName}
             </Typography>
             <FeatherIcon icon="chevron-down" width="20" height="20" />
           </Box>
@@ -92,16 +128,7 @@ const ProfileDD = () => {
               onClick={handleClose4}
             >
               <ListItemButton>
-                <ListItemText primary="Edit Profile" />
-              </ListItemButton>
-              <ListItemButton>
                 <ListItemText primary="Account" />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemText primary="Change Password" />
-              </ListItemButton>
-              <ListItemButton>
-                <ListItemText primary="My Settings" />
               </ListItemButton>
               <ListItemButton href="/">
                 <ListItemText primary="Visit Site" />
@@ -111,7 +138,7 @@ const ProfileDD = () => {
           <Divider />
           <Box p={2}>
             <Link to="/">
-              <Button onClick={signOut} fullWidth variant="contained" color="primary">
+              <Button onClick={handleLogOut} fullWidth variant="contained" color="primary">
                 Logout
               </Button>
             </Link>
@@ -121,5 +148,6 @@ const ProfileDD = () => {
     </>
   );
 };
+
 
 export default ProfileDD;

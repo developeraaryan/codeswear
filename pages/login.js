@@ -36,7 +36,7 @@ const Login = () => {
       setFlag(true)
       toast.success('OTP sent successfully')
     } catch (error) {
-      setError(error.message);
+      toast.error(error.message);
     }
   }
 
@@ -44,13 +44,13 @@ const Login = () => {
     e.preventDefault();
     setError("");
     if (otp === "" || otp === undefined) {
-      return setError("Please enter otp")
+      return toast.error("Please enter otp")
     }
     try {
       await confirmObj.confirm(otp)
       router.push('/welcome')
     } catch (error) {
-      setError(error.message);
+      toast.error('Invalid OTP');
     }
   }
   return (

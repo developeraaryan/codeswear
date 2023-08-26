@@ -14,15 +14,26 @@ const Menuitems = [
     icon: "eye",
     href: "/admin/allproducts",
   },
+
+  {
+    title: "Orders",
+    icon: "shopping-cart",
+    href: "/admin/allorders",
+  },
+  {
+    title: "Users",
+    icon: "users",
+    href: "/admin/users",
+  },
   {
     title: "Image uploader",
     icon: "upload",
     href: "/admin/imageuploader",
   },
   {
-    title: "Orders",
-    icon: "shopping-cart",
-    href: "/admin/allorders",
+    title: "Logout",
+    icon: "log-out",
+    href: "/logout",
   },
 
 ];

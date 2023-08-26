@@ -33,6 +33,7 @@ const Header = ({ sx, customClass, toggleMobileSidebar, position }) => {
         <Box flexGrow={1} />
 
         <ProfileDD />
+        <datalist id="browsers" />
         {/* ------------------------------------------- */}
         {/* Profile Dropdown */}
         {/* ------------------------------------------- */}
