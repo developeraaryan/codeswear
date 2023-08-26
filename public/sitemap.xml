@@ -1,15 +1,12 @@
- <!-- public/sitemap.xml -->
-   <xml version="1.0" encoding="UTF-8">
-   <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     <url>
-       <loc>https://blackworn.com</loc>
-       <priority>1.0</priority>
-       <lastmod>2023-15-08</lastmod>
-     </url>
-     <url>
-       <loc>https://blackworn.com/about</loc>
-       <priority>0.80</priority>
-       <lastmod>2023-15-08</lastmod>
-     </url>
-   </urlset>
-   </xml>
+<!-- public/sitemap.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://blackworn.com</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/about</loc>
+    <priority>0.80</priority>
+  </url>
+</urlset>
