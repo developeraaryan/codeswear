@@ -2,7 +2,8 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Order from '../Models/Order'
 import mongoose from 'mongoose'
-import { Box, Button, Modal, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
+import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
 import OrderTracker from '../components/OrderTracker'
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -20,11 +21,14 @@ const style = {
 };
 
 const MyOrder = ({ order, clearCart }) => {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const products = order?.products
   const [open, setOpen] = React.useState(false);
   const router = useRouter()
   const [date, setDate] = useState()
+  const [refundable, setRefundable] = useState(false)
   const [tracker, setTracker] = useState(false)
+  const [name, setName] = useState("")
   const handleTracker = () => {
     setTracker(!tracker)
   }
@@ -33,7 +37,13 @@ const MyOrder = ({ order, clearCart }) => {
     e.preventDefault()
     setOpen(true)
   }
+  const handleRefundCancel = async (e) => {
+    e.preventDefault()
+    handleRefundOpen(true)
+  }
   const handleClose = () => setOpen(false);
+  const handleRefundClose = () => setOpen(false);
+  const handleRefundOpen = () => setOpen(true);
   const cancelOrder = async (e) => {
     e.preventDefault()
     if (reason === "") {
@@ -70,6 +80,15 @@ const MyOrder = ({ order, clearCart }) => {
 
   useEffect(() => {
     const d = new Date(order.createdAt)
+    const currDate = new Date()
+    const timeDiff = Math.abs(currDate.getTime() - d.getTime())
+    console.log(timeDiff, 'timeDiff');
+    if (timeDiff > 5 * 24 * 60 * 60 * 1000) {
+      setRefundable(false)
+    }
+    else {
+      setRefundable(true)
+    }
     setDate(d)
     if (router.query.clearcart == 1) {
       clearCart()
@@ -115,37 +134,11 @@ const MyOrder = ({ order, clearCart }) => {
               <div className="grid grid-cols-2 gap-4 my-6">
                 <button onClick={handleTracker} className=" w-full text-center text-white bg-blue-500 border-0 p-2 focus:outline-none hover:bg-blue-600 rounded">Track Order</button>
                 {order.deliverStatus === "approved" && <button onClick={handleCancel} className=" w-full text-center text-white bg-red-500 border-0 p-2 focus:outline-none hover:bg-red-600 rounded">Cancel Order</button>}
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="modal-modal-title"
-                  aria-describedby="modal-modal-description"
-                >
-                  <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2" color={'red'}>
-                      Are You Sure to Cancel Your Order?
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                      Please Provide a valid reason for cancellation
-                    </Typography>
-                    <form className="flex flex-col mt-4" onSubmit={handleClose}>
-                      <div className="relative my-4">
-                        <textarea
-                          onChange={handleChange}
-                          value={reason}
-                          name='reason'
-                          rows={6}
-                          cols={50}
-                          type="text" id="floating_outlined" className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-cyan-500 focus:outline-none focus:ring-0 focus:border-cyan-600 peer" placeholder=" " />
-                        <label for="floating_outlined" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-white px-2 peer-focus:px-2 peer-focus:text-cyan-600 peer-focus:dark:text-cyan-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Description</label>
-                      </div>
-                      <Button type='submit' onClick={cancelOrder} className="mt-4 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">Cancel Order</Button>
-                    </form>
-                  </Box>
-                </Modal>
+                {refundable && order.deliverStatus === "delivered" && <button onClick={handleCancel} className=" w-full text-center text-white bg-red-500 border-0 p-2 focus:outline-none hover:bg-red-600 rounded">Request Refund</button>}
+               
               </div>
             </div>
-
+            
           </div>
         </div>
         {tracker && <div className='' >

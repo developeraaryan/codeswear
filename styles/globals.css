@@ -11,6 +11,10 @@
 }
 
 body {
-  overflow-x: hidden ;
-  background-color: #eee;
+  overflow-x: hidden;
+  background-color: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
 }

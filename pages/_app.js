@@ -16,12 +16,14 @@ import ScrollButton from "../components/ScrollButton"
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 import { UserAuthContextProvider } from '../context/UserAuthContext'
 import localFont from "next/font/local"
-
+import scrollToTop from "../components/ScrollToTop"
+import { BsFillArrowUpCircleFill } from "react-icons/bs"
 
 
 const gotham = localFont({ src: "../assets/fonts/Gotham/GothamMedium.ttf" })
 export default function App({ Component,
   pageProps: { session, ...pageProps } }) {
+  const [showButton, setShowButton] = useState(false);
   const [showNav, setShowNav] = useState(true)
   const router = useRouter()
   const [user, setUser] = useState({ value: null })
@@ -29,10 +31,30 @@ export default function App({ Component,
   const [progress, setProgress] = useState(0)
   const [visible, setVisible] = useState(true);
 
+
   useEffect(() => {
+    const handleRouteChange = () => {
+      window.scrollTo(0, 0)
+    }
     router.events.on("routeChangeComplete", () => {
       setProgress(100)
+      window.scrollTo(0, 0);
     })
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange)
+
+    }
+  }, [])
+
+
+  useEffect(() => {
+
+    router.events.on("routeChangeComplete", () => {
+      setProgress(100)
+      window.scrollTo(0, 0);
+    })
+
     router.events.on("routeChangeStart", () => {
       setProgress(40)
     })
@@ -53,6 +75,11 @@ export default function App({ Component,
       setUser({ value: myuser.token, email: myuser.email });
     }
     setKey(Math.random())
+
+
+
+
+
   }, [router.query, router.events, router.pathname])
 
   const [cart, setCart] = useState({})
@@ -165,6 +192,26 @@ export default function App({ Component,
     }, 3000);
   }
 
+  useEffect(() => {
+    const scrollFunction = () => {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+
+    window.addEventListener('scroll', scrollFunction);
+
+    return () => {
+      window.removeEventListener('scroll', scrollFunction);
+    };
+  }, []);
+
+  const scrollToTop = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
 
   return <>
     <UserAuthContextProvider>
@@ -174,7 +221,7 @@ export default function App({ Component,
             <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
             <title>Black Worn</title>
           </Head>
-          <main className={`h-screen overflow-auto ${gotham.className}`}>
+          <main className={`overflow-auto ${gotham.className}`}>
             <LoadingBar
               color='#f11946'
               progress={progress}
@@ -183,6 +230,10 @@ export default function App({ Component,
             />
             {visible && key && <Navbar logout={logout} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} key={key} user={user} subTotal={subTotal} />}
             <Component user={user} buyNow={buyNow} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} {...pageProps} />
+            {showButton && <button id="myBtn" onClick={scrollToTop} className="fixed bottom-20 right-30 z-50 bg-red-500 hover:bg-gray-700 text-white cursor-pointer p-2 rounded-lg right-10 text-lg border-none outline-none">
+              <BsFillArrowUpCircleFill />
+            </button>}
+
             {visible && <Footer />}
           </main >
         </SessionProvider>
