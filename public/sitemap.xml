@@ -2,11 +2,35 @@
 <!-- public/sitemap.xml -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blackworn.com</loc>
+    <loc>https://blackworn.com/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://blackworn.com/about</loc>
+    <loc>https://blackworn.com/allcollections</loc>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/oversized</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/contact</loc>
     <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/about</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/privacy</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/refund</loc>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://blackworn.com/terms</loc>
+    <priority>0.40</priority>
   </url>
 </urlset>
