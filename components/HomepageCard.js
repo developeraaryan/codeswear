@@ -16,7 +16,8 @@ export default function ECommerceCard({ }) {
             setProducts(res.products)
         }
         getProducts()
-    }, [])
+        console.log(products, 'products');
+    }, [products])
     return (
         <>
 

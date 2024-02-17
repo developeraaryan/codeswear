@@ -62,7 +62,7 @@ const CartItem = ({ cart, removeFromCart, addToCart, toggleCartModal }) => {
                                                 <button
                                                     onClick={() => {
                                                         toggleCartModal();
-                                                        removeFromCart(item, 1, cart[item].price, cart[item].name, cart[item].size, cart[item].color);
+                                                        removeFromCart(item, 1, cart[item].sprice, cart[item].name, cart[item].size, cart[item].color);
                                                     }}
 
                                                     className="border-r px-2">-</button>
@@ -70,7 +70,7 @@ const CartItem = ({ cart, removeFromCart, addToCart, toggleCartModal }) => {
                                                 <button
                                                     onClick={() => {
                                                         toggleCartModal();
-                                                        addToCart(item, 1, cart[item].price, cart[item].name, cart[item].size, cart[item].color);
+                                                        addToCart(item, 1, cart[item].sprice, cart[item].name, cart[item].size, cart[item].color);
                                                     }}
                                                     className="border-l px-2">+</button>
                                             </div>
@@ -79,13 +79,13 @@ const CartItem = ({ cart, removeFromCart, addToCart, toggleCartModal }) => {
                                             {`${cart[item].name}`}
                                         </p>
                                         <span className="text-xl font-semibold text-black">
-                                            ₹{cart[item]?.price}
+                                            ₹{cart[item]?.sprice}
                                         </span>
                                         <div className="my-3">
                                             <button
                                                 onClick={() => {
                                                     toggleCartModal();
-                                                    removeFromCart(item, cart[item].qty, cart[item].price, cart[item].name, cart[item].size, cart[item].color);
+                                                    removeFromCart(item, cart[item].qty, cart[item].sprice, cart[item].name, cart[item].size, cart[item].color);
                                                 }}
                                                 className="px-4 py-2 inline-block text-white bg-blue-600 border border-transparent rounded-md hover:bg-blue-700 cursor-pointer">
                                                 {" "}
