@@ -83,7 +83,7 @@ const MyOrder = ({ order, clearCart }) => {
     const d = new Date(order.createdAt)
     const currDate = new Date()
     const timeDiff = Math.abs(currDate.getTime() - d.getTime())
-    console.log(timeDiff, 'timeDiff');
+    // console.log(timeDiff, 'timeDiff');
     if (timeDiff > 5 * 24 * 60 * 60 * 1000) {
       setRefundable(false)
     }

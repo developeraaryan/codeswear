@@ -36,9 +36,9 @@ const Orders = () => {
             {orders?.length > 0 && <div className="relative overflow-x-auto flex justify-center flex-wrap">
                 <div className="flex flex-col overflow-x-auto">
                     <div className="sm:-mx-4 lg:-mx-8">
-                        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                        <div className="inline-block w-screen min-w-full py-2 sm:px-6 lg:px-8">
                             <div className="overflow-x-auto">
-                                <table className="min-w-full text-left text-[0.35rem] font-light">
+                                <table className="min-w-full text-left md:text-xl text-[0.35rem] font-light">
                                     <thead className="border-b font-medium dark:border-neutral-500">
                                         <tr>
                                             <th scope="col" className="px-4 py-4">Order Id</th>

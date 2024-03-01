@@ -147,10 +147,11 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
       callback_url: `http://localhost:3000/api/posttransaction`,
       redirect: true,
       prefill: {
-        name: "Your Name",
-        email: "Your email",
-        contact: "Your Phone number",
+        name: "Jhon Doe",
+        email: "jhondoe@gmail.com",
+        contact: "+917954526542",
       },
+
     };
 
     const paymentObject = new window.Razorpay(options);
