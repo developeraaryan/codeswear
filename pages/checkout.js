@@ -299,14 +299,14 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
               <label htmlFor="paytm" className="ml-2 cursor-not-allowed">
                 Paytm
               </label>
-            </div>
+            </div> */}
             <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
               <input
                 type="radio"
                 id="razorpay"
                 name="payment"
                 value="razorpay"
-                disabled
+                // disabled
                 checked={selectedOption === 'razorpay'}
                 onChange={handleRadioChange}
               />
@@ -316,7 +316,7 @@ const Checkout = ({ cart, clearCart, addToCart, removeFromCart, subTotal }) => {
               >
                 Razorpay
               </label>
-            </div> */}
+            </div>
             <div className="flex items-center justify-center w-1/3 font-semibold text-lg">
               <input
                 type="radio"

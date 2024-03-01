@@ -17,20 +17,22 @@ export default async function handler(req, res) {
         }
 
         for (let item in cart) {
-            sumTotal += cart[item].price * cart[item].qty
+            console.log(item, cart[item], 'api logs');
+            sumTotal += cart[item].sprice * cart[item].qty
             product = await Product.findOne({ slug: item })
+            console.log(product, 'api logs from db');
             // check if cart items are out of stock
             if (product.availableqty < cart[item].qty) {
                 res.status(200).json({ success: false, "error": "Some Items in your cart went out of stock, please try again!", clearCart: true })
                 return
             }
-            if (product.price != cart[item].price) {
+            if (product.sprice != cart[item].sprice) {
                 res.status(200).json({ success: false, "error": "The price of some items in your cart have changed please try again", clearCart: true })
                 return
             }
         }
         if (sumTotal !== req.body.subTotal) {
-            res.status(200).json({ success: false, "error": "The price of some items in your cart have changed please try again", clearCart: false })
+            res.status(200).json({ success: false, "error": "The price of all items in your cart have changed please try again", clearCart: false })
             return
 
         }

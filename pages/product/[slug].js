@@ -337,6 +337,14 @@ const Slug = ({ addToCart, buyNow, error }) => {
                     <div className="flex justify-center my-4">
 
 
+                        <button disabled={(!product?.size.includes("S"))}
+                            onClick={() => setSize('S')}
+                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                S
+                            </div>
+
+                        </button>
                         <button disabled={(!product?.size.includes("M"))}
                             onClick={() => setSize('M')}
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
@@ -358,6 +366,14 @@ const Slug = ({ addToCart, buyNow, error }) => {
                             className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
                             <div className="">
                                 XL
+                            </div>
+
+                        </button>
+                        <button disabled={(!product?.size.includes("XXL"))}
+                            onClick={() => setSize('XXL')}
+                            className='focus:text-white focus:bg-black disabled:cursor-not-allowed disabled:opacity-40 flex items-center justify-center w-10 h-10 border-2 border-gray-400 rounded-md mr-2'>
+                            <div className="">
+                                XXL
                             </div>
 
                         </button>
