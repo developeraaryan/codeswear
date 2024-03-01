@@ -1,3 +1,4 @@
+"use client"
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Order from '../Models/Order'
@@ -21,7 +22,7 @@ const style = {
 };
 
 const MyOrder = ({ order, clearCart }) => {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  // const {isOpen, onOpen, onOpenChange} = useDisclosure();
   const products = order?.products
   const [open, setOpen] = React.useState(false);
   const router = useRouter()
