@@ -1,38 +1,111 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Next.js E-Commerce Project
 
-## Getting Started
+## Overview
 
-First, run the development server:
+This project is an e-commerce web application built with Next.js. It allows users to log in using their mobile number and OTP, browse products, add items to their wishlist and cart, and complete purchases using the Razorpay payment gateway. The application also includes an admin panel for managing products and orders.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **User Authentication**: Log in using mobile number and OTP.
+- **Product Browsing**: Browse and search for products.
+- **Wishlist**: Add products to a wishlist for future reference.
+- **Cart**: Add products to the cart and manage quantities.
+- **Checkout**: Order products using the Razorpay payment gateway.
+- **Order Management**: View order history and details.
+- **Admin Panel**: Manage products, orders, and user data.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Tech Stack
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- **Frontend**: Next.js, React
+- **Backend**: Next.js
+- **Database**: MongoDB
+- **Authentication**: Custom mobile OTP authentication
+- **Payment Gateway**: Razorpay
+- **Styling**: Tailwind CSS
+- **State Management**: Redux
+- **API Testing**: thunderclient
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Clone the repository:**
+    ```bash
+    git clone https://github.com/developeraaryan/codeswear.git
+    ```
 
-## Learn More
+2. **Navigate to the project directory:**
+    ```bash
+    cd codeswear
+    ```
 
-To learn more about Next.js, take a look at the following resources:
+3. **Install dependencies:**
+    ```bash
+    yarn install
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **Set up environment variables:**
+    Create a `.env.local` file in the root directory and add the following variables:
+    ```bash
+    MONGODB_URI=your_mongodb_connection_string
+    NEXT_PUBLIC_RAZORPAY_KEY_ID=your_razorpay_key_id
+    RAZORPAY_KEY_SECRET=your_razorpay_key_secret
+    JWT_SECRET=your_jwt_secret
+    ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+5. **Run the development server:**
+    ```bash
+    yarn dev
+    ```
 
-## Deploy on Vercel
+    Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Usage
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### User Authentication
+
+- Users can log in using their mobile number.
+- An OTP will be sent to the provided mobile number for verification.
+
+### Browsing Products
+
+- Users can browse all available products on the homepage.
+- Search functionality is available for finding specific products.
+
+### Wishlist and Cart
+
+- Products can be added to the wishlist for future reference.
+- Items can be added to the cart and managed from the cart page.
+
+### Checkout
+
+- Users can proceed to checkout from the cart page.
+- Payments are processed using Razorpay.
+
+### Admin Panel
+
+- Accessible by logging in with admin credentials.
+- Admins can manage products, view and process orders, and manage user data.
+
+## Project Structure
+
+- **/components**: Reusable React components.
+- **/pages**: Next.js pages for routing.
+- **/api**: API routes for handling server-side logic.
+- **/models**: Mongoose models for MongoDB collections.
+- **/redux**: Redux slices and store configuration.
+- **/styles**: Global and component-specific styles.
+
+## Contributing
+
+1. Fork the repository.
+2. Create your feature branch: `git checkout -b feature/YourFeature`
+3. Commit your changes: `git commit -m 'Add some feature'`
+4. Push to the branch: `git push origin feature/YourFeature`
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For any questions or suggestions, please contact [aryanak9163@gmail.com](mailto:aryanak9163@gmail.com).
